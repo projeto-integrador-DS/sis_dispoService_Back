@@ -2,9 +2,10 @@ from flask_restful import Resource,reqparse
 from models.cliente import ClienteModel
 from secrets import compare_digest
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt
+from blacklist import BLACKLIST
 
 atributos = reqparse.RequestParser()
-"""atributos.add_argument('nome', type=str, required=True, help="O campo 'nome' não pode ficar em branco!")
+atributos.add_argument('nome', type=str, required=True, help="O campo 'nome' não pode ficar em branco!")
 atributos.add_argument('email', type=str, required=True, help="O ccampo 'email' não pode ficar em branco!")
 atributos.add_argument('cpf', type=str, required=True, help="O campo 'cpf' não pode ficar em branco!")
 atributos.add_argument('uf', type=str, required=True, help="O campo 'uf' não pode ficar em branco!")
@@ -12,10 +13,15 @@ atributos.add_argument('cidade', type=str, required=True, help="O campo 'cidade'
 atributos.add_argument('bairro', type=str, required=True, help="O campo 'bairro' não pode ficar em branco!")
 atributos.add_argument('rua', type=str, required=True, help="O campo 'rua' não pode ficar em branco!")
 atributos.add_argument('numero', type=int, required=True, help="O campo 'numero' não pode ficar em branco!")
-atributos.add_argument('cep', type=str, required=True, help="O campo 'cep' não pode ficar em branco!")"""
+atributos.add_argument('cep', type=str, required=True, help="O campo 'cep' não pode ficar em branco!")
 atributos.add_argument('login', type=str, required=True, help="O campo 'login' não pode ficar em branco!")
 atributos.add_argument('senha', type=str, required=True, help="O campo 'senha' não pode ficar em branco!")
 
+
+# Reqparse de login de cliente
+atributos_login = reqparse.RequestParser()
+atributos_login.add_argument('login', type=str, required=True, help="O campo 'login' não pode ficar em branco!")
+atributos_login.add_argument('senha', type=str, required=True, help="O campo 'senha' não pode ficar em branco!")
 
 class Cliente(Resource):
     #/clientes/cliente_id
@@ -54,7 +60,7 @@ class ClienteLogin(Resource):
 
     @classmethod
     def post(cls):
-        dados = atributos.parse_args()
+        dados = atributos_login.parse_args()
 
         cliente = ClienteModel.find_by_login(dados['login'])
 
@@ -62,3 +68,11 @@ class ClienteLogin(Resource):
             token_de_acesso = create_access_token(identity=cliente.cliente_id)
             return {"access_token": token_de_acesso}, 200
         return {"Messagem": "Nome de usuário ou senha incorretos"}, 401
+
+class ClienteLogout(Resource):
+
+    @jwt_required()
+    def post(self):
+        jwt_id = get_jwt()['jti']
+        BLACKLIST.add(jwt_id)
+        return {"Mensagem": "Desconectado com sucesso!"}, 200
