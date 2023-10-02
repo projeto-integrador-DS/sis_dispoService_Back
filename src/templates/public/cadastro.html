@@ -1,0 +1,42 @@
+{% extends "/base.html" %}
+
+{% block title %} Cadastro de Clientes {% endblock %}
+
+{% block customCSS %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style_form.css')}}">
+{% endblock %}
+
+
+{% block content %}
+
+<form class="form" action="post" >
+    <h1 class="titulo-form">Formulário de Cadastro</h1>
+    <div class="input-group">
+    
+        <input type="text" name="text" class="input"  autocomplete="off" required="" id="nome">
+        <label class="user-label">Nome</label>
+    
+    </div>
+    <div class="input-group">
+    
+        <input type="text" name="email" class="input" id="email" autocomplete="off" required="">
+        <label class="user-label">E-mail</label>
+    
+    </div>
+    <div class="input-group">
+    
+        <input type="text" name="assunto" class="input" id="username"  autocomplete="off" required="">
+        <label class="user-label">Username</label>
+    
+    </div>
+    
+    <div class="input-group">
+    
+        <input type="password" name="senha" class="input" id="senha" autocomplete="off" required="">
+        <label class="user-label">Senha</label>
+    
+    </div>
+    <button class="btn-gradient" id="button">Enviar</button>
+</form>
+
+{% endblock %}
