@@ -1,18 +1,16 @@
 from flask.views import MethodView
 from flask import request, render_template, redirect
-from src.db import con, conecta
+from src.db import con
 
 
 
 class IndexClientes(MethodView):
-    def get(self):
-        conecta()
+    def get(self):      
         with con.cursor() as c:
             c.execute("SELECT * FROM clientes")
             data = c.fetchall()
-            return render_template('/cadastro.html', data=data)
+            return render_template('public/cadastro.html', data=data)
         
-class CadClientes(MethodView):
     def post(self):
         nome = request.form['nome']
         email = request.form['email']
@@ -27,11 +25,10 @@ class CadClientes(MethodView):
         username = request.form['username']
         senha = request.form['senha']
 
-        conecta()
-        cursor = con.cursor()
-        sql = 'INSERT INTO clientes (nome, email, telefone, cpf, uf, cidade, bairro, rua, num_casa, cep, username, senha) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)'
-        cursor.execute(sql, (nome, email, telefone, cpf, uf, cidade, bairro, rua, num_casa, cep, username, senha))
+        with con.cursor() as c:
+            sql = 'INSERT INTO clientes (nome, email, telefone, cpf, uf, cidade, bairro, rua, num_casa, cep, username, senha) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)'
+            c.execute(sql, (nome, email, telefone, cpf, uf, cidade, bairro, rua, num_casa, cep, username, senha))
 
-        con.commit()
-        return redirect('/cadastro')
+            c.connection.commit()
+            return redirect('/')
         
