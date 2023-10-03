@@ -9,7 +9,7 @@ class IndexClientes(MethodView):
         with con.cursor() as c:
             c.execute("SELECT * FROM clientes")
             data = c.fetchall()
-            return render_template('public/cadastro.html', data=data)
+            return render_template('public/cadcli.html', data=data)
         
     def post(self):
         nome = request.form['nome']
@@ -30,5 +30,5 @@ class IndexClientes(MethodView):
             c.execute(sql, (nome, email, telefone, cpf, uf, cidade, bairro, rua, num_casa, cep, username, senha))
 
             c.connection.commit()
-            return redirect('/')
+            return redirect('/cadcli')
         

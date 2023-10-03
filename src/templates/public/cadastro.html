@@ -3,13 +3,13 @@
 {% block title %} Cadastro de Clientes {% endblock %}
 
 {% block customCSS %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/style_form.css')}}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/main.css')}}">
 {% endblock %}
 
 
 {% block content %}
 
-<form class="form" action="post" >
+<form class="form" method="post" >
     <h1 class="titulo-form">Formulário de Cadastro</h1>
     <div class="input-group">
     

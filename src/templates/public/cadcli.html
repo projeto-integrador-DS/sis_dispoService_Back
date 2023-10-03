@@ -1,0 +1,46 @@
+{% extends '/base.html' %}
+
+{% block title %} Cadastro Cliente {% endblock %}
+
+{% block customCSS %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/main.css')}}">
+{% endblock %}
+
+{% block content %}
+<div class="page">
+    <img src="{{ url_for('static', filename='images/goservicebr.png')}}" id="logo" alt="">
+    <br>
+    <form action="/login_cliente" method="POST" class="formLogin">
+        <h1 class="tit_principal">Cadastro de Cliente</h1>
+        <img src="{{ url_for('static', filename='imgages/cliente.png')}}" id="foto_cli" alt="">
+
+        <p>Digite os seus dados de acesso no campo abaixo.</p>
+        <label for="nome">Nome</label>
+        <input type="text" name="nome" placeholder="Digite seu nome" autofocus="true" />
+        <label for="email">E-mail</label>
+        <input type="email" name="email" placeholder="Digite seu e-mail" autofocus="true" />
+        <label for="telefone">Telefone</label>
+        <input type="tel" name="telefone" placeholder="Digite seu telefone" autofocus="true" />
+        <label for="cpf">Cpf</label>
+        <input type="text" name="cpf" placeholder="Digite seu cpf" autofocus="true" />
+        <label for="estado">Seu Estado</label>
+        <input type="text" name="estado" placeholder="Digite seu Estado" autofocus="true" />
+        <label for="cidade">Cidade</label>
+        <input type="text" name="cidade" placeholder="Digite sua cidade" autofocus="true" />
+        <label for="bairro">Bairro</label>
+        <input type="text" name="bairro" placeholder="Digite seu bairo" autofocus="true" />
+        <label for="rua">Rua</label>
+        <input type="text" name="rua" placeholder="Digite a rua onde você mora" autofocus="true" />
+        <label for="num_casa">Número da casa</label>
+        <input type="number" name="num_casa" placeholder="Digite o num da sua casa" autofocus="true" />
+        <label for="cep">Cep</label>
+        <input type="text" name="cep" placeholder="Digite seu cep" autofocus="true" />
+        <label for="username">Username</label>
+        <input type="text" name="username" placeholder="Digite seu login" autofocus="true" />
+        <label for="password">Senha</label>
+        <input type="password" name="password" placeholder="Digite sua senha" />
+        <a href="/">Esqueci minha senha</a>
+        <input type="submit" name="trocar_senha" value="Acessar" class="btn" />
+    </form>
+</div>
+{% endblock %}
