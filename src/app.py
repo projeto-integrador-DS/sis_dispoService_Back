@@ -22,10 +22,11 @@ def telaBoasVindas(nome):
 def login():
     if (request.method == "POST"):
         profissional = request.form['nm']
-        return redirect(url_for('static', nome=profissional))
+        return redirect(url_for('telaBoasVindas', nome=profissional))
     else:
         profisional = request.args.get('nm')
-        return redirect(url_for('static', nome=profisional))
+        return redirect(url_for('telaBoasVindas', nome=profisional))
+    
 if __name__ == '__main__':
     app.run()
 
