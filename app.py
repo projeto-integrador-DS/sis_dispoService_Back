@@ -4,68 +4,81 @@ from form_db import cur
 
 
 app = Flask(__name__)
+app.secret_key="daniel123"
 
 @app.route('/')
 @app.route('/index')
 
 def index():
-    con = sql.connect("clientes.db")
+    con = sql.connect("goservice.db")
     con.row_factory = sql.Row
     cur = con.cursor()
-    cur.execute("select * from users")
+    cur.execute("select * from profissionais")
     data = cur.fetchall()
     return render_template('index.html', datas=data)
 
-@app.route('/add_user', methods=['POST', 'GET'])
-def add_user():
+@app.route('/cad_profissionais', methods=['POST', 'GET'])
+def cad_profissionais():
     if request.method == 'POST':
-        nome = request.form['nome']
-        idade = request.form['idade']
-        rua = request.form['rua']
-        cidade = request.form['cidade']
-        numero = request.form['numero']
-        estado = request.form['estado']
-        email = request.form['email']
-
-        con = sql.connect("clientes.db")
+        nome =      request.form['nome']
+        sobrenome = request.form["sobrenome"]
+        cpf =       request.form["cpf"]
+        telefone =  request.form["telefone"]  
+        email =     request.form['email']
+        endereco =  request.form['endereco']
+        cidade =    request.form['cidade']
+        num =       request.form['numero']
+        bairro =    request.form["bairro"]
+        cep =       request.form["cep"]
+        uf =        request.form['uf']
+        complemen = request.form["complemento"]
+        
+        con = sql.connect("goservice.db")
         cur = con.cursor()
-        cur.execute("insert into users(NOME,IDADE,RUA,CIDADE,NUMERO,ESTADO,EMAIL) values(?,?,?,?,?,?,?)", (nome, idade, rua, cidade, numero, estado, email))
+        cur.execute("INSERT INTO profissionais(nome, sobrenome, cpf, telefone, email, endereco, cidade, num, bairro, cep, uf, complemen) values(?,?,?,?,?,?,?,?,?,?,?,?)", 
+                    (nome, sobrenome,cpf, telefone, email, endereco, cidade, num, bairro, cep, uf, complemen))
         con.commit()
         flash('Dados Cadastrados', 'success')
         return redirect(url_for('index'))
-    return render_template('add_user.html')
+    return render_template('cad_profissionais.html')
 
 
-@app.route('/edit_user/<string:id>', methods=['POST', 'GET'])
-def edit_user(id):
+@app.route('/cad_profissionais/<string:id>', methods=['POST', 'GET'])
+def edit_profissionais(id):
     if request.method == 'POST':
-        nome = request.form['nome']
-        idade = request.form['idade']
-        rua = request.form['rua']
-        cidade = request.form['cidade']
-        numero = request.form['numero']
-        estado = request.form['estado']
-        email = request.form['email']
+        nome =      request.form['nome']
+        sobrenome = request.form["sobrenome"]
+        cpf =       request.form["cpf"]
+        telefone =  request.form["telefone"]  
+        email =     request.form['email']
+        endereco =  request.form['endereco']
+        cidade =    request.form['cidade']
+        num =       request.form['numero']
+        bairro =    request.form["bairro"]
+        cep =       request.form["CEP"]
+        uf =        request.form['uf']
+        complemen = request.form["complemento"]
         
-        con = sql.connect("clientes.db")
+        con = sql.connect("goservice.db")
         cur = con.cursor()
-        cur.execute("update users set NOME=?, IDADE=?, RUA=?, CIDADE=?, NUMERO=?, ESTADO=?, EMAIL=?where ID=?", (nome, idade, rua, cidade, numero, estado, email, id))
+        cur.execute("UPDATE profissionais SET nome=?, sobrenome=?, cpf=?, telefone=?, endereco=?, cidade=?, num=?, bairro=?, cep=?, uf=?, complemen=?, where ID_profiss=?", 
+                    (nome, sobrenome,cpf, telefone, email, endereco, cidade, num, bairro, cep, uf, complemen))
         con.commit()
         flash('Dados atualizados', 'success')
         return redirect(url_for('index'))
-    con = sql.connect("clientes.db")
+    con = sql.connect("goservice.db")
     con.row_factory = sql.Row
     cur = con.cursor()
-    cur.execute("select * from users where ID=?", (id))
+    cur.execute("SELECT * FROM profissionais WHERE ID_profiss=?", (id))
     data = cur.fetchone()
-    return render_template('edit_user.html', datas=data)
+    return render_template('edit_profissionais.html', datas=data)
 
 
-@app.route('/delete_user/<string:id>', methods=['GET'])
-def delete_user(id):
-    con = sql.connect("clientes.db")
+@app.route('/delete_profissionais/<string:id>', methods=['GET'])
+def delete_profissionais(id):
+    con = sql.connect("goservice.db")
     cur = con.cursor()
-    cur.execute("delete from users where ID=?", (id))
+    cur.execute("DELETE FROM profissionais WHERE ID=?", (id))
     con.commit()
     flash('Dados deletados', 'warning')
     return redirect(url_for('index'))
