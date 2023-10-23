@@ -7,27 +7,56 @@
       <tr>
         <th scope="col">ID</th>
         <th scope="col">Nome</th>
-        <th scope="col">Idade</th>
-        <th scope="col">Rua</th>
+        <th scope="col">Sobrenome</th>
+        <th scope="col">CPF</th>
+        <th scope="col">Telefone</th>
+        <th scope="col">EMAIL</th>
+        <th scope="col">Endereço</th>
+        <th scope="col">Numero</th>
+        <th scope="col">Bairro</th>
+        <th scope="col">CEP</th>
         <th scope="col">Cidade</th>
-        <th scope="col">Número</th>
-        <th scope="col">Estado</th>
-        <th scope="col">Email</th>
+        <th scope="col">uf</th>
+        <th scope="col">complemento</th>
+
+        <th scope="col">modalidade</th>
+        <th scope="col">instituicao</th>
+        <th scope="col">area</th>
+        <th scope="col">regime</th>
+        <th scope="col">cargo</th>
+        <th scope="col">tempo laborado</th>
+        <th scope="col">empresa</th>
+
       </tr>
     </thead>
     <tbody>
         {% for row in datas %}
       <tr>
         <td>{{loop.index}}</td>
-        <td>{{row.NOME}}</td>
-        <td>{{row.IDADE}}</td>
-        <td>{{row.RUA}}</td>
-        <td>{{row.CIDADE}}</td>
-        <td>{{row.NUMERO}}</td>
-        <td>{{row.ESTADO}}</td>
-        <td>{{row.EMAIL}}</td>
-        <td><a href="{{url_for('edit_profissionais', id=row.ID)}}" class="btn btn-primary"></a>Editar</td>
-        <td><a href="{{url_for('delete_profissionais', id=row.ID)}}" class="btn btn-danger" onclick="return confirm('Tem certeza que deseja apagar?')"></a>Deletar</td>
+        <td>{{row.ID_profiss}}</td>
+        <td>{{row.nome}}</td>
+        <td>{{row.sobrenome}}</td>
+        <td>{{row.CPF}}</td>
+        <td>{{row.telefone}}</td>
+        <td>{{row.email}}</td>
+        <td>{{row.endereço}}</td>
+        <td>{{row.num}}</td>
+        <td>{{row.bairro}}</td>
+        <td>{{row.CEP}}</td>
+        <td>{{row.cidade}}</td>
+        <td>{{row.uf}}</td>
+        <td>{{row.complemento}}</td>
+
+        <td>{{row.ID_profiss}}</td>
+        <td>{{row.modalidade}}</td>
+        <td>{{row.instituicao}}</td>
+        <td>{{row.area}}</td>
+        <td>{{row.regime}}</td>
+        <td>{{row.cargo}}</td>
+        <td>{{row.temp_servico}}</td>
+        <td>{{row.empresa}}</td>
+        <td><a href="{{url_for('edit_profissionais', idProf=row.ID_profiss)}}" class="btn btn-primary"></a>Editar</td>
+        <td><a href="{{url_for('delete_profissionais', idProf=row.ID_profiss)}}" class="btn btn-danger" onclick="return confirm('Tem certeza que deseja apagar?')"></a>Deletar</td>
       </tr>
       {% endfor %}
     </tbody>
