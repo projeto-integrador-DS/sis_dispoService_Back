@@ -6,6 +6,7 @@ from form_db import cur
 app = Flask(__name__)
 app.secret_key="daniel123"
 
+
 @app.route('/')
 @app.route('/index')
 def index():
