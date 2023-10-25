@@ -52,7 +52,7 @@
   </thead>
   
   <tbody>
-    {% for linha in cursos %}
+    {% for linha in datas %}
     <tr>
       <td>{{loop.index}}</td>
       <td>{{linha.ID_curso}}</td>
@@ -60,8 +60,35 @@
       <td>{{linha.instituicao}}</td>
       <td>{{linha.area}}</td>
       <td><a href="{{url_for('edit_curso', idCurso=linha.ID_curso)}}" class="btn btn-primary">Editar</a></td>
+      <td><a href="{{url_for('delete_curso', idCurso=linha.ID_curso)}}" class="btn btn-danger" onclick="return confirm('Tem certeza que deseja apagar?')">Deletar</a></td>
     </tr>
     {% endfor %}
   </tbody>
 </table>
+
+<table class="table_experiencias">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">cargo</th>
+      <th scope="col">tempo de serviço</th>
+      <th scope="col">empresa</th>
+    </tr>
+  </thead>
+  
+  <tbody>
+    {% for experiencia in datas %}
+    <tr>
+      <td>{{loop.index}}</td>
+      <td>{{experiencia.ID_curso}}</td>
+      <td>{{experiencia.cargo}}</td>
+      <td>{{experiencia.temp_servico}}</td>
+      <td>{{experiencia.empresa}}</td>
+      <td><a href="{{url_for('edit_experiencias', idExperiencia=experiencia.ID_experiencia)}}" class="btn btn-primary">Editar</a></td>
+      
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
 {% endblock %}

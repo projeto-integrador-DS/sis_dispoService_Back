@@ -16,6 +16,7 @@ def index():
     #cur.execute("select * from profissionais")
     cur.execute("SELECT * FROM profissionais AS pr  JOIN cursos AS cur ON pr.ID_profiss = cur.fk_idProfiss JOIN experiencias AS exp ON pr.ID_profiss = exp.fk_IDprofiss;")
     data = cur.fetchall()
+       
     return render_template('index.html', datas=data)
 
 @app.route('/cad_profissionais', methods=['POST', 'GET'])
@@ -56,7 +57,8 @@ def cad_curso():
     flash('Dados Cadastrados', 'success')
     con.close()
     return render_template('cad_experiencias.html')
-@app.route("/edit_curso/<int:idCurso>")
+
+@app.route("/edit_curso/<int:idCurso>", methods=["POST", "GET"])
 def edit_curso(idCurso):
     
     if request.method == 'POST':
@@ -66,7 +68,7 @@ def edit_curso(idCurso):
 
         con = sql.connect("goservice.db")
         cur = con.cursor()
-        cur.execute("UPDATE cursos SET modalidade=?, instituicao=?, area=? WHERE ID_curso?", (modalidade, instituicao, area, idCurso))
+        cur.execute("UPDATE cursos SET modalidade=?, instituicao=?, area=? WHERE ID_curso=?", (modalidade, instituicao, area, idCurso))
         con.commit()
         flash('Dados atualizados', 'success')
         return redirect(url_for('index'))
@@ -74,7 +76,7 @@ def edit_curso(idCurso):
     con.row_factory = sql.Row
     cur = con.cursor()
     
-    cur.execute("SELECT * FROM cursos WHERE ID_profiss=?", (idCurso,))
+    cur.execute("SELECT * FROM cursos WHERE ID_curso=?", (idCurso,))
     curso = cur.fetchone()
     return render_template('edit_cursos.html', cursos=curso)
 
@@ -121,8 +123,6 @@ def edit_profissionais(idProf):
     data = cur.fetchone()
     return render_template('edit_profissionais.html', datas=data)
 
-
-
 @app.route('/delete_profissionais/<int:idProf>', methods=['GET'])
 def delete_profissionais(idProf):
     con = sql.connect("goservice.db")
@@ -131,6 +131,15 @@ def delete_profissionais(idProf):
     con.commit()
     flash('Dados deletados', 'warning')
     
+    return redirect(url_for('index'))
+
+@app.route('/delete_curso/<int:idCurso>', methods=['GET'])
+def delete_curso(idCurso):
+    con = sql.connect("goservice.db")
+    cur = con.cursor()
+    cur.execute("DELETE FROM cursos WHERE ID_curso=?", (idCurso,))
+    con.commit()
+    flash('Dados deletados', 'warning')
     return redirect(url_for('index'))
 
 def findIDProfis():
@@ -145,4 +154,25 @@ def findIDProfis():
 if __name__ == '__main__':
     app.secret_key='marc123'
     app.run(debug=True)
+
+@app.route('/edit_experiencias/<int:idExperiencia>', methods=["POST", "GET"])
+def edit_experiencias(idExperiencia):
     
+    if request.method == 'POST':
+        cargo =      request.form['cargo']
+        tempoServico =       request.form["temp_servico"]
+        empresa =  request.form["empresa"]
+
+        con = sql.connect("goservice.db")
+        cur = con.cursor()
+        cur.execute("UPDATE experiencias SET cargo=?, temp_servico=?, empresa=? WHERE ID_experiencia=?", (cargo, tempoServico, empresa, idExperiencia))
+        con.commit()
+        flash('Dados atualizados', 'success')
+        return redirect(url_for('index'))
+    con = sql.connect("goservice.db")
+    con.row_factory = sql.Row
+    cur = con.cursor()
+    
+    cur.execute("SELECT * FROM experiencias WHERE ID_experiencia=?", (idExperiencia,))
+    experiencia = cur.fetchone()
+    return render_template('edit_experiencias.html', exper=experiencia)
