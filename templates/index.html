@@ -3,63 +3,65 @@
 <h3 class="text-center text-muted mb-3"></h3>
 <p class="text-right"><a href="{{url_for('cad_profissionais')}}" class="btn btn-success">+Novo Cadastro</a></p>
 <table class="table table-bordered">
-    <thead>
-      <tr>
-        <th scope="col">ID</th>
-        <th scope="col">Nome</th>
-        <th scope="col">Sobrenome</th>
-        <th scope="col">CPF</th>
-        <th scope="col">Telefone</th>
-        <th scope="col">EMAIL</th>
-        <th scope="col">Endereço</th>
-        <th scope="col">Numero</th>
-        <th scope="col">Bairro</th>
-        <th scope="col">CEP</th>
-        <th scope="col">Cidade</th>
-        <th scope="col">uf</th>
-        <th scope="col">complemento</th>
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Nome</th>
+      <th scope="col">CPF</th>
+      <th scope="col">Telefone</th>
+      <th scope="col">EMAIL</th>
+      <th scope="col">Endereço</th>
+      <th scope="col">Numero</th>
+      <th scope="col">Bairro</th>
+      <th scope="col">CEP</th>
+      <th scope="col">Cidade</th>
+      <th scope="col">uf</th>        
+    </tr>
+  </thead>
 
-        <th scope="col">modalidade</th>
-        <th scope="col">instituicao</th>
-        <th scope="col">area</th>
-        <th scope="col">regime</th>
-        <th scope="col">cargo</th>
-        <th scope="col">tempo laborado</th>
-        <th scope="col">empresa</th>
-
-      </tr>
-    </thead>
-    <tbody>
-        {% for row in datas %}
-      <tr>
-        <td>{{loop.index}}</td>
-        <td>{{row.ID_profiss}}</td>
-        <td>{{row.nome}}</td>
-        <td>{{row.sobrenome}}</td>
-        <td>{{row.CPF}}</td>
-        <td>{{row.telefone}}</td>
-        <td>{{row.email}}</td>
-        <td>{{row.endereço}}</td>
-        <td>{{row.num}}</td>
-        <td>{{row.bairro}}</td>
-        <td>{{row.CEP}}</td>
-        <td>{{row.cidade}}</td>
-        <td>{{row.uf}}</td>
-        <td>{{row.complemento}}</td>
-
-        <td>{{row.ID_profiss}}</td>
-        <td>{{row.modalidade}}</td>
-        <td>{{row.instituicao}}</td>
-        <td>{{row.area}}</td>
-        <td>{{row.regime}}</td>
-        <td>{{row.cargo}}</td>
-        <td>{{row.temp_servico}}</td>
-        <td>{{row.empresa}}</td>
-        <td><a href="{{url_for('edit_profissionais', idProf=row.ID_profiss)}}" class="btn btn-primary"></a>Editar</td>
-        <td><a href="{{url_for('delete_profissionais', idProf=row.ID_profiss)}}" class="btn btn-danger" onclick="return confirm('Tem certeza que deseja apagar?')"></a>Deletar</td>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
-
+  <tbody>
+    {% for row in datas %}
+    <tr>
+      <td>{{loop.index}}</td>
+      <td>{{row.ID_profiss}}</td>
+      <td>{{row.nome}}</td>
+      <td>{{row.CPF}}</td>
+      <td>{{row.telefone}}</td>
+      <td>{{row.email}}</td>
+      <td>{{row.endereço}}</td>
+      <td>{{row.num}}</td>
+      <td>{{row.bairro}}</td>
+      <td>{{row.CEP}}</td>
+      <td>{{row.cidade}}</td>
+      <td>{{row.uf}}</td>
+      <td><a href="{{url_for('edit_profissionais', idProf=row.ID_profiss)}}" class="btn btn-primary">Editar</a></td>
+      <td><a href="{{url_for('delete_profissionais', idProf=row.ID_profiss)}}" class="btn btn-danger" onclick="return confirm('Tem certeza que deseja apagar?')">Deletar</a></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+    
+<table class="table_cursos">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">modalidade</th>
+      <th scope="col">instituicao</th>
+      <th scope="col">area</th>
+    </tr>
+  </thead>
+  
+  <tbody>
+    {% for linha in cursos %}
+    <tr>
+      <td>{{loop.index}}</td>
+      <td>{{linha.ID_curso}}</td>
+      <td>{{linha.modalidade}}</td>
+      <td>{{linha.instituicao}}</td>
+      <td>{{linha.area}}</td>
+      <td><a href="{{url_for('edit_curso', idCurso=linha.ID_curso)}}" class="btn btn-primary">Editar</a></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
 {% endblock %}

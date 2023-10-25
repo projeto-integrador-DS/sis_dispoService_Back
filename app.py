@@ -56,6 +56,27 @@ def cad_curso():
     flash('Dados Cadastrados', 'success')
     con.close()
     return render_template('cad_experiencias.html')
+@app.route("/edit_curso/<int:idCurso>")
+def edit_curso(idCurso):
+    
+    if request.method == 'POST':
+        modalidade =      request.form['modalidade']
+        instituicao =       request.form["instituicao"]
+        area =  request.form["area"]
+
+        con = sql.connect("goservice.db")
+        cur = con.cursor()
+        cur.execute("UPDATE cursos SET modalidade=?, instituicao=?, area=? WHERE ID_curso?", (modalidade, instituicao, area, idCurso))
+        con.commit()
+        flash('Dados atualizados', 'success')
+        return redirect(url_for('index'))
+    con = sql.connect("goservice.db")
+    con.row_factory = sql.Row
+    cur = con.cursor()
+    
+    cur.execute("SELECT * FROM cursos WHERE ID_profiss=?", (idCurso,))
+    curso = cur.fetchone()
+    return render_template('edit_cursos.html', cursos=curso)
 
 @app.route('/experiencia', methods=['POST', 'GET'])
 def cad_experiencia():
@@ -99,6 +120,7 @@ def edit_profissionais(idProf):
     cur.execute("SELECT * FROM profissionais WHERE ID_profiss=?", (idProf,))
     data = cur.fetchone()
     return render_template('edit_profissionais.html', datas=data)
+
 
 
 @app.route('/delete_profissionais/<int:idProf>', methods=['GET'])
