@@ -8,16 +8,16 @@
         <form action="{{url_for('edit_experiencias', idExperiencia=exper.ID_experiencia)}}" method="post">
             <div class="form-group">
                 <label>cargo: </label>
-                <input type="text" name="modalidade" required class="form-control" value="{{exper.cargo}}">
+                <input type="text" name="cargo" required class="form-control" value="{{exper.cargo}}">
             </div>
             
             <div class="form-group">
                 <label>fdfd </label>
-                <input type="text" name="instituicao" required class="form-control" value="{{exper.temp_servico}}">
+                <input type="text" name="temp_servico" required class="form-control" value="{{exper.temp_servico}}">
             </div>
             <div class="form-group">
                 <label>area: </label>
-                <input type="text" name="area" required class="form-control" value="{{exper.empresa}}">
+                <input type="text" name="empresa" required class="form-control" value="{{exper.empresa}}">
             </div>
                 <input type="submit" value="Confirmar" class="btn btn-primary">
         </form>

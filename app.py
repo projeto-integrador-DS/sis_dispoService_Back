@@ -176,3 +176,13 @@ def edit_experiencias(idExperiencia):
     cur.execute("SELECT * FROM experiencias WHERE ID_experiencia=?", (idExperiencia,))
     experiencia = cur.fetchone()
     return render_template('edit_experiencias.html', exper=experiencia)
+
+@app.route('/delete_experiencia/<int:idExperiencia>', methods=['GET'])
+def delete_experiencia(idExperiencia):
+    con = sql.connect("goservice.db")
+    cur = con.cursor()
+    cur.execute("DELETE FROM experiencias WHERE ID_experiencia=?", (idExperiencia,))
+    con.commit()
+    con.close()
+    flash('Dados deletados', 'warning')
+    return redirect(url_for('index'))
