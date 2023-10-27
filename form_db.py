@@ -64,20 +64,3 @@ cur.execute(sql_experiencias)
 cur.execute(sql_servicos)
 cur.execute(sql_oferece)
 con.commit()
-
-def cad_servicos():
-    cur.execute("INSERT INTO servicos(nome, categoria, valor) values('formatação de computadores', 'manutencao', 40.00)")
-    con.commit()
-    con.row_factory=sql.Row
-    cur.execute("SELECT * FROM servicos")
-    servicos=cur.fetchall()
-    con.close()
-    print("os dados do servicos que vem do banco",servicos[0])
-
-def alt_servicos():
-    cur.execute("UPDATE servicos SET nome='instalação energia', categoria='construcao', valor=50 WHERE ID_servico=1")
-    con.commit()
-    con.close()
-    return None
-
-alt_servicos()
