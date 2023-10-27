@@ -6,7 +6,7 @@ app = Flask(__name__)
 app.secret_key="daniel123"
 
 #@app.route('/')
-#@app.route('/index')
+@app.route('/index')
 def index():
     con = sql.connect("goservice.db")
     con.row_factory = sql.Row
@@ -15,14 +15,16 @@ def index():
     data = cur.fetchall()       
     return render_template('index.html', datas=data)
 
-@app.route("/")
+@app.route('/')
 def indexServico():
-    con=sql.connect('goservice.db')
+    con=sql.connect("goservice.db")
     con.row_factory=sql.Row
     cur = con.cursor()
-    cur.execute('SELECT * FROM servicos')
+    cur.execute("SELECT * FROM servicos")
     servico=cur.fetchall()
+
     return render_template('indexServicos.html', servicos=servico)
+
 #============PROFISSIONAIS==============
 @app.route('/cad_profissionais', methods=['POST', 'GET'])
 def cad_profissionais():
@@ -194,19 +196,22 @@ def delete_experiencia(idExperiencia):
     return redirect(url_for('index'))
 
 #============SERVIÇOS==============
-@app.route('/cad_servicos', methods=["POST"])
+@app.route('/cad_servicos', methods=['POST', 'GET'])
 def cad_servicos():
-    nome    =   request.form['nome']
-    categoria=  request.form['categoria']
-    valor   =   request.form['valor']
-
-    con=sql.connect("goservice.db")
-    cur = con.cursor()
-    cur.execute("INSERT INTO servicos(nome, categoria, valor) values('?', '?', ?)",(nome, categoria, valor))
-    con.commit()
-    flash('Dados Cadastrados', 'success')
-    con.close()
-    return redirect(url_for('indexServico'))
+    if request.method=='POST':
+        print("executando a função cadServicos")
+        nome    =   request.form['nome']
+        categoria=  request.form['categoria']
+        valor   =   request.form['valor']
+    
+        con=sql.connect("goservice.db")
+        cur = con.cursor()
+        cur.execute("INSERT INTO servicos(nome, categoria, valor) values(?, ?, ?)",(nome, categoria, valor))
+        con.commit()
+        flash('Dados Cadastrados', 'success')
+        con.close()
+        
+    return render_template('cad_Servicos.html')
     
 @app.route('/servicos/<int:idServico>', methods=["POST", "GET"])
 def alt_servicos(idServico):
