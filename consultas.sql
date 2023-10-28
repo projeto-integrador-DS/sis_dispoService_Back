@@ -1,17 +1,7 @@
 -- SQLite
+SELECT ID_profiss, nome, CPF, telefone, email, endereco, num, bairro, CEP, cidade, uf
+FROM profissionais;
 
-SELECT *
-FROM profissionais AS pr
-JOIN cursos AS cur ON pr.ID_profiss = cur.fk_idProfiss
-JOIN experiencias AS exp ON pr.ID_profiss = exp.fk_idProfiss
+SELECT * FROM sqlite_master WHERE type = 'table';
 
-
-
-
-DROP TABLE cursos;
-DROP TABLE profissionais;
-DROP TABLE experiencias;
-
-SELECT * FROM profissionais;
-SELECT * FROM cursos;
-SELECT * FROM experiencias;
+SELECT * FROM servicos
