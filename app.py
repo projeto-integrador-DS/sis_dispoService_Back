@@ -210,11 +210,12 @@ def cad_servicos():
         con.commit()
         flash('Dados Cadastrados', 'success')
         con.close()
+        return redirect(url_for('indexServico'))
         
     return render_template('cad_Servicos.html')
     
-@app.route('/servicos/<int:idServico>', methods=["POST", "GET"])
-def alt_servicos(idServico):
+@app.route('/edit_servicos/<int:idServico>', methods=["POST", "GET"])
+def edit_servicos(idServico):
     if request.method=='POST':
         nome=request.form['nome']
         categoria=request.form['categoria']
@@ -222,16 +223,16 @@ def alt_servicos(idServico):
 
         con = sql.connect('goservice.db')
         cur=con.cursor()
-        cur.execute("UPDATE servicos SET nome='?', categoria='?', valor=? WHERE ID_servico=?",(nome, categoria, valor, idServico))
+        cur.execute("UPDATE servicos SET nome=?, categoria=?, valor=? WHERE ID_servico=?",(nome, categoria, valor, idServico))
         con.commit()
-        return redirect(url_for('indexServicos'))
+        return redirect(url_for('indexServico'))
     con = sql.connect('goservice.db')
     cur = con.cursor()
     cur.row_factory=sql.Row
 
-    cur.execute("SELECT * FROM servicos WHERE idServico=?", (idServico,))
+    cur.execute("SELECT * FROM servicos WHERE ID_servico=?", (idServico,))
     servico =cur.fetchone()
-    return render_template('edit_servico.html', serv=servico)
+    return render_template('edit_servicos.html', serv=servico)
 
 @app.route('/delete_servicos/<int:idServico>', methods=["GET"])
 def delete_servicos(idServico):
