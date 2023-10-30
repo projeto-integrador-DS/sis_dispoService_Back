@@ -8,10 +8,8 @@ app.secret_key="daniel123"
 @app.route('/')
 @app.route('/index')
 def index():
-    #cur.execute("SELECT * FROM profissionais AS pr  JOIN cursos AS cur ON pr.ID_profiss = cur.fk_idProfiss JOIN experiencias AS exp ON pr.ID_profiss = exp.fk_IDprofiss;")
-               
+    #cur.execute("SELECT * FROM profissionais AS pr  JOIN cursos AS cur ON pr.ID_profiss = cur.fk_idProfiss JOIN experiencias AS exp ON pr.ID_profiss = exp.fk_IDprofiss;")  
     return render_template('index.html')
-
 
 @app.route('/indexServico')
 def indexServico():
@@ -113,7 +111,6 @@ def list_cursos_prof(id_profiss):
     cursos = cur.fetchall()       
     return render_template('lista_cursos.html', curs=cursos)
 
-#deverá ter uma parâmetro: id_profiss
 @app.route('/incluir_curso/<id_profiss>', methods=['POST', 'GET'])
 def incluir_curso(id_profiss):
     if request.method=='POST':
@@ -129,8 +126,8 @@ def incluir_curso(id_profiss):
         return redirect(url_for('list_cursos_prof',id_profiss=1))
     return render_template('cad_cursos.html', cadastro = False)
     
-@app.route("/edit_curso/<int:idCurso>", methods=["POST", "GET"])
-def edit_curso(idCurso):
+@app.route("/edit_curso/<int:idCurso>/<int:id_profiss>", methods=["POST", "GET"])
+def edit_curso(idCurso, id_profiss):
     
     if request.method == 'POST':
         modalidade =      request.form['modalidade']
@@ -142,12 +139,13 @@ def edit_curso(idCurso):
         cur.execute("UPDATE cursos SET modalidade=?, instituicao=?, area=? WHERE ID_curso=?", (modalidade, instituicao, area, idCurso))
         con.commit()
         flash('Dados atualizados', 'success')
-        return redirect(url_for('index'))
+
+        return redirect(url_for('list_cursos_prof',id_profiss=id_profiss))
     con = sql.connect("goservice.db")
     con.row_factory = sql.Row
     cur = con.cursor()
-    
-    cur.execute("SELECT * FROM cursos WHERE ID_curso=?", (idCurso,))
+    cur.execute("SELECT c.ID_curso, c.modalidade, c.instituicao, c.area FROM cursos AS c JOIN profissionais AS pr ON pr.ID_profiss = c.fk_idProfiss WHERE pr.ID_profiss =? and c.ID_curso =?", (id_profiss, idCurso)) 
+    #cur.execute("SELECT * FROM cursos WHERE ID_curso=?", (idCurso,))
     curso = cur.fetchone()
     return render_template('edit_cursos.html', cursos=curso)
 
@@ -188,6 +186,7 @@ def cad_experiencia():
 
 @app.route('/lista_experiencias/<int:id_profiss>')
 def lista_experiencias(id_profiss):
+    
     con = sql.connect("goservice.db")
     
     con.row_factory = sql.Row
@@ -196,6 +195,7 @@ def lista_experiencias(id_profiss):
     experiencias = cur.fetchall()
             
     return render_template('lista_experiencias.html', exper=experiencias)
+
 
 @app.route('/add_exper/<int:id_profiss>', methods=['POST', 'GET'])
 def add_experiencia(id_profiss):
@@ -272,7 +272,7 @@ def lista_servicos(id_profiss):
     cur = con.cursor()
     cur.row_factory=sql.Row
     
-    cur.execute("SELECT serv.nome, serv.categoria, serv.valor FROM servicos AS serv JOIN profissionais AS pr JOIN oferece AS o ON serv.ID_servico=o.fk_servic WHERE pr.ID_profiss =?", (id_profiss,))
+    cur.execute("SELECT serv.ID_servico, serv.nome, serv.categoria, serv.valor FROM servicos AS serv JOIN profissionais AS pr JOIN oferece AS o ON serv.ID_servico=o.fk_servic WHERE pr.ID_profiss =?", (id_profiss,))
     servicos=cur.fetchall()
     con.close()
     return render_template('lista_servicos.html', serv=servicos)
@@ -293,7 +293,8 @@ def add_servicos(id_profiss):
 
         flash('Dados Cadastrados', 'success')
         con.close()
-        return redirect(url_for('lista_servicos.html', id_profiss))
+        
+        return redirect(url_for('lista_servicos', id_profiss=id_profiss))
     return render_template('cad_servicos.html', cadastro=False)
 
 @app.route('/edit_servicos/<int:idServico>', methods=["POST", "GET"])
@@ -344,7 +345,8 @@ def prof_serv(id_profiss):
     cur=con.cursor()
     
     cur.execute("INSERT INTO oferece (fk_profiss, fk_servic) values(?,?)", (id_prof, id_Serv))
+    con.commit()
     con.close()
-   
+
 if __name__ == '__main__':
     app.run(debug=True)
