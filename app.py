@@ -5,17 +5,15 @@ from form_db import cur
 app = Flask(__name__)
 app.secret_key="daniel123"
 
-#@app.route('/')
+@app.route('/')
 @app.route('/index')
 def index():
-    con = sql.connect("goservice.db")
-    con.row_factory = sql.Row
-    cur = con.cursor()
-    cur.execute("SELECT * FROM profissionais AS pr  JOIN cursos AS cur ON pr.ID_profiss = cur.fk_idProfiss JOIN experiencias AS exp ON pr.ID_profiss = exp.fk_IDprofiss;")
-    data = cur.fetchall()       
-    return render_template('index.html', datas=data)
+    #cur.execute("SELECT * FROM profissionais AS pr  JOIN cursos AS cur ON pr.ID_profiss = cur.fk_idProfiss JOIN experiencias AS exp ON pr.ID_profiss = exp.fk_IDprofiss;")
+               
+    return render_template('index.html')
 
-@app.route('/')
+
+@app.route('/indexServico')
 def indexServico():
     con=sql.connect("goservice.db")
     con.row_factory=sql.Row
@@ -45,10 +43,9 @@ def cad_profissionais():
         cur.execute("INSERT INTO profissionais(nome, cpf, telefone, email, endereco, cidade, num, bairro, cep, uf) values(?,?,?,?,?,?,?,?,?,?)", (nome, cpf, telefone, email, endereco, cidade, num, bairro, cep, uf))
         con.commit()
         flash('Dados Cadastrados', 'success')
-        return render_template('cad_cursos.html') 
+        return render_template('cad_cursos.html', cadastro=True) 
  
     return render_template('cad_profissionais.html')
-
 
 
 @app.route('/edit_profissionais/<int:idProf>', methods=['POST', 'GET'])
@@ -105,7 +102,34 @@ def cad_curso():
     con.commit()
     flash('Dados Cadastrados', 'success')
     con.close()
-    return render_template('cad_experiencias.html')
+    return render_template('cad_experiencias.html', cadastro=True)
+
+@app.route('/listacursos/<int:id_profiss>')
+def list_cursos_prof(id_profiss):
+    print("valor capturado:", id_profiss)
+    con = sql.connect("goservice.db")
+    con.row_factory = sql.Row
+    cur = con.cursor()
+    cur.execute("SELECT c.ID_curso, c.modalidade, c.instituicao, c.area FROM cursos AS c JOIN profissionais AS pr ON pr.ID_profiss = c.fk_idProfiss WHERE pr.ID_profiss =?", (id_profiss,))
+    cursos = cur.fetchall()       
+    return render_template('lista_cursos.html', curs=cursos)
+
+#deverá ter uma parâmetro: id_profiss
+@app.route('/incluir_curso/<id_profiss>', methods=['POST', 'GET'])
+def incluir_curso(id_profiss):
+    if request.method=='POST':
+        modalidade  = request.form['modalidade']
+        instituicao = request.form['instituicao']     
+        area        = request.form['area']
+        con =  sql.connect('goservice.db')
+        cur=con.cursor()
+        cur.execute("INSERT INTO cursos(fk_idProfiss, modalidade, instituicao, area) values (?,?,?,?)", (id_profiss,modalidade, instituicao, area))
+        con.commit()
+        flash('Dados Cadastrados', 'success')
+        con.close()
+        return redirect(url_for('list_cursos_prof',id_profiss=1))
+    return render_template('cad_cursos.html', cadastro = False)
+    
 
 @app.route("/edit_curso/<int:idCurso>", methods=["POST", "GET"])
 def edit_curso(idCurso):
@@ -160,9 +184,34 @@ def cad_experiencia():
     con.commit()
     flash('Dados Cadastrados', 'success')
     con.close()
-    return redirect(url_for('index'))
+    return render_template('cad_servicos.html')
 
+@app.route('/lista_experiencias/<int:id_profiss>')
+def lista_experiencias(id_profiss):
+    con = sql.connect("goservice.db")
+    print(id_profiss)
+    con.row_factory = sql.Row
+    cur = con.cursor()
+    cur.execute("SELECT ID_experiencia, exp.cargo, exp.temp_servico, exp.empresa FROM experiencias AS exp JOIN profissionais AS pr ON pr.ID_profiss = exp.fk_IDprofiss WHERE pr.ID_profiss =?", (id_profiss,))
+    experiencias = cur.fetchall()
+            
+    return render_template('lista_experiencias.html', exper=experiencias)
 
+@app.route('/add_exper/<int:id_profiss>', methods=['POST', 'GET'])
+def add_experiencia(id_profiss):
+    if(request.method == 'POST'):
+        cargo       = request.form['cargo']
+        temp_servico = request.form['temp_servico']
+        empresa     = request.form['empresa']
+        con =  sql.connect('goservice.db')
+        cur=con.cursor()
+        cur.execute("INSERT INTO experiencias(fk_IDprofiss, cargo, temp_servico, empresa) values(?,?,?,?)", (id_profiss,cargo, temp_servico, empresa))
+        con.commit()
+        flash('Dados Cadastrados', 'success')
+        con.close()
+        return redirect(url_for('lista_experiencias', id_profiss=1))
+    return render_template('cad_experiencias.html', cadastro=False)
+   
 @app.route('/edit_experiencias/<int:idExperiencia>', methods=["POST", "GET"])
 def edit_experiencias(idExperiencia):
     
@@ -203,17 +252,17 @@ def cad_servicos():
         nome    =   request.form['nome']
         categoria=  request.form['categoria']
         valor   =   request.form['valor']
-    
+
         con=sql.connect("goservice.db")
         cur = con.cursor()
         cur.execute("INSERT INTO servicos(nome, categoria, valor) values(?, ?, ?)",(nome, categoria, valor))
         con.commit()
         flash('Dados Cadastrados', 'success')
         con.close()
-        return redirect(url_for('indexServico'))
-        
-    return render_template('cad_Servicos.html')
-    
+        return redirect(url_for('index'))
+
+    return render_template('cad_servicos.html')
+
 @app.route('/edit_servicos/<int:idServico>', methods=["POST", "GET"])
 def edit_servicos(idServico):
     if request.method=='POST':
@@ -242,6 +291,23 @@ def delete_servicos(idServico):
     con.commit()
     con.close()
     return render_template('indexServicos.html')
+
+#============RELACIONA SERVIÇO COM PROFISSIONAL==============
+def prof_serv():
+    con = sql.connect("goservice.db")
+    cur = con.cursor()
+    id_prof=cur.execute("SELECT ID_profiss FROM profissionais").fetchone()
+    id_prof=id_prof[0]
+
+    id_Serv=cur.execute("SELECT ID_servico FROM servicos").fetchone()
+    id_Serv=id_Serv[0]
+    
+    cur.execute("INSERT INTO oferece (fk_profiss, fk_servic) values(?,?)", (id_prof, id_Serv))
+    con.commit()
+    print("comitou")
+    con.close()
+
+prof_serv()
 
 if __name__ == '__main__':
     app.run(debug=True)

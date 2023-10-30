@@ -17,7 +17,7 @@ sql_profissionais = '''CREATE TABLE "profissionais"(
     "telefone"  TEXT,
     "email"     TEXT,
     "endereco"  TEXT,
-    "num"       INTEGER,
+    "num"       TEXT,
     "bairro"    TEXT,
     "CEP"       TEXT,
     cidade      TEXT,
@@ -64,3 +64,26 @@ cur.execute(sql_experiencias)
 cur.execute(sql_servicos)
 cur.execute(sql_oferece)
 con.commit()
+
+def cadastraProfissionais():
+    cur.execute("INSERT INTO profissionais (nome, CPF, telefone, email, endereco, cidade, num, bairro, cep, uf ) values('Daniel', '703.968.604-00', '(87)9.81355794', 'danielverissimo1d@gmail.com', 'rua c', '08', 'centro', '55355000', 'paranatama-pe', 'pe')")
+    con.commit()
+    
+def cadastraServicos():
+    cur.execute("INSERT INTO servicos (nome, categoria, valor) values('formatação de PC', 'manutenção', 80 )")
+    con.commit()
+
+def cadastraCursos():
+    cur.execute("INSERT INTO cursos (fk_idProfiss, modalidade, instituicao, area) VALUES(1, 'tecnico', 'ariano suassuna', 'informática')")
+    con.commit()
+
+def cadastraExperiencia():
+    cur.execute("INSERT INTO experiencias (fk_IDprofiss, cargo, temp_servico, empresa) VALUES(1, 'atendente', '1a', 'j.i lanhouse')")
+    con.commit()
+
+cadastraProfissionais()
+cadastraServicos()
+cadastraCursos()
+cadastraExperiencia()
+con.close()
+

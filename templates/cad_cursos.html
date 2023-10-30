@@ -1,8 +1,10 @@
 {% extends 'base.html' %}
 {% block body %}
+
+{%if cadastro%}
 <div class="row">
     <div class="col-5 mx-auto">
-        <h3>defina suas qualidades</h3><br>
+        <h3>cursos</h3><br>
         <form method="post" action="{{url_for('cad_curso')}}">
             <div class="form-group">
                 <label>modalidade</label>
@@ -22,5 +24,29 @@
         </form>
     </div>
 </div>
-
+{%else%}
+<div class="row">
+    <div class="col-5 mx-auto">
+        <h3>cursos</h3><br>
+        <!--  url_for('incluir_curso', id_profiss=1) ==> o certo -->
+        <form method="post" action="{{url_for('incluir_curso' )}}">
+            <div class="form-group">
+                <label>modalidade</label>
+                <input type="text" name="modalidade" id="" required class="form-control"> 
+            </div>
+            <div class="form-group">
+                <label>instituicao</label>
+                <input type="text" name="instituicao" id="" required class="form-control"> 
+            </div>
+            <div class="form-group">
+                <label>area</label>
+                <input type="text" name="area" id="" required class="form-control"> 
+            </div>
+            
+            <br>
+            <input type="submit" value="Adicionar" class="btn btn-primary">
+        </form>
+    </div>
+</div>
+{%endif%}
 {% endblock %}
