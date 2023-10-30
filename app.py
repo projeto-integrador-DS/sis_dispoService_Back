@@ -95,7 +95,6 @@ def cad_curso():
     instituicao = request.form['instituicao']     
     area        = request.form['area']
     fk_idProf = findIDProfis()
-    
     con =  sql.connect('goservice.db')
     cur=con.cursor()
     cur.execute("INSERT INTO cursos(fk_idProfiss, modalidade, instituicao, area) values (?,?,?,?)", (fk_idProf,modalidade, instituicao, area))
@@ -130,7 +129,6 @@ def incluir_curso(id_profiss):
         return redirect(url_for('list_cursos_prof',id_profiss=1))
     return render_template('cad_cursos.html', cadastro = False)
     
-
 @app.route("/edit_curso/<int:idCurso>", methods=["POST", "GET"])
 def edit_curso(idCurso):
     
@@ -177,14 +175,16 @@ def cad_experiencia():
     cargo       = request.form['cargo']
     temp_servico = request.form['temp_servico']
     empresa     = request.form['empresa']
+
     fk_idProf   = findIDProfis()
+
     con =  sql.connect('goservice.db')
     cur=con.cursor()
     cur.execute("INSERT INTO experiencias(fk_IDprofiss, cargo, temp_servico, empresa) values(?,?,?,?)", (fk_idProf,cargo, temp_servico, empresa))
     con.commit()
     flash('Dados Cadastrados', 'success')
     con.close()
-    return render_template('cad_servicos.html')
+    return render_template('cad_servicos.html', cadastro=True)
 
 @app.route('/lista_experiencias/<int:id_profiss>')
 def lista_experiencias(id_profiss):
@@ -253,7 +253,7 @@ def cad_servicos():
         nome    =   request.form['nome']
         categoria=  request.form['categoria']
         valor   =   request.form['valor']
-
+        
         con=sql.connect("goservice.db")
         cur = con.cursor()
         cur.execute("INSERT INTO servicos(nome, categoria, valor) values(?, ?, ?)",(nome, categoria, valor))
@@ -263,6 +263,38 @@ def cad_servicos():
         return redirect(url_for('index'))
 
     return render_template('cad_servicos.html')
+
+
+@app.route('/listaservicos/<int:id_profiss>', methods=['POST', 'GET'])
+def lista_servicos(id_profiss):
+    prof_serv(id_profiss) #apenas para fins de teste
+    con = sql.connect('goservice.db')
+    cur = con.cursor()
+    cur.row_factory=sql.Row
+    
+    cur.execute("SELECT serv.nome, serv.categoria, serv.valor FROM servicos AS serv JOIN profissionais AS pr JOIN oferece AS o ON serv.ID_servico=o.fk_servic WHERE pr.ID_profiss =?", (id_profiss,))
+    servicos=cur.fetchall()
+    con.close()
+    return render_template('lista_servicos.html', serv=servicos)
+
+@app.route('/add_servicos/<int:id_profiss>', methods=['POST', 'GET'])
+def add_servicos(id_profiss):
+    if request.method=='POST': 
+        nome    =   request.form['nome']
+        categoria=  request.form['categoria']
+        valor   =   request.form['valor']
+
+        con=sql.connect("goservice.db")
+        cur = con.cursor()
+        cur.execute("INSERT INTO servicos(nome, categoria, valor) values(?, ?, ?)",(nome, categoria, valor))
+        con.commit()
+
+        prof_serv(id_profiss) #relaciona as tabelas servicos e profissionais
+
+        flash('Dados Cadastrados', 'success')
+        con.close()
+        return redirect(url_for('lista_servicos.html', id_profiss))
+    return render_template('cad_servicos.html', cadastro=False)
 
 @app.route('/edit_servicos/<int:idServico>', methods=["POST", "GET"])
 def edit_servicos(idServico):
@@ -293,22 +325,26 @@ def delete_servicos(idServico):
     con.close()
     return render_template('indexServicos.html')
 
-#============RELACIONA SERVIÇO COM PROFISSIONAL==============
-def prof_serv():
+def getUltimoServico():
     con = sql.connect("goservice.db")
     cur = con.cursor()
-    id_prof=cur.execute("SELECT ID_profiss FROM profissionais").fetchone()
-    id_prof=id_prof[0]
+    cur.execute("SELECT MAX(ID_servico) FROM servicos;")
+    id = cur.fetchone()
+    idServ=id[0]
+    con.close()
+    return idServ
 
-    id_Serv=cur.execute("SELECT ID_servico FROM servicos").fetchone()
-    id_Serv=id_Serv[0]
+#============RELACIONA SERVIÇO COM PROFISSIONAL==============
+def prof_serv(id_profiss):
+    
+    id_prof=id_profiss
+    id_Serv=getUltimoServico()
+
+    con=sql.connect('goservice.db')
+    cur=con.cursor()
     
     cur.execute("INSERT INTO oferece (fk_profiss, fk_servic) values(?,?)", (id_prof, id_Serv))
-    con.commit()
-  
     con.close()
-
-prof_serv()
-
+   
 if __name__ == '__main__':
     app.run(debug=True)
