@@ -95,7 +95,7 @@ def cad_curso():
     instituicao = request.form['instituicao']     
     area        = request.form['area']
     fk_idProf = findIDProfis()
-    print(type(fk_idProf))
+    
     con =  sql.connect('goservice.db')
     cur=con.cursor()
     cur.execute("INSERT INTO cursos(fk_idProfiss, modalidade, instituicao, area) values (?,?,?,?)", (fk_idProf,modalidade, instituicao, area))
@@ -106,7 +106,7 @@ def cad_curso():
 
 @app.route('/listacursos/<int:id_profiss>')
 def list_cursos_prof(id_profiss):
-    print("valor capturado:", id_profiss)
+    
     con = sql.connect("goservice.db")
     con.row_factory = sql.Row
     cur = con.cursor()
@@ -189,7 +189,7 @@ def cad_experiencia():
 @app.route('/lista_experiencias/<int:id_profiss>')
 def lista_experiencias(id_profiss):
     con = sql.connect("goservice.db")
-    print(id_profiss)
+    
     con.row_factory = sql.Row
     cur = con.cursor()
     cur.execute("SELECT ID_experiencia, exp.cargo, exp.temp_servico, exp.empresa FROM experiencias AS exp JOIN profissionais AS pr ON pr.ID_profiss = exp.fk_IDprofiss WHERE pr.ID_profiss =?", (id_profiss,))
@@ -209,7 +209,8 @@ def add_experiencia(id_profiss):
         con.commit()
         flash('Dados Cadastrados', 'success')
         con.close()
-        return redirect(url_for('lista_experiencias', id_profiss=1))
+        
+        return redirect(url_for('lista_experiencias', id_profiss=id_profiss))
     return render_template('cad_experiencias.html', cadastro=False)
    
 @app.route('/edit_experiencias/<int:idExperiencia>', methods=["POST", "GET"])
@@ -248,7 +249,7 @@ def delete_experiencia(idExperiencia):
 @app.route('/cad_servicos', methods=['POST', 'GET'])
 def cad_servicos():
     if request.method=='POST':
-        print("executando a função cadServicos")
+        
         nome    =   request.form['nome']
         categoria=  request.form['categoria']
         valor   =   request.form['valor']
@@ -304,7 +305,7 @@ def prof_serv():
     
     cur.execute("INSERT INTO oferece (fk_profiss, fk_servic) values(?,?)", (id_prof, id_Serv))
     con.commit()
-    print("comitou")
+  
     con.close()
 
 prof_serv()
