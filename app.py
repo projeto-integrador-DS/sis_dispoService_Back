@@ -4,7 +4,6 @@ import sqlite3 as sql
 
 app = Flask(__name__)
 
-
 @app.route('/')
 def inicial():
     return render_template('inicial_01.html')
