@@ -267,6 +267,7 @@ def cad_servicos():
 
 @app.route('/listaservicos/<int:id_profiss>', methods=['POST', 'GET'])
 def lista_servicos(id_profiss):
+    #essa função é chamada 2x (get e post) por isso está cadastrando 2x
     prof_serv(id_profiss) #apenas para fins de teste
     con = sql.connect('goservice.db')
     cur = con.cursor()
