@@ -126,7 +126,7 @@ def incluir_curso(id_profiss):
         con.commit()
         flash('Dados Cadastrados', 'success')
         con.close()
-        return redirect(url_for('list_cursos_prof',id_profiss=1))
+        return redirect(url_for('list_cursos_prof',id_profiss=id_profiss))#id_profiss=id_profiss ainda não testado
     return render_template('cad_cursos.html', cadastro = False)
     
 @app.route("/edit_curso/<int:idCurso>", methods=["POST", "GET"])
@@ -142,7 +142,7 @@ def edit_curso(idCurso):
         cur.execute("UPDATE cursos SET modalidade=?, instituicao=?, area=? WHERE ID_curso=?", (modalidade, instituicao, area, idCurso))
         con.commit()
         flash('Dados atualizados', 'success')
-        return redirect(url_for('index'))
+        return redirect(url_for('list_cursos_prof', id_profiss=1))
     con = sql.connect("goservice.db")
     con.row_factory = sql.Row
     cur = con.cursor()
@@ -226,7 +226,7 @@ def edit_experiencias(idExperiencia):
         cur.execute("UPDATE experiencias SET cargo=?, temp_servico=?, empresa=? WHERE ID_experiencia=?", (cargo, tempoServico, empresa, idExperiencia))
         con.commit()
         flash('Dados atualizados', 'success')
-        return redirect(url_for('index'))
+        return redirect(url_for('lista_experiencias', id_profiss=1))
     con = sql.connect("goservice.db")
     con.row_factory = sql.Row
     cur = con.cursor()
@@ -243,7 +243,7 @@ def delete_experiencia(idExperiencia):
     con.commit()
     con.close()
     flash('Dados deletados', 'warning')
-    return redirect(url_for('index'))
+    return redirect(url_for('lista_experiencias', id_profiss=1))
 
 #============SERVIÇOS==============
 @app.route('/cad_servicos', methods=['POST', 'GET'])
@@ -272,7 +272,7 @@ def lista_servicos(id_profiss):
     cur = con.cursor()
     cur.row_factory=sql.Row
     
-    cur.execute("SELECT serv.nome, serv.categoria, serv.valor FROM servicos AS serv JOIN profissionais AS pr JOIN oferece AS o ON serv.ID_servico=o.fk_servic WHERE pr.ID_profiss =?", (id_profiss,))
+    cur.execute("SELECT serv.ID_servico, serv.nome, serv.categoria, serv.valor FROM servicos AS serv JOIN profissionais AS pr JOIN oferece AS o ON serv.ID_servico=o.fk_servic WHERE pr.ID_profiss =?", (id_profiss,))
     servicos=cur.fetchall()
     con.close()
     return render_template('lista_servicos.html', serv=servicos)
@@ -293,7 +293,7 @@ def add_servicos(id_profiss):
 
         flash('Dados Cadastrados', 'success')
         con.close()
-        return redirect(url_for('lista_servicos.html', id_profiss))
+        return redirect(url_for('lista_servicos', id_profiss=id_profiss))
     return render_template('cad_servicos.html', cadastro=False)
 
 @app.route('/edit_servicos/<int:idServico>', methods=["POST", "GET"])
@@ -338,12 +338,14 @@ def getUltimoServico():
 def prof_serv(id_profiss):
     
     id_prof=id_profiss
+    #temos um func1 e func2 se o func2 salvar um serviço antes do func1 o func1 terá salvo um serviço do func2
     id_Serv=getUltimoServico()
 
     con=sql.connect('goservice.db')
     cur=con.cursor()
     
     cur.execute("INSERT INTO oferece (fk_profiss, fk_servic) values(?,?)", (id_prof, id_Serv))
+    con.commit()
     con.close()
    
 if __name__ == '__main__':

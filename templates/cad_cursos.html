@@ -29,7 +29,7 @@
     <div class="col-5 mx-auto">
         <h3>cursos</h3><br>
         <!--  url_for('incluir_curso', id_profiss=1) ==> o certo -->
-        <form method="post" action="{{url_for('incluir_curso' )}}">
+        <form method="post" action="{{url_for('incluir_curso', id_profiss=1 )}}">
             <div class="form-group">
                 <label>modalidade</label>
                 <input type="text" name="modalidade" id="" required class="form-control"> 
