@@ -1,0 +1,39 @@
+{% extends '/base.html' %}
+
+{% block title %} Login Cliente {% endblock %}
+
+{% block customCSS %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/main.css')}}">
+{% endblock %}
+
+{% block body %}
+<div class="page">
+    <img src="{{ url_for('static', filename='img/goservicebr.png')}}" id="logo" alt="">
+    <br>
+    <form action="/login_cliente" method="POST" class="formLogin">
+        <h1 class="tit_principal">Login Cliente</h1>
+        <img src="{{ url_for('static', filename='img/cliente.png')}}" id="foto_cli" alt="">
+        {% with messages = get_flashed_messages() %}
+
+        {% if messages %}
+        <br>
+        {% for message in messages %}
+        <div class="alert alert-primary alert-dismissible" role="alert">
+            <strong> {{ message }}</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" ></button>
+        </div>
+        {% endfor %}
+        {% endif %}
+
+        {% endwith %}
+        <p>Digite os seus dados de acesso no campo abaixo.</p>
+        
+        <label for="email">E-mail</label>
+        <input type="email" name="email" placeholder="Digite seu e-mail" autofocus="true" />
+        <label for="password">Senha</label>
+        <input type="password" name="password" placeholder="Digite sua senha" />
+        <a href="/">Esqueci minha senha</a>
+        <input type="submit" name="trocar_senha" value="Acessar" class="btn" />
+    </form>
+</div>
+{% endblock %}

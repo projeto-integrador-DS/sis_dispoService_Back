@@ -1,0 +1,70 @@
+@import url('https://fonts.googleapis.com/css2?family=Lilita+One&display=swap');
+
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    font-family: 'Lilita One', sans-serif;
+}
+
+.menu__pai__cliente {
+    padding: 0% 0% 5% 0%;
+}
+
+.menu__pai__logo {
+    padding: 0% 0% 5% 0%;
+    display: flex;
+    justify-content: center;
+}
+
+.menu__filho__logo {
+    width: 25%;
+}
+
+.menu__pai__tit__princial {
+    padding: 0% 0% 5% 0%;
+    display: flex;
+    justify-content: center;
+}
+
+.menu__pai__foto {
+    display: flex;
+    justify-content: center;
+}
+
+.menu__filho__foto {
+    width: 10%;
+}
+
+.menu__pai__saudacao {
+    padding: 5% 0% 0% 0%;
+    display: flex;
+    justify-content: center;
+}
+
+.menu__filho__saudacao {
+    font-size: 32px;
+}
+
+.menu__pai__botoes {
+    padding: 5% 0% 0% 0%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+}
+
+.menu__filho__botoes {
+    padding: 15px;
+    border: 2px solid #000;
+    border-radius: 16px;
+    text-decoration: none;
+    color: #000;
+    width: 200px;
+    text-align: center;
+}
+
+.menu__filho__botoes:hover {
+    background-color: #191b1b;
+    color: #ffffff;
+}

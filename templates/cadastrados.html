@@ -7,12 +7,16 @@
       <tr>
         <th scope="col">ID</th>
         <th scope="col">Nome</th>
-        <th scope="col">Idade</th>
-        <th scope="col">Rua</th>
-        <th scope="col">Cidade</th>
-        <th scope="col">Número</th>
-        <th scope="col">Estado</th>
         <th scope="col">Email</th>
+        <th scope="col">Cpf</th>
+        <th scope="col">Telefone</th>
+        <th scope="col">Rua</th>
+        <th scope="col">Número</th>
+        <th scope="col">Bairro</th>
+        <th scope="col">Cidade</th>
+        <th scope="col">Estado</th>
+        <th scope="col">Cep</th>
+        <th scope="col">Foto</th>
       </tr>
     </thead>
     <tbody>
@@ -20,12 +24,16 @@
       <tr>
         <td>{{loop.index}}</td>
         <td>{{row.NOME}}</td>
-        <td>{{row.IDADE}}</td>
-        <td>{{row.RUA}}</td>
-        <td>{{row.CIDADE}}</td>
-        <td>{{row.NUMERO}}</td>
-        <td>{{row.ESTADO}}</td>
         <td>{{row.EMAIL}}</td>
+        <td>{{row.CPF}}</td>
+        <td>{{row.TELEFONE}}</td>
+        <td>{{row.RUA}}</td>
+        <td>{{row.NUMERO}}</td>
+        <td>{{row.BAIRRO}}</td>
+        <td>{{row.CIDADE}}</td>
+        <td>{{row.ESTADO}}</td>
+        <td>{{row.CEP}}</td>
+        <td>{{row.FOTO}}</td>
         <td><a href="{{url_for('edit_user', id=row.ID)}}" class="btn btn-primary"></a>Editar</td>
         <td><a href="{{url_for('delete_user', id=row.ID)}}" class="btn btn-danger" onclick="return confirm('Tem certeza que deseja apagar?')"></a>Deletar</td>
       </tr>
