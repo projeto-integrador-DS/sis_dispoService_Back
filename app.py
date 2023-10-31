@@ -8,6 +8,7 @@ app.secret_key="daniel123"
 @app.route('/')
 @app.route('/index')
 def index():
+    
     #cur.execute("SELECT * FROM profissionais AS pr  JOIN cursos AS cur ON pr.ID_profiss = cur.fk_idProfiss JOIN experiencias AS exp ON pr.ID_profiss = exp.fk_IDprofiss;")  
     return render_template('index.html')
 
@@ -92,7 +93,7 @@ def cad_curso():
     modalidade  = request.form['modalidade']
     instituicao = request.form['instituicao']     
     area        = request.form['area']
-    fk_idProf = findIDProfis()
+    fk_idProf = getUltimoProfis()
     con =  sql.connect('goservice.db')
     cur=con.cursor()
     cur.execute("INSERT INTO cursos(fk_idProfiss, modalidade, instituicao, area) values (?,?,?,?)", (fk_idProf,modalidade, instituicao, area))
@@ -126,8 +127,8 @@ def incluir_curso(id_profiss):
         return redirect(url_for('list_cursos_prof',id_profiss=id_profiss))#id_profiss=id_profiss ainda não testado
     return render_template('cad_cursos.html', cadastro = False)
     
-@app.route("/edit_curso/<int:idCurso>/<int:id_profiss>", methods=["POST", "GET"])
-def edit_curso(idCurso, id_profiss):
+@app.route("/edit_curso/<int:idCurso>", methods=["POST", "GET"])
+def edit_curso(idCurso):
     
     if request.method == 'POST':
         modalidade =      request.form['modalidade']
@@ -143,7 +144,7 @@ def edit_curso(idCurso, id_profiss):
     con = sql.connect("goservice.db")
     con.row_factory = sql.Row
     cur = con.cursor()
-    cur.execute("SELECT c.ID_curso, c.modalidade, c.instituicao, c.area FROM cursos AS c JOIN profissionais AS pr ON pr.ID_profiss = c.fk_idProfiss WHERE pr.ID_profiss =? and c.ID_curso =?", (id_profiss, idCurso)) 
+    cur.execute("SELECT c.ID_curso, c.modalidade, c.instituicao, c.area FROM cursos AS c JOIN profissionais AS pr ON pr.ID_profiss = c.fk_idProfiss WHERE pr.ID_profiss =?", (idCurso,)) 
     #cur.execute("SELECT * FROM cursos WHERE ID_curso=?", (idCurso,))
     curso = cur.fetchone()
     return render_template('edit_cursos.html', cursos=curso)
@@ -155,9 +156,9 @@ def delete_curso(idCurso):
     cur.execute("DELETE FROM cursos WHERE ID_curso=?", (idCurso,))
     con.commit()
     flash('Dados deletados', 'warning')
-    return redirect(url_for('index'))
+    return redirect(url_for('list_cursos_prof', id_profiss=1))
 
-def findIDProfis():
+def getUltimoProfis():
     con = sql.connect("goservice.db")
     cur = con.cursor()
     cur.execute("SELECT MAX(ID_profiss) FROM profissionais;")
@@ -173,7 +174,7 @@ def cad_experiencia():
     temp_servico = request.form['temp_servico']
     empresa     = request.form['empresa']
 
-    fk_idProf   = findIDProfis()
+    fk_idProf   = getUltimoProfis()
 
     con =  sql.connect('goservice.db')
     cur=con.cursor()
@@ -257,6 +258,9 @@ def cad_servicos():
         cur = con.cursor()
         cur.execute("INSERT INTO servicos(nome, categoria, valor) values(?, ?, ?)",(nome, categoria, valor))
         con.commit()
+        #pega o ultimo id do profissional cadastrado
+        ultimIDprof=getUltimoProfis()
+        prof_serv(ultimIDprof)
         flash('Dados Cadastrados', 'success')
         con.close()
         return redirect(url_for('index'))
@@ -267,7 +271,7 @@ def cad_servicos():
 @app.route('/listaservicos/<int:id_profiss>', methods=['POST', 'GET'])
 def lista_servicos(id_profiss):
     #essa função é chamada 2x (get e post) por isso está cadastrando 2x
-    prof_serv(id_profiss) #apenas para fins de teste
+     #apenas para fins de teste
     con = sql.connect('goservice.db')
     cur = con.cursor()
     cur.row_factory=sql.Row
@@ -307,7 +311,7 @@ def edit_servicos(idServico):
         cur=con.cursor()
         cur.execute("UPDATE servicos SET nome=?, categoria=?, valor=? WHERE ID_servico=?",(nome, categoria, valor, idServico))
         con.commit()
-        return redirect(url_for('indexServico'))
+        return redirect(url_for('lista_servicos', id_profiss=1))
     con = sql.connect('goservice.db')
     cur = con.cursor()
     cur.row_factory=sql.Row
@@ -323,7 +327,7 @@ def delete_servicos(idServico):
     cur.execute("DELETE FROM servicos WHERE ID_servico=?", (idServico,))
     con.commit()
     con.close()
-    return render_template('indexServicos.html')
+    return redirect(url_for('lista_servicos', id_profiss=1))
 
 def getUltimoServico():
     con = sql.connect("goservice.db")

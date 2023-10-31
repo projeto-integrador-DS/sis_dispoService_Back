@@ -24,7 +24,8 @@
       <td><a href="{{url_for('delete_curso', idCurso=linha.ID_curso)}}" class="btn btn-danger" onclick="return confirm('Tem certeza que deseja apagar?')">Deletar</a></td>
     </tr>
     {% endfor %}
-    <td><a href="{{url_for('index')}}" class="btn btn-danger" >MENU</a></td>
+    
   </tbody>
 </table>
+<td><a href="{{url_for('index')}}" class="btn btn-danger" >MENU</a></td>
 {% endblock %}
