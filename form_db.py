@@ -91,7 +91,7 @@ cur.execute(sql_oferece)
 con.commit()
 
 def cadastraClientes():
-    cur.execute("INSERT INTO clientes (nome, cpf, telefone, email, endereco, num, cidade, bairro, cep, uf ) values('Marcelo', '088.617.184-93', '(87)9.81199151', 'devmarcelo.gus@gmail.com', 'rua João Gonçalves da SIlva', '115','Garanhuns', 'Boa Vista', '55292405', 'PE')")
+    cur.execute("INSERT INTO clientes (nome, cpf, telefone, email, rua, numero, cidade, bairro, cep, estado ) values('Marcelo', '088.617.184-93', '(87)9.81199151', 'devmarcelo.gus@gmail.com', 'rua João Gonçalves da SIlva', '115','Garanhuns', 'Boa Vista', '55292405', 'PE')")
     con.commit()
 
 def cadastraProfissionais():
