@@ -5,6 +5,7 @@ from form_db import cur
 app = Flask(__name__)
 app.secret_key="daniel123"
 
+
 @app.route('/')
 @app.route('/index')
 def index():
@@ -60,7 +61,9 @@ def edit_profissionais(idProf):
         num =       request.form['numero']
         bairro =    request.form["bairro"]
         cep =       request.form["cep"]
+        cep =       request.form["cep"]
         uf =        request.form['uf']
+
 
         con = sql.connect("goservice.db")
         cur = con.cursor()
@@ -249,7 +252,6 @@ def delete_experiencia(idExperiencia):
 @app.route('/cad_servicos', methods=['POST', 'GET'])
 def cad_servicos():
     if request.method=='POST':
-        
         nome    =   request.form['nome']
         categoria=  request.form['categoria']
         valor   =   request.form['valor']
@@ -264,7 +266,6 @@ def cad_servicos():
         flash('Dados Cadastrados', 'success')
         con.close()
         return redirect(url_for('index'))
-
     return render_template('cad_servicos.html')
 
 
@@ -292,7 +293,7 @@ def add_servicos(id_profiss):
         cur = con.cursor()
         cur.execute("INSERT INTO servicos(nome, categoria, valor) values(?, ?, ?)",(nome, categoria, valor))
         con.commit()
-
+        
         prof_serv(id_profiss) #relaciona as tabelas servicos e profissionais
 
         flash('Dados Cadastrados', 'success')

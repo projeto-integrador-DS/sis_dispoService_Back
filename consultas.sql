@@ -1,4 +1,20 @@
 -- SQLite
+
+SELECT *
+FROM profissionais AS pr
+JOIN cursos AS cur ON pr.ID_profiss = cur.fk_idProfiss
+JOIN experiencias AS exp ON pr.ID_profiss = exp.fk_idProfiss
+
+
+
+
+DROP TABLE cursos;
+DROP TABLE profissionais;
+DROP TABLE experiencias;
+
+SELECT * FROM profissionais;
+SELECT * FROM cursos;
+SELECT * -- SQLite
 /*filtra os cursos de um determinado profissional*/
 SELECT c.modalidade, c.instituicao, c.area
 FROM cursos AS c
@@ -30,6 +46,3 @@ JOIN  experiencias AS exp ON pr.ID_profiss = exp.fk_IDprofiss
 JOIN  oferece AS o ON pr.ID_profiss = o.fk_profiss AND serv.ID_servico = o.fk_servic
 JOIN servicos AS serv
 WHERE pr.ID_profiss = 1
-
-
-

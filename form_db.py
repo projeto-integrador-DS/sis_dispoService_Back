@@ -3,11 +3,14 @@ import sqlite3 as sql
 con = sql.connect('goservice.db')
 cur = con.cursor()
 
+
 cur.execute('DROP TABLE IF EXISTS profissionais')
+cur.execute('DROP TABLE IF EXISTS experiencias')
 cur.execute('DROP TABLE IF EXISTS experiencias')
 cur.execute('DROP TABLE IF EXISTS cursos')
 cur.execute('DROP TABLE IF EXISTS servicos')
 cur.execute('DROP TABLE IF EXISTS oferece')
+
 
 
 sql_profissionais = '''CREATE TABLE "profissionais"(
@@ -23,6 +26,7 @@ sql_profissionais = '''CREATE TABLE "profissionais"(
     cidade      TEXT,
     "uf"        TEXT
     )'''
+   
 
 
 sql_cursos = '''CREATE TABLE "cursos"(
