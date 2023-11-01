@@ -1,11 +1,16 @@
 import sqlite3 as sql
 
-con = sql.connect('clientes.db')
+con = sql.connect('goservice.db')
 cur = con.cursor()
-cur.execute('DROP TABLE IF EXISTS users')
+cur.execute('DROP TABLE IF EXISTS clientes')
+cur.execute('DROP TABLE IF EXISTS profissionais')
+cur.execute('DROP TABLE IF EXISTS experiencias')
+cur.execute('DROP TABLE IF EXISTS cursos')
+cur.execute('DROP TABLE IF EXISTS servicos')
+cur.execute('DROP TABLE IF EXISTS oferece')
 
 
-sql = '''CREATE TABLE "users"(
+sql_clientes = '''CREATE TABLE "clientes"(
     "ID" INTEGER PRIMARY KEY AUTOINCREMENT,
     "NOME" TEXT,
     "EMAIL" TEXT,
@@ -20,17 +25,12 @@ sql = '''CREATE TABLE "users"(
     "FOTO" TEXT
     )'''
 
-cur.execute(sql)
-con.commit()
+#cur.execute(sql)
+'''con.commit()
 con.close()
-con = sql.connect('goservice.db')
-cur = con.cursor()
+#con = sql.connect('goservice.db')
+cur = con.cursor()'''
 
-cur.execute('DROP TABLE IF EXISTS profissionais')
-cur.execute('DROP TABLE IF EXISTS experiencias')
-cur.execute('DROP TABLE IF EXISTS cursos')
-cur.execute('DROP TABLE IF EXISTS servicos')
-cur.execute('DROP TABLE IF EXISTS oferece')
 
 
 sql_profissionais = '''CREATE TABLE "profissionais"(
@@ -86,4 +86,5 @@ cur.execute(sql_cursos)
 cur.execute(sql_experiencias)
 cur.execute(sql_servicos)
 cur.execute(sql_oferece)
+cur.execute(sql_clientes)
 con.commit()

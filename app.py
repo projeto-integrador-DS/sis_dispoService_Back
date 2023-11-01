@@ -3,103 +3,113 @@ import sqlite3 as sql
 
 
 app = Flask(__name__)
+app.secret_key="daniel123"
+app.secret_key='marc123'
 
+#---------- Rota Inicial ----------
 @app.route('/')
 def inicial():
     return render_template('inicial_01.html')
 
+
+#---------- Rota Login Cliente ----------
 @app.route('/login_cliente')
 def loginCliente():
     return render_template('login.html')
 
 
+
+#---------- Rota Menu CLiente ----------
 @app.route('/menu_cliente')
 def menu_cliente():
     return render_template('menu_cliente.html')
 
 
+
+#---------- Rota Clientes Cadastrados ----------
 @app.route('/clientes_cadastrados')
 def clientes_cadastrados():
-    con = sql.connect("clientes.db")
+    con = sql.connect("goservice.db")
     con.row_factory = sql.Row
     cur = con.cursor()
-    cur.execute("select * from users")
+    cur.execute("select * from clientes")
     data = cur.fetchall()
     return render_template('cadastrados.html', datas=data)
 
+
+
+#---------- Rota Cadastrar Cliente ----------
 @app.route('/cadastre-se', methods=['POST', 'GET'])
 def add_user():
     if request.method == 'POST':
-        nome = request.form['nome']
-        email = request.form['email']
-        cpf = request.form['cpf']
-        telefone = request.form['telefone']
-        rua = request.form['rua']
-        numero = request.form['numero']
-        cidade = request.form['cidade']
-        bairro = request.form['bairro']
-        estado = request.form['estado']
-        cep = request.form['cep']
-        foto = request.form['foto']
+        nome =      request.form['nome']
+        email =     request.form['email']
+        cpf =       request.form['cpf']
+        telefone =  request.form['telefone']
+        rua =       request.form['rua']
+        numero =    request.form['numero']
+        cidade =    request.form['cidade']
+        bairro =    request.form['bairro']
+        estado =    request.form['estado']
+        cep =       request.form['cep']
+        foto =      request.form['foto']
 
-        con = sql.connect("clientes.db")
+        con = sql.connect("goservice.db")
         cur = con.cursor()
-        cur.execute("insert into users(NOME, EMAIL, CPF, TELEFONE, RUA, NUMERO, BAIRRO, CIDADE, ESTADO, CEP, FOTO) values (?,?,?,?,?,?,?,?,?,?,?)", (nome, email, cpf, telefone, rua, numero, cidade, bairro, estado, cep, foto))
+        cur.execute("insert into clientes(NOME, EMAIL, CPF, TELEFONE, RUA, NUMERO, BAIRRO, CIDADE, ESTADO, CEP, FOTO) values (?,?,?,?,?,?,?,?,?,?,?)", (nome, email, cpf, telefone, rua, numero, cidade, bairro, estado, cep, foto))
         con.commit()
         flash('Dados Cadastrados', 'success')
         return redirect(url_for('inicial'))
     return render_template('add_user.html')
 
 
+
+#---------- Rota Editar Cliente ----------
 @app.route('/edit_user/<string:id>', methods=['POST', 'GET'])
 def edit_user(id):
     if request.method == 'POST':
-        nome = request.form['nome']
-        email = request.form['email']
-        cpf = request.form['cpf']
-        telefone = request.form['telefone']
-        rua = request.form['rua']
-        numero = request.form['numero']
-        cidade = request.form['cidade']
-        bairro = request.form['bairro']
-        estado = request.form['estado']
-        cep = request.form['cep']
-        foto = request.form['foto']
+        nome =      request.form['nome']
+        email =     request.form['email']
+        cpf =       request.form['cpf']
+        telefone =  request.form['telefone']
+        rua =       request.form['rua']
+        numero =    request.form['numero']
+        cidade =    request.form['cidade']
+        bairro =    request.form['bairro']
+        estado =    request.form['estado']
+        cep =       request.form['cep']
+        foto =      request.form['foto']
         
-        con = sql.connect("clientes.db")
+        con = sql.connect("goservice.db")
         cur = con.cursor()
-        cur.execute("update users set NOME=?, EMAIL=?, CPF=?, TELEFONE=?, RUA=?, NUMERO=?, CIDADE=?, BAIRRO=?, ESTADO=?, CEP=?, FOTO=? where ID=?", (nome, email, cpf, telefone, rua, numero, cidade, bairro, estado, cep, foto, id))
+        cur.execute("update clientes set NOME=?, EMAIL=?, CPF=?, TELEFONE=?, RUA=?, NUMERO=?, CIDADE=?, BAIRRO=?, ESTADO=?, CEP=?, FOTO=? where ID=?", (nome, email, cpf, telefone, rua, numero, cidade, bairro, estado, cep, foto, id))
         con.commit()
         flash('Dados atualizados', 'success')
         return redirect(url_for('inicial'))
     con = sql.connect("clientes.db")
     con.row_factory = sql.Row
     cur = con.cursor()
-    cur.execute("select * from users where ID=?", (id))
-    data = cur.fetchone()
-    return render_template('edit_user.html', datas=data)
+    cur.execute("select * from clientes where ID=?", (id))
+    dados = cur.fetchone()
+    return render_template('edit_user.html', dados=dados)
 
 
+
+
+#---------- Rota Excluir Cliente ----------
 @app.route('/delete_user/<string:id>', methods=['GET'])
 def delete_user(id):
-    con = sql.connect("clientes.db")
+    con = sql.connect("goservice.db")
     cur = con.cursor()
-    cur.execute("delete from users where ID=?", (id))
+    cur.execute("delete from clientes where ID=?", (id))
     con.commit()
     flash('Dados deletados', 'warning')
     return redirect(url_for('inicial'))
-
-if __name__ == '__main__':
-    app.secret_key='marc123'
-    app.run(debug=True)
-    
-from form_db import cur
-
-app = Flask(__name__)
-app.secret_key="daniel123"
+#---------- Fim CRUD Cliente ----------
 
 
-#@app.route('/')
+
+#---------- Começo CRUD Profissionais ----------
 @app.route('/index')
 def index():
     con = sql.connect("goservice.db")
@@ -205,9 +215,9 @@ def cad_curso():
 def edit_curso(idCurso):
     
     if request.method == 'POST':
-        modalidade =      request.form['modalidade']
-        instituicao =       request.form["instituicao"]
-        area =  request.form["area"]
+        modalidade =    request.form['modalidade']
+        instituicao =   request.form["instituicao"]
+        area =          request.form["area"]
 
         con = sql.connect("goservice.db")
         cur = con.cursor()
@@ -329,6 +339,9 @@ def edit_servicos(idServico):
     servico =cur.fetchone()
     return render_template('edit_servicos.html', serv=servico)
 
+
+
+#---------- Rota Escluir Serviços ----------
 @app.route('/delete_servicos/<int:idServico>', methods=["GET"])
 def delete_servicos(idServico):
     con = sql.connect('goservice.db')
