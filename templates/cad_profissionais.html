@@ -1,8 +1,23 @@
 {% extends 'base.html' %}
 {% block body %}
 <div class="row">
+    <style>
+        .container__pai__logo {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 15px;
+        }
+        .logo {
+            width: 370px;
+            height: 150px;
+        }
+    </style>
     <div class="col-5 mx-auto">
-        <h3>CADASTRE_SE</h3><br>
+        <div class="container__pai__logo">
+            <img class="logo" src="{{ url_for('static', filename='img/goservice.png')}}" id="logo" alt="">
+            <h3>Formulário de cadastro de Profissionais</h3>
+        </div>
         <form method="post" action="{{url_for('cad_profissionais')}}">
             <div class="form-group">
                 <label>Nome</label>
