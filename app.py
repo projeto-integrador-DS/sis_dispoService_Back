@@ -1,6 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
 import sqlite3 as sql
-<<<<<<< HEAD
 
 
 app = Flask(__name__)
@@ -94,7 +93,6 @@ if __name__ == '__main__':
     app.secret_key='marc123'
     app.run(debug=True)
     
-=======
 from form_db import cur
 
 app = Flask(__name__)
@@ -342,4 +340,3 @@ def delete_servicos(idServico):
 
 if __name__ == '__main__':
     app.run(debug=True)
->>>>>>> main
