@@ -9,7 +9,7 @@ cur.execute('DROP TABLE IF EXISTS experiencias')
 cur.execute('DROP TABLE IF EXISTS cursos')
 cur.execute('DROP TABLE IF EXISTS servicos')
 cur.execute('DROP TABLE IF EXISTS oferece')
-
+cur.execute('DROP TABLE IF EXISTS loginProf')
 
 sql_clientes = '''CREATE TABLE "clientes"(
     "ID_clientes" INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -89,7 +89,7 @@ sql_login='''CREATE TABLE "loginProf"(
 )
 
 '''
-
+cur.execute(sql_login)
 cur.execute(sql_clientes)
 cur.execute(sql_profissionais)
 cur.execute(sql_cursos)

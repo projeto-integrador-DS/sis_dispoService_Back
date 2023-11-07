@@ -1,30 +1,31 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
 import sqlite3 as sql
-
+from werkzeug.security import generate_password_hash, check_password_hash
+from flask import Flask, render_template, request, redirect, url_for
+from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user
 
 app = Flask(__name__)
 app.secret_key="daniel123"
+login_manager = LoginManager() #para que serve?
+login_manager.init_app(app)
 
+
+ 
 
 #---------- Rota Inicial ----------
 @app.route('/')
 def inicial():
     return render_template('inicial_01.html')
 
-
 #---------- Rota Login Cliente ----------
 @app.route('/login_cliente')
 def loginCliente():
     return render_template('login.html')
 
-
-
 #---------- Rota Menu CLiente ----------
 @app.route('/menu_cliente')
 def menu_cliente():
     return render_template('menu_cliente.html')
-
-
 
 #---------- Rota Clientes Cadastrados ----------
 @app.route('/clientes_cadastrados')
@@ -35,8 +36,6 @@ def clientes_cadastrados():
     cur.execute("select * from clientes")
     data = cur.fetchall()
     return render_template('cadastrados.html', datas=data)
-
-
 
 #---------- Rota Cadastrar Cliente ----------
 @app.route('/cadastre-se', methods=['POST', 'GET'])
@@ -60,8 +59,6 @@ def add_user():
         flash('Dados Cadastrados', 'success')
         return redirect(url_for('inicial'))
     return render_template('add_user.html')
-
-
 
 #---------- Rota Editar Cliente ----------
 @app.route('/edit_user/<string:id>', methods=['POST', 'GET'])
@@ -111,21 +108,10 @@ def delete_user(id):
 @app.route('/')
 @app.route('/index')
 def index():
-    
-    #cur.execute("SELECT * FROM profissionais AS pr  JOIN cursos AS cur ON pr.ID_profiss = cur.fk_idProfiss JOIN experiencias AS exp ON pr.ID_profiss = exp.fk_IDprofiss;")  
     return render_template('index.html')
 
-@app.route('/indexServico')
-def indexServico():
-    con=sql.connect("goservice.db")
-    con.row_factory=sql.Row
-    cur = con.cursor()
-    cur.execute("SELECT * FROM servicos")
-    servico=cur.fetchall()
-
-    return render_template('indexServicos.html', servicos=servico)
-
 #============PROFISSIONAIS==============
+
 @app.route('/cad_profissionais', methods=['POST', 'GET'])
 def cad_profissionais():
     if request.method == 'POST':
@@ -145,7 +131,7 @@ def cad_profissionais():
         cur.execute("INSERT INTO profissionais(nome, cpf, telefone, email, endereco, cidade, num, bairro, cep, uf) values(?,?,?,?,?,?,?,?,?,?)", (nome, cpf, telefone, email, endereco, cidade, num, bairro, cep, uf))
         con.commit()
         flash('Dados Cadastrados', 'success')
-        return redirect(url_for('inicial'))
+        return render_template('cad_profUser.html')
         #return render_template('cad_cursos.html', cadastro=True) 
  
     return render_template('cad_profissionais.html')
@@ -191,6 +177,61 @@ def delete_profissionais(idProf):
     flash('Dados deletados', 'warning')
     
     return redirect(url_for('index'))
+
+@app.route('/cad_profUser/', methods=['POST'])
+def cad_profUser():
+    username=request.form['username']
+    senha=request.form['password']
+    con = sql.connect('goservice.db')
+    senha_hash = generate_password_hash(senha)
+    fk_idProfiss = getUltimoProfis()
+    cur = con.cursor()
+    
+    cur.execute("INSERT INTO loginProf(fk_profiss, username, senha) VALUES (?,?,?)", (fk_idProfiss, username, senha_hash))
+    con.commit()
+    con.close()
+    return render_template('cad_cursos.html')
+
+class User_profiss(UserMixin):
+    def __init__(self, id):
+        self.id = id
+
+@login_manager.user_loader
+def load_user(user_id):
+    con = sql.connect('database.db')
+    cur = con.cursor()
+    cur.execute("SELECT * FROM loginProf WHERE username=?", (user_id,))
+    user_prof = cur.fetchone()
+    if not user_prof:
+        return None
+    return User_profiss(user_prof[0])
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        username = request.form.get('username')
+        senha = request.form.get('senha')
+        
+        con = sql.connect('database.db')
+        cur = con.cursor()
+        cur.execute("SELECT * FROM loginProf WHERE username=?", (username,))
+        user_prof = cur.fetchone()
+        if user_prof and check_password_hash(user_prof[1], senha):
+            usuario = User_profiss(username)
+            login_user(usuario) #registra o usuário logado, cria uma sessão para o usuário
+            
+            return redirect(url_for('protected'))
+    return render_template('login.html')
+
+@app.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    return 'You are now logged out.'
+
+@app.route('/protected')
+@login_required
+def protected():
+    return 'Logged in as: ' + current_user.id
 
 #============CURSOS==============
 @app.route('/curso', methods=['POST', 'GET'])
