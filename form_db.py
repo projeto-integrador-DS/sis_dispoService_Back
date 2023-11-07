@@ -81,6 +81,14 @@ sql_oferece='''CREATE TABLE "oferece"(
     FOREIGN KEY ("fk_profiss") REFERENCES "profissionais" ("ID_profiss"),
     FOREIGN KEY ("fk_servic") REFERENCES "servicos" ("ID_servico")
 )'''
+sql_login='''CREATE TABLE "loginProf"(
+    "fk_profiss" INTEGER,
+    "username"  TEXT,
+    "senha"     TEXT,
+    FOREIGN KEY ("fk_profiss") REFERENCES "profissionais" ("ID_profiss")
+)
+
+'''
 
 cur.execute(sql_clientes)
 cur.execute(sql_profissionais)
