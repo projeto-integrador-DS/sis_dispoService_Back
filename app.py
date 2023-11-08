@@ -106,6 +106,14 @@ def delete_user(id):
 #---------- Fim CRUD Cliente ----------
 
 
+#---------- Rota cliente escolha serviço ----------
+@app.route('/escolha_servico')
+def escolhaServico():
+    return render_template('escolha_servicos.html')
+
+
+
+
 
 #---------- Começo CRUD Profissionais ----------
 @app.route('/')

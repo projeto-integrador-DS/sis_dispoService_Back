@@ -1,0 +1,37 @@
+{% extends 'base_servicos.html' %}
+
+{% block title %} Serviços Ofertados {% endblock %}
+
+{% block customCSS %} 
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/estilo_servicos.css')}}">
+{% endblock %}
+
+{% block body %}
+    <section>
+        <div class="inicial__pai__logo">
+            <img class="inicial__filho__logo" src="{{ url_for('static', filename='img/goservicebr.png')}}" alt="Logo da Empresa GoService">
+        </div>
+    </section>
+    <section class="pai__titulo">
+        <h1 class="filho__titulo">Escolha o profissional de acordo com o serviço que você esteja precisando </h1>
+    </section>
+    <section>
+        <div class="pai__container__serv">
+            <a href="#">
+                <p class="filho__container__pintor">Pintores</p>
+            </a>
+            <a href="#">
+                <p class="filho__container__pedreiro">Pedreiros</p>
+            </a>
+            <a href="#">
+                <p class="filho__container__encanador">encanadores</p>
+            </a>
+            <a href="#">
+                <p class="filho__container__cuidador">Cuidadores</p>
+            </a>
+        </div>
+        
+        
+       
+    </section>
+{% endblock %}
