@@ -10,7 +10,6 @@ login_manager = LoginManager() #para que serve?
 login_manager.init_app(app)
 
 
- 
 
 #---------- Rota Inicial ----------
 @app.route('/')
@@ -108,7 +107,7 @@ def delete_user(id):
 @app.route('/')
 @app.route('/index')
 def index():
-    return render_template('index.html')
+    return render_template('inicial_01.html')
 
 #============PROFISSIONAIS==============
 
@@ -198,20 +197,21 @@ class User_profiss(UserMixin):
 
 @login_manager.user_loader
 def load_user(user_id):
-    con = sql.connect('database.db')
+    con = sql.connect('goservice.db')
     cur = con.cursor()
     cur.execute("SELECT * FROM loginProf WHERE username=?", (user_id,))
     user_prof = cur.fetchone()
     if not user_prof:
         return None
     return User_profiss(user_prof[0])
-@app.route('/login', methods=['GET', 'POST'])
-def login():
+    
+@app.route('/login_profissional', methods=['GET', 'POST'])
+def login_profissional():
     if request.method == 'POST':
         username = request.form.get('username')
         senha = request.form.get('senha')
         
-        con = sql.connect('database.db')
+        con = sql.connect('goservice.db')
         cur = con.cursor()
         cur.execute("SELECT * FROM loginProf WHERE username=?", (username,))
         user_prof = cur.fetchone()
@@ -220,7 +220,7 @@ def login():
             login_user(usuario) #registra o usuário logado, cria uma sessão para o usuário
             
             return redirect(url_for('protected'))
-    return render_template('login.html')
+    return render_template('login_profissional.html')
 
 @app.route('/logout')
 @login_required

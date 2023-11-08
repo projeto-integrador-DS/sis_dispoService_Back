@@ -81,14 +81,15 @@ sql_oferece='''CREATE TABLE "oferece"(
     FOREIGN KEY ("fk_profiss") REFERENCES "profissionais" ("ID_profiss"),
     FOREIGN KEY ("fk_servic") REFERENCES "servicos" ("ID_servico")
 )'''
+
 sql_login='''CREATE TABLE "loginProf"(
     "fk_profiss" INTEGER,
     "username"  TEXT,
     "senha"     TEXT,
     FOREIGN KEY ("fk_profiss") REFERENCES "profissionais" ("ID_profiss")
 )
-
 '''
+
 cur.execute(sql_login)
 cur.execute(sql_clientes)
 cur.execute(sql_profissionais)
@@ -97,6 +98,15 @@ cur.execute(sql_experiencias)
 cur.execute(sql_servicos)
 cur.execute(sql_oferece)
 con.commit()
+
+
+def cad_loginProf():
+    cur.execute("INSERT INTO loginProf (username, senha) VALUES (?,?)", ('Daniel', '125'))
+    con.commit()
+def mostraLoginProf():
+    cur.execute("SELECT * FROM loginProf")
+    log=cur.fetchall()
+    return log[0]
 
 def cadastraClientes():
     cur.execute("INSERT INTO clientes (nome, cpf, telefone, email, rua, numero, cidade, bairro, cep, estado ) values('Marcelo', '088.617.184-93', '(87)9.81199151', 'devmarcelo.gus@gmail.com', 'rua João Gonçalves da SIlva', '115','Garanhuns', 'Boa Vista', '55292405', 'PE')")
@@ -123,4 +133,7 @@ cadastraProfissionais()
 cadastraServicos()
 cadastraCursos()
 cadastraExperiencia()
+cad_loginProf()
+
+print("mostraLogin",mostraLoginProf())
 con.close()
