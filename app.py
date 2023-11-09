@@ -110,7 +110,7 @@ def delete_user(idCli):
 #---------- Rota cliente escolha serviço ----------
 @app.route('/escolha_servico')
 def escolhaServico():
-    return render_template('escolha_servicos.html')
+    return render_template('escolha_servicos.html',dados="")
 
 
 

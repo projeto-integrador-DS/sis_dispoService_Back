@@ -7,10 +7,11 @@
 {% endblock %}
 
 {% block body %}
+
     <section>
         <div class="inicial__pai__logo">
             <img class="inicial__filho__logo" src="{{ url_for('static', filename='img/goservicebr.png')}}" alt="Logo da Empresa GoService">
-            <p class="text-right"><a href="{{url_for('edit_user', idCli=dados.ID_clientes)}}" class="btn btn-success">+Editar perfil</a></p>
+            
 
         </div>
     </section>
