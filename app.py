@@ -59,7 +59,7 @@ def add_user():
         con.commit()
         flash('Dados Cadastrados', 'success')
         return redirect(url_for('inicial'))
-    return render_template('add_user.html')
+    return render_template('cad_cliente.html')
 
 
 
@@ -89,7 +89,7 @@ def edit_user(id):
     cur = con.cursor()
     cur.execute("select * from clientes where ID=?", (id))
     dados = cur.fetchone()
-    return render_template('edit_user.html', dados=dados)
+    return render_template('edit_cliente.html', dados=dados)
 
 
 
