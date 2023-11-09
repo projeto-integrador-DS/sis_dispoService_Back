@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu do Profissional</title>
+    <link rel="stylesheet" href="estilo_menu_profissional.css">
+</head>
+    {% extends 'base.html' %}
+
+    {% block title %} Cadastro de Jogos {% endblock %}
+    
+    {% block customCSS %}
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/estilo_menu_profissional.css')}}">
+    {% endblock %}
+
+    {% block content %}
+        <h3 class="text-center text-muted mb-3"></h3>
+
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <ul id="messages" class="list-unstyled">
+                    {% for message in messages %}
+                        <li class="alert alert-success">{{ message }}</li>
+                    {% endfor %}
+                    </ul>
+                {% endif %}
+            {% endwith %}
+        <p class="text-right"><a href="{{url_for('edit_user(id)')}}" class="btn btn-success">+Novo Cadastro</a></p>
+            <div class="container">
+                <div class="page-header">
+                    <h1>Jogoteca</h1>
+                </div>
+                <table class="table table-striped table-responsive table-bordered">
+                    <thead class="thead-default">
+                        <tr>
+                            <th>Nome do jogo</th>
+                            <th>Categoria do jogo</th>
+                            <th>Console do jogo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for jogo in jogos %}
+                            <tr>
+                                <td>{{jogo.nome}}</td>
+                                <td>{{jogo.categoria}}</td>
+                                <td>{{jogo.console}}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+    {% endblock %}
+</html>
