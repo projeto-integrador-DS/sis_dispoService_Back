@@ -34,7 +34,7 @@ def clientes_cadastrados():
     cur = con.cursor()
     cur.execute("select * from clientes")
     data = cur.fetchall()
-    return render_template('cadastrados.html', datas=data)
+    return render_template('cadastrados.html', dados=data)
 
 
 
@@ -64,8 +64,8 @@ def add_user():
 
 
 #---------- Rota Editar Cliente ----------
-@app.route('/edit_user/<string:id>', methods=['POST', 'GET'])
-def edit_user(id):
+@app.route('/edit_user/<string:idCli>', methods=['POST', 'GET'])
+def edit_user(idCli):
     if request.method == 'POST':
         nome =      request.form['nome']
         email =     request.form['email']
@@ -80,14 +80,15 @@ def edit_user(id):
         
         con = sql.connect("goservice.db")
         cur = con.cursor()
-        cur.execute("update clientes set nome=?, email=?, cpf=?, telefone=?, rua=?, numero=?, cidade=?, bairro=?, estado=?, cep=?, where ID_clientes=?", (nome, email, cpf, telefone, rua, numero, cidade, bairro, estado, cep, id))
+        cur.execute("UPDATE clientes set nome=?, email=?, cpf=?, telefone=?, rua=?, numero=?, cidade=?, bairro=?, estado=?, cep=?, WHERE ID_clientes=?", (nome, email, cpf, telefone, rua, numero, cidade, bairro, estado, cep, idCli))
         con.commit()
         flash('Dados atualizados', 'success')
         return redirect(url_for('inicial'))
-    con = sql.connect("clientes.db")
+    con = sql.connect("goservice.db")
     con.row_factory = sql.Row
     cur = con.cursor()
-    cur.execute("select * from clientes where ID=?", (id))
+
+    cur.execute("SELECT * from clientes WHERE ID_clientes=?", (idCli))
     dados = cur.fetchone()
     return render_template('edit_cliente.html', dados=dados)
 
@@ -95,11 +96,11 @@ def edit_user(id):
 
 
 #---------- Rota Excluir Cliente ----------
-@app.route('/delete_user/<string:id>', methods=['GET'])
-def delete_user(id):
+@app.route('/delete_user/<string:idCli>', methods=['GET'])
+def delete_user(idCli):
     con = sql.connect("goservice.db")
     cur = con.cursor()
-    cur.execute("delete from clientes where ID=?", (id))
+    cur.execute("DELETE from clientes WHERE ID_clientes=?", (idCli))
     con.commit()
     flash('Dados deletados', 'warning')
     return redirect(url_for('inicial'))

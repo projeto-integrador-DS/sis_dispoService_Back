@@ -13,16 +13,16 @@ cur.execute('DROP TABLE IF EXISTS oferece')
 
 sql_clientes = '''CREATE TABLE "clientes"(
     "ID_clientes" INTEGER PRIMARY KEY AUTOINCREMENT,
-    "nome" TEXT,
-    "email" TEXT,
-    "cpf" TEXT,
-    "telefone" TEXT,
-    "rua" TEXT,
-    "numero" TEXT,
-    "bairro" TEXT,
-    "cidade" TEXT,
-    "estado" TEXT,
-    "cep" TEXT
+    "nome"      TEXT,
+    "email"     TEXT,
+    "cpf"       TEXT,
+    "telefone"  TEXT,
+    "rua"       TEXT,
+    "numero"    TEXT,
+    "bairro"    TEXT,
+    "cidade"    TEXT,
+    "estado"    TEXT,
+    "cep"       TEXT
     )'''
 
 #cur.execute(sql)
