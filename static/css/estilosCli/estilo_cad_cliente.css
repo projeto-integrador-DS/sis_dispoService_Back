@@ -25,7 +25,11 @@ body {
 
 
 .pai__botoes {
-    padding-bottom: 3em;
+    padding: 2em 12em;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
+}
+
+.btns {
+    width: 12em;
 }

@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, flash
+from flask import Flask, render_template, request, redirect, url_for, flash, jsonify
 import sqlite3 as sql
 
 
@@ -200,6 +200,25 @@ def delete_profissionais(idProf):
     flash('Dados deletados', 'warning')
     
     return redirect(url_for('index'))
+
+
+
+@app.route('/profissionais/<profissao>', methods=['GET'])
+def list_profissionais(profissao):
+    con = sql.connect("goservice.db")
+    cur = con.cursor()
+    dados = cur.execute(f'''
+                SELECT * FROM profissionais
+                JOIN experiencias ON profissionais.ID_profiss = experiencias.fk_IDprofiss
+                WHERE experiencias.cargo = '{profissao}';
+            ''').fetchall()
+    con.close()
+    
+    # Aqui, transformamos os resultados em um dicionário para jsonify
+    profissionais_dict = [dict(zip([column[0] for column in cur.description], row)) for row in dados]
+    
+    return jsonify(profissionais_dict)
+
 
 #============CURSOS==============
 @app.route('/curso', methods=['POST', 'GET'])

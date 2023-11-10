@@ -6,67 +6,69 @@
 {% endblock %}
 
 {% block body %}
-<div class="row">
-    <div class="col-5 mx-auto">
+
         <div class="container__pai__logo">
             <img class="logo" src="{{ url_for('static', filename='img/goservicebr.png')}}" id="logo" alt="">
         </div>
         <div class="container__pai__titulo">
             <h3>Formulário de cadastro de clientes</h3>
         </div>
-        <form method="post" action="{{url_for('add_user')}}">
-            <div class="pai__esquerdo">
-                <div class="form-group bg-black text-white">
-                    <label>Nome</label>
-                    <input type="text" name="nome" id="" required class="form-control bg-black text-white">
+
+        <form class="flex-lg-row" method="post" action="{{url_for('add_user')}}">
+            <div class="row">
+                
+                <div class="col">
+                    <div class="form-group ">
+                        <label>Nome</label>
+                        <input type="text" name="nome" id="" required class="form-control bg-black text-white">
+                    </div>
+                    <div class="form-group col">
+                        <label>Email</label>
+                        <input type="email" name="email" id="" required class="form-control bg-black text-white">
+                    </div>
+                    <div class="form-group col">
+                        <label>CPF</label>
+                        <input type="text" name="cpf" id="" required class="form-control bg-black text-white">
+                    </div>
+                    <div class="form-group col">
+                        <label>Telefone</label>
+                        <input type="text" name="telefone" id="" required class="form-control bg-black text-white">
+                    </div>
+                    <div class="form-group col">
+                        <label>Rua</label>
+                        <input type="text" name="rua" id="" required class="form-control bg-black text-white">
+                    </div>
                 </div>
-                <div class="form-group bg-black text-white">
-                    <label>Email</label>
-                    <input type="email" name="email" id="" required class="form-control bg-black text-white">
+                <div class="col">
+                    <div class="form-group col-md-2 ">
+                        <label>Num casa</label>
+                        <input type="number" name="numero" id="" class="form-control bg-black text-white">
+                    </div>
+                    <div class="form-group col">
+                        <label>Bairro</label>
+                        <input type="text" name="bairro" id="" required class="form-control bg-black text-white">
+                    </div>
+                    <div class="form-group col">
+                        <label>Cidade</label>
+                        <input type="text" name="cidade" id="" required class="form-control bg-black text-white">
+                    </div>
+                    <div class="form-group col">
+                        <label>UF</label>
+                        <input type="text" name="estado" id="" required class="form-control bg-black text-white">
+                    </div>
+                    <div class="form-group col">
+                        <label>CEP</label>
+                        <input type="text" name="cep" id="" required class="form-control bg-black text-white">
+                    </div>
                 </div>
-                <div class="form-group bg-black text-white">
-                    <label>CPF</label>
-                    <input type="text" name="cpf" id="" required class="form-control bg-black text-white">
+                <br>
+                <div class="pai__botoes">
+                    <input type="submit" value="Adicionar" class="btn bg-white text-black my-2 my-sm-0 btns">
+                    <a class="btn bg-white text-black my-2 my-sm-0 btns" >Retornar
+                    </a>
                 </div>
-                <div class="form-group bg-black text-white">
-                    <label>Telefone</label>
-                    <input type="text" name="telefone" id="" required class="form-control bg-black text-white">
-                </div>
-                <div class="form-group bg-black text-white">
-                    <label>Rua</label>
-                    <input type="text" name="rua" id="" required class="form-control bg-black text-white">
-                </div>
-            </div>
-            <div class="pai__direito">
-                <div class="form-group bg-black text-white">
-                    <label>Número</label>
-                    <input type="number" name="numero" id="" class="form-control bg-black text-white">
-                </div>
-                <div class="form-group bg-black text-white">
-                    <label>Bairro</label>
-                    <input type="text" name="bairro" id="" required class="form-control bg-black text-white">
-                </div>
-                <div class="form-group bg-black text-white">
-                    <label>Cidade</label>
-                    <input type="text" name="cidade" id="" required class="form-control bg-black text-white">
-                </div>
-                <div class="form-group bg-black text-white">
-                    <label>UF</label>
-                    <input type="text" name="estado" id="" required class="form-control bg-black text-white">
-                </div>
-                <div class="form-group bg-black text-white">
-                    <label>CEP</label>
-                    <input type="text" name="cep" id="" required class="form-control bg-black text-white">
-                </div>
-            </div>
-            <br>
-            <div class="pai__botoes">
-                <input type="submit" value="Adicionar" class="btn bg-white text-black my-2 my-sm-0">
-                <a class="btn bg-white text-black my-2 my-sm-0" >Retornar
-                </a>
             </div>
         </form>
-    </div>
-</div>
+    
 
 {% endblock %}

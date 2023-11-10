@@ -95,11 +95,11 @@ def cadastraClientes():
     con.commit()
 
 def cadastraProfissionais():
-    cur.execute("INSERT INTO profissionais (nome, CPF, telefone, email, endereco, cidade, num, bairro, cep, uf ) values('Daniel', '703.968.604-00', '(87)9.81355794', 'danielverissimo1d@gmail.com', 'rua c', '08', 'centro', '55355000', 'paranatama-pe', 'pe')")
+    cur.execute("INSERT INTO profissionais (ID_profiss, nome, CPF, telefone, email, endereco, cidade, num, bairro, cep, uf ) values(1, 'Daniel', '703.968.604-00', '(87)9.81355794', 'danielverissimo1d@gmail.com', 'rua c', '08', 'centro', '55355000', 'paranatama-pe', 'pe')")
     con.commit()
     
 def cadastraServicos():
-    cur.execute("INSERT INTO servicos (nome, categoria, valor) values('formatação de PC', 'manutenção', 80 )")
+    cur.execute("INSERT INTO servicos (fk_IDprofiss,nome, categoria, valor) values(1, 'formatação de PC', 'manutenção', 80 )")
     con.commit()
 
 def cadastraCursos():

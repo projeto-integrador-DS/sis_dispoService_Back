@@ -7,55 +7,63 @@
 {% endblock %}
 
 {% block body %}
-<div class="row">
-    <div class="col-5 mx-auto">
+
         <div class="container__pai__logo">
             <img class="logo" src="{{ url_for('static', filename='img/goservicebr.png')}}" id="logo" alt="">
         </div>
         <div class="container__pai__titulo">
             <h3 class="titulo__pag">Cadastro de Profissionais</h3>
         </div>
-        <form method="post" action="{{url_for('cad_profissionais')}}">
-            <div class="form-group">
-                <label>Nome</label>
-                <input type="text" name="nome" id="" required class="form-control bg-black text-white"> 
-            </div>
-            
-            <div class="form-group">
-                <label>CPF</label>
-                <input type="text" name="cpf" id="" required class="form-control bg-black text-white"> 
-            </div>
-            <div class="form-group">
-                <label>telefone</label>
-                <input type="text" name="telefone" id="" required class="form-control bg-black text-white"> 
-            </div>
-            <div class="form-group">
-                <label>email</label>
-                <input type="text" name="email" id="" required class="form-control bg-black text-white"> 
-            </div>
-            <div class="form-group">
-                <label>endereco</label>
-                <input type="text" name="endereco" id="" required class="form-control bg-black text-white"> 
-            </div>
-            <div class="form-group">
-                <label>cidade</label>
-                <input type="text" name="cidade" id="" required class="form-control bg-black text-white"> 
-            </div>
-            <div class="form-group">
-                <label>numero</label>
-                <input type="text" name="numero" id="" required class="form-control bg-black text-white"> 
-            </div>
-            <div class="form-group">
-                <label>bairro</label>
-                <input type="text" name="bairro" id="" required class="form-control bg-black text-white"> 
-            </div>
-            <div class="form-group">
-                <label>cep</label>
-                <input type="text" name="cep" id="" required class="form-control bg-black text-white"> 
-            </div>
-            <div class="form-group">
-                <label>UF</label>
-                <input type="text" name="uf" id="" required class="form-control bg-black text-white"> 
+
+
+        <form class="flex-lg-row" method="post" action="{{url_for('cad_profissionais')}}">
+            <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label>Nome</label>
+                            <input type="text" name="nome" id="" required class="form-control bg-black text-white"> 
+                        </div>
+                        <div class="form-group">
+                            <label>CPF</label>
+                            <input type="text" name="cpf" id="" required class="form-control bg-black text-white"> 
+                        </div>
+                        <div class="form-group">
+                            <label>Telefone</label>
+                            <input type="text" name="telefone" id="" required class="form-control bg-black text-white"> 
+                        </div>
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="text" name="email" id="" required class="form-control bg-black text-white"> 
+                        </div>
+                        <div class="form-group">
+                            <label>Endereco</label>
+                            <input type="text" name="endereco" id="" required class="form-control bg-black text-white"> 
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="form-group">
+                            <label>Cidade</label>
+                            <input type="text" name="cidade" id="" required class="form-control bg-black text-white"> 
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label>Num Casa</label>
+                            <input type="text" name="numero" id="" required class="form-control bg-black text-white"> 
+                        </div>
+                        <div class="form-group">
+                            <label>Bairro</label>
+                            <input type="text" name="bairro" id="" required class="form-control bg-black text-white"> 
+                        </div>
+                        <div class="form-group">
+                            <label>Cep</label>
+                            <input type="text" name="cep" id="" required class="form-control bg-black text-white"> 
+                        </div>
+                        <div class="form-group">
+                            <label>UF</label>
+                            <input type="text" name="uf" id="" required class="form-control bg-black text-white"> 
+                        </div>
+                    </div>
+                </div>
             </div>
             <br>
             <div class="pai__botao__cadastrar">
