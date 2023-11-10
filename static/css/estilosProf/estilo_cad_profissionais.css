@@ -1,0 +1,32 @@
+:root {
+    --cor-preta: #000;
+    --cor-branca: #FFF;
+}
+
+
+body {
+    background-color: var(--cor-preta);
+    color: var(--cor-branca);
+}
+
+
+.container__pai__logo {
+    display: flex;
+    justify-content: center;
+    
+}
+
+.logo {
+    width: 370px;
+    height: 150px;
+}
+
+.container__pai__titulo {
+    display: flex;
+    justify-content: center;
+
+}
+
+.pai__botao__cadastrar {
+    padding-bottom: 3em;
+}

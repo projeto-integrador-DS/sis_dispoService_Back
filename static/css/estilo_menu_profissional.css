@@ -225,16 +225,7 @@ padding: 4% 0% 0% 3%;
 
 /* estilo da página cad_cliente.html*/
 
-.container__pai__logo {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 15px;
-}
-.logo {
-    width: 370px;
-    height: 150px;
-}
+
 
 
 /* Estilo da página edit_cliente.html*/
@@ -249,3 +240,8 @@ padding: 4% 0% 0% 3%;
     width: 370px;
     height: 150px;
 }
+
+/* Estilo da página cad_profissionais*/
+
+
+
