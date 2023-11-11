@@ -4,7 +4,7 @@ import sqlite3 as sql
 
 
 #---------importando funções do prof.py----------
-from profissionais.prof import getUltimoProfis, getUltimoServico
+from profissionais.prof import getUltimoProfis
 
 
 exp_blueprint = Blueprint('exp', __name__, template_folder='templates')
