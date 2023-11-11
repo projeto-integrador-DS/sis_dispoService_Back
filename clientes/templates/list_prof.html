@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block body %}
 <h3 class="text-center text-muted mb-3"></h3>
-<p class="text-right"><a href="{{url_for('cad_servicos')}}" class="btn btn-success">+Novo Servico</a></p>
+<p class="text-right"><a href="{{url_for('clientes.cad_servicos')}}" class="btn btn-success">+Novo Servico</a></p>
 {%print("tenta executar a função cad_servicos")%}
 <table class="table table-bordered">
   <thead>
@@ -21,8 +21,8 @@
       <td>{{servico.nome}}</td>
       <td>{{servico.categoria}}</td>
       <td>{{servico.valor}}</td>
-      <td><a href="{{url_for('edit_servicos', idServico=servico.ID_servico)}}" class="btn btn-primary">Editar</a></td>
-      <td><a href="{{url_for('delete_servicos', idServico=servico.ID_servico)}}" class="btn btn-danger" onclick="return confirm('Tem certeza que deseja apagar?')">Deletar</a></td>
+      <td><a href="{{url_for('clientes.edit_servicos', idServico=servico.ID_servico)}}" class="btn btn-primary">Editar</a></td>
+      <td><a href="{{url_for('clientes.delete_servicos', idServico=servico.ID_servico)}}" class="btn btn-danger" onclick="return confirm('Tem certeza que deseja apagar?')">Deletar</a></td>
     </tr>
     {% endfor %}
   </tbody>

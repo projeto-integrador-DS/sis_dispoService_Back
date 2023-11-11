@@ -16,7 +16,7 @@
             <h3>Editar Usuário: {{datas.nome}}</h3>
         </div>
        
-        <form class="flex-lg-row" action= "{{url_for('edit_profissionais', idProf=datas.ID_profiss)}}" method="post">
+        <form class="flex-lg-row" action= "{{url_for('prof.edit_profissionais', idProf=datas.ID_profiss)}}" method="post">
             <div class="row">
 
                 <div class="col">
@@ -68,7 +68,7 @@
 
             <div class="pai__botoes">
                 <input type="submit" value="Confirmar" class="btn bg-success text-white botao-submit">
-                <a class="btn bg-white text-black my-2 my-sm-0 btns botao-submit" href="{{url_for('inicial')}}" >
+                <a class="btn bg-white text-black my-2 my-sm-0 btns botao-submit" href="{{url_for('clientes.inicial')}}" >
                     Voltar
                 </a>
             </div>

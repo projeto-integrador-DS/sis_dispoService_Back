@@ -1,7 +1,7 @@
 {% extends 'bases/base.html' %}
 {% block body %}
 <h3 class="text-center text-muted mb-3"></h3>
-<p class="text-right"><a href="{{url_for('add_servicos', id_profiss=1)}}" class="btn btn-success">+Incluir Servico</a></p>
+<p class="text-right"><a href="{{url_for('prof.add_servicos', id_profiss=1)}}" class="btn btn-success">+Incluir Servico</a></p>
 
 <table class="table table-bordered">
   <thead>
@@ -21,13 +21,13 @@
       <td>{{servico.nome}}</td>
       <td>{{servico.categoria}}</td>
       <td>{{servico.valor}}</td>
-      <td><a href="{{url_for('edit_servicos', idServico=servico.ID_servico)}}" class="btn btn-primary">Editar</a></td>
-      <td><a href="{{url_for('delete_servicos', idServico=servico.ID_servico)}}" class="btn btn-danger" onclick="return confirm('Tem certeza que deseja apagar?')">Deletar</a></td>
+      <td><a href="{{url_for('prof.edit_servicos', idServico=servico.ID_servico)}}" class="btn btn-primary">Editar</a></td>
+      <td><a href="{{url_for('prof.delete_servicos', idServico=servico.ID_servico)}}" class="btn btn-danger" onclick="return confirm('Tem certeza que deseja apagar?')">Deletar</a></td>
     </tr>
     
     {% endfor %}
   </tbody>
 </table>
-<a href="{{url_for('index')}}" class="btn btn-danger" >MENU</a>
+<a href="{{url_for('prof.index')}}" class="btn btn-danger" >MENU</a>
 
 {% endblock %}

@@ -15,7 +15,7 @@
         <div class="container__pai__titulo">
             <h3>Editar Usuário: {{dados.nome}}</h3>
         </div>
-            <form class="flex-lg-row" action="{{url_for('edit_user', idCli=dados.ID_clientes)}}" method="post" >
+            <form class="flex-lg-row" action="{{url_for('clientes.edit_user', idCli=dados.ID_clientes)}}" method="post" >
                 <div class="row">
                     <div class="col">
                         <div class="form-group">
@@ -65,7 +65,7 @@
                 <br>
                 <div class="pai__botoes">
                     <input type="submit" value="Confirmar" class="btn bg-success text-white botao-submit">
-                    <a class="btn bg-white text-black my-2 my-sm-0 btns botao-submit" href="{{url_for('inicial')}}" >
+                    <a class="btn bg-white text-black my-2 my-sm-0 btns botao-submit" href="{{url_for('clientes.inicial')}}" >
                         Voltar
                     </a>
                 </div>

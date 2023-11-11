@@ -4,7 +4,7 @@
 {% endblock %}
 {% block body %}
 <h3 class="text-center text-muted mb-3"></h3>
-<p class="text-right"><a href="{{url_for('add_user')}}" class="btn bg-white link-dark">+Novo Cadastro</a></p>
+<p class="text-right"><a href="{{url_for('clientes.add_user')}}" class="btn bg-white link-dark">+Novo Cadastro</a></p>
 <table class="table table-bordered table-dark bg-dark">
     <thead>
       <tr>
@@ -35,8 +35,8 @@
         <td>{{row.CIDADE}}</td>
         <td>{{row.ESTADO}}</td>
         <td>{{row.CEP}}</td>
-        <td><a href="{{url_for('edit_user', idCli=row.ID_clientes)}}" class="btn btn-primary"></a>Editar</td>
-        <td><a href="{{url_for('delete_user', idCli=row.ID_clientes)}}" class="btn btn-danger" onclick="return confirm('Tem certeza que deseja apagar?')"></a>Deletar</td>
+        <td><a href="{{url_for('clientes.edit_user', idCli=row.ID_clientes)}}" class="btn btn-primary"></a>Editar</td>
+        <td><a href="{{url_for('clientes.delete_user', idCli=row.ID_clientes)}}" class="btn btn-danger" onclick="return confirm('Tem certeza que deseja apagar?')"></a>Deletar</td>
       </tr>
       {% endfor %}
     </tbody>
