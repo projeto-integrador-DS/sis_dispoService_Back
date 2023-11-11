@@ -1,7 +1,7 @@
 {% extends 'bases/base.html' %}
 {% block body %}
 <h3 class="text-center text-muted mb-3"></h3>
-<p class="text-right"><a href="{{url_for('prof.add_experiencia', id_profiss=1)}}" class="btn btn-success">+Novo Cadastro</a></p>
+<p class="text-right"><a href="{{url_for('exp.add_experiencia', id_profiss=1)}}" class="btn btn-success">+Novo Cadastro</a></p>
 <table class="table_experiencias">
   <thead>
     <tr>
@@ -20,8 +20,8 @@
       <td>{{experiencia.cargo}}</td>
       <td>{{experiencia.temp_servico}}</td>
       <td>{{experiencia.empresa}}</td>
-      <td><a href="{{url_for('prof.edit_experiencias', idExperiencia=experiencia.ID_experiencia)}}" class="btn btn-primary">Editar</a></td>
-      <td><a href="{{url_for('prof.delete_experiencia', idExperiencia=experiencia.ID_experiencia)}}" class="btn btn-danger" onclick="return confirm('Tem certeza que deseja apagar?')">Deletar</a></td>      
+      <td><a href="{{url_for('exp.edit_experiencias', idExperiencia=experiencia.ID_experiencia)}}" class="btn btn-primary">Editar</a></td>
+      <td><a href="{{url_for('exp.delete_experiencia', idExperiencia=experiencia.ID_experiencia)}}" class="btn btn-danger" onclick="return confirm('Tem certeza que deseja apagar?')">Deletar</a></td>      
     </tr>
     
     {% endfor %}
