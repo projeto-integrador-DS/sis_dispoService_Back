@@ -1,31 +1,27 @@
 :root {
-    --cor-preta: #000;
     --cor-branca: #FFF;
+    --cor-preta: #000;
 }
-
 
 body {
     background-color: var(--cor-preta);
     color: var(--cor-branca);
 }
 
-
 .container__pai__logo {
     display: flex;
     justify-content: center;
-    
+}
+
+.container__pai__titulo {
+    padding: 2em 0em ;
+    display: flex;
+    justify-content: center;
 }
 
 .logo {
     width: 370px;
     height: 150px;
-}
-
-.container__pai__titulo {
-    padding: 2em 0em;
-    display: flex;
-    justify-content: center;
-
 }
 
 .pai__botoes {

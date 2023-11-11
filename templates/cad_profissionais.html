@@ -7,6 +7,7 @@
 {% endblock %}
 
 {% block body %}
+    <div class="col-9 mx-auto">
 
         <div class="container__pai__logo">
             <img class="logo" src="{{ url_for('static', filename='img/goservicebr.png')}}" id="logo" alt="">
@@ -36,7 +37,7 @@
                             <input type="text" name="email" id="" required class="form-control bg-black text-white"> 
                         </div>
                         <div class="form-group">
-                            <label>Endereco</label>
+                            <label>Endereço</label>
                             <input type="text" name="endereco" id="" required class="form-control bg-black text-white"> 
                         </div>
                     </div>
@@ -66,8 +67,11 @@
                 </div>
             </div>
             <br>
-            <div class="pai__botao__cadastrar">
-                <input type="submit" value="Adicionar" class="btn bg-white text-black">
+            <div class="pai__botoes">
+                <input type="submit" value="Adicionar" class="btn bg-success text-white botao-submit">
+                <a class="btn bg-white text-black my-2 my-sm-0 btns botao-submit" href="#" >
+                    Voltar
+                </a>
             </div>
         </form>
     </div>

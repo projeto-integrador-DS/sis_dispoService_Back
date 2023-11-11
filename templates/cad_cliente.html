@@ -6,12 +6,12 @@
 {% endblock %}
 
 {% block body %}
-
+    <div class="col-9 mx-auto">
         <div class="container__pai__logo">
             <img class="logo" src="{{ url_for('static', filename='img/goservicebr.png')}}" id="logo" alt="">
         </div>
         <div class="container__pai__titulo">
-            <h3>Formulário de cadastro de clientes</h3>
+            <h3>Formulário de Cadastro de Clientes</h3>
         </div>
 
         <form class="flex-lg-row" method="post" action="{{url_for('add_user')}}">
@@ -35,7 +35,7 @@
                         <input type="text" name="telefone" id="" required class="form-control bg-black text-white">
                     </div>
                     <div class="form-group col">
-                        <label>Rua</label>
+                        <label>Endereço</label>
                         <input type="text" name="rua" id="" required class="form-control bg-black text-white">
                     </div>
                 </div>
@@ -63,12 +63,12 @@
                 </div>
                 <br>
                 <div class="pai__botoes">
-                    <input type="submit" value="Adicionar" class="btn bg-white text-black my-2 my-sm-0 btns">
-                    <a class="btn bg-white text-black my-2 my-sm-0 btns" >Retornar
+                    <input type="submit" value="Adicionar" class="btn bg-success text-white my-2 my-sm-0 btns">
+                    <a class="btn bg-white text-black my-2 my-sm-0 btns" href="#">Voltar
                     </a>
                 </div>
             </div>
         </form>
-    
+    </div>
 
 {% endblock %}

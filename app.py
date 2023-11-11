@@ -351,7 +351,7 @@ def add_experiencia(id_profiss):
 def edit_experiencias(idExperiencia):
     
     if request.method == 'POST':
-        cargo =      request.form['cargo']
+        cargo =         request.form['cargo']
         tempoServico =       request.form["temp_servico"]
         empresa =  request.form["empresa"]
 
