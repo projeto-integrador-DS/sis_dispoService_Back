@@ -1,56 +1,85 @@
 {% extends 'bases/base.html' %}
 
-{% block title %} Cadastro de Profissionais {% endblock %}
+{% block title %} Cadastro de Experiências {% endblock %}
+
+{% block customCSS %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/estilosProf/estilo_cad_exp.css')}}">
+{% endblock %}
 
 {% block body %}
 
-{%if cadastro %}
-<div class="row">
-    <div class="col-5 mx-auto">
-        <h3>cadastrar experiência</h3><br>
+    {%if cadastro %}
+
+    <div class="col-9 mx-auto">
+
+        <div class="container__pai__logo">
+            <img class="logo" src="{{ url_for('static', filename='img/goservicebr.png')}}" id="logo" alt="">
+        </div>
+        <div class="container__pai__titulo">
+            <h3 class="titulo__pag">Cadastro de Experiências</h3>
+        </div>
+
         <form method="post" action="{{url_for('cad_experiencia')}}">
             
-            <div class="form-group">
-                <label>cargo</label>
-                <input type="text" name="cargo" id="" required class="form-control"> 
-            </div>
-            <div class="form-group">
-                <label>temp_servico</label>
-                <input type="text" name="temp_servico" id="" required class="form-control"> 
-            </div>
-            <div class="form-group">
-                <label>empresa</label>
-                <input type="text" name="empresa" id="" required class="form-control"> 
-            </div>
-            
-            <br>
-            <input type="submit" value="Adicionar" class="btn btn-primary">
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label>cargo</label>
+                            <input type="text" name="cargo" id="" required class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>temp_servico</label>
+                            <input type="text" name="temp_servico" id="" required class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>empresa</label>
+                            <input type="text" name="empresa" id="" required class="form-control">
+                        </div>
+                        
+                        <br>
+                        <input type="submit" value="Adicionar" class="btn btn-primary">
+                    </div>
+                </div>
         </form>
+        
     </div>
-</div>
-{% else %}
-<div class="row">
-    <div class="col-5 mx-auto">
-        <h3>incluir nova experiência</h3><br>
+    {% else %}
+
+    <div class="col-9 mx-auto">
+
+        <div class="container__pai__logo">
+            <img class="logo" src="{{ url_for('static', filename='img/goservicebr.png')}}" id="logo" alt="">
+        </div>
+        <div class="container__pai__titulo">
+            <h3 class="titulo__pag">Cadastro de Experiências</h3>
+        </div>
+        
         <form method="post" action="{{url_for('add_experiencia', id_profiss=1)}}">
             
-            <div class="form-group">
-                <label>cargo</label>
-                <input type="text" name="cargo" id="" required class="form-control"> 
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label>cargo</label>
+                        <input type="text" name="cargo" id="" required class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>temp_servico</label>
+                        <input type="text" name="temp_servico" id="" required class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>empresa</label>
+                        <input type="text" name="empresa" id="" required class="form-control">
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label>temp_servico</label>
-                <input type="text" name="temp_servico" id="" required class="form-control"> 
+        
+            <div class="pai__botoes">
+                <input type="submit" value="Adicionar" class="btn bg-success text-white botao-submit">
+                <a class="btn bg-white text-black my-2 my-sm-0 btns botao-submit" href="{{url_for('cad_profissionais')}}" >
+                    Voltar
+                </a>
             </div>
-            <div class="form-group">
-                <label>empresa</label>
-                <input type="text" name="empresa" id="" required class="form-control"> 
-            </div>
-            
-            <br>
-            <input type="submit" value="Adicionar" class="btn btn-primary">
         </form>
     </div>
-</div>
-{% endif %}
+    {% endif %}
 {% endblock %}

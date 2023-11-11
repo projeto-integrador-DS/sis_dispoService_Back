@@ -182,7 +182,7 @@ def edit_profissionais(idProf):
         cur.execute("UPDATE profissionais SET nome=?, cpf=?, telefone=?, email=?, endereco=?, cidade=?, num=?, bairro=?, cep=?, uf=? WHERE ID_profiss=?", (nome, cpf, telefone, email, endereco, cidade, num, bairro, cep, uf, idProf))
         con.commit()
         flash('Dados atualizados', 'success')
-        return redirect(url_for('index'))
+        return redirect(url_for('inicial'))
     con = sql.connect("goservice.db")
     con.row_factory = sql.Row
     cur = con.cursor()
@@ -214,7 +214,8 @@ def list_profissionais(profissao):
                 SELECT * FROM profissionais
                 JOIN experiencias ON profissionais.ID_profiss = experiencias.fk_IDprofiss
                 WHERE experiencias.cargo = '{profissao}';
-            ''').fetchall()
+            ''')
+    dados = cur.fetchall()
     con.close()
     
     # Aqui, transformamos os resultados em um dicionário para jsonify
