@@ -14,6 +14,9 @@ from profissionais.exp import exp_blueprint
 #------Importando o módulo servicos--------
 from profissionais.serv import serv_blueprint
 
+#------Importando o módulo cursos--------
+from profissionais.cursos import cursos_blueprint
+
 
 app = Flask(__name__)
 
@@ -21,6 +24,7 @@ app.register_blueprint(clientes_blueprint)
 app.register_blueprint(prof_blueprint)
 app.register_blueprint(exp_blueprint)
 app.register_blueprint(serv_blueprint)
+app.register_blueprint(cursos_blueprint)
 
 app.secret_key="marcelo14"
 
