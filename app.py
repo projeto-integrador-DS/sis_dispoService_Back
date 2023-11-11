@@ -9,7 +9,7 @@ app.secret_key="daniel123"
 #---------- Rota Inicial ----------
 @app.route('/')
 def inicial():
-    return render_template('inicial_01.html')
+    return render_template('clientes/inicial_01.html')
 
 
 #---------- Rota Login Cliente ----------
@@ -34,7 +34,7 @@ def clientes_cadastrados():
     cur = con.cursor()
     cur.execute("select * from clientes")
     data = cur.fetchall()
-    return render_template('cadastrados.html', dados=data)
+    return render_template('clientes/cadastrados.html', dados=data)
 
 
 
@@ -59,7 +59,7 @@ def add_user():
         con.commit()
         flash('Dados Cadastrados', 'success')
         return redirect(url_for('inicial'))
-    return render_template('cad_cliente.html')
+    return render_template('clientes/cad_cliente.html')
 
 
 
@@ -80,7 +80,7 @@ def edit_user(idCli):
         
         con = sql.connect("goservice.db")
         cur = con.cursor()
-        cur.execute("UPDATE clientes set nome=?, email=?, cpf=?, telefone=?, rua=?, numero=?, cidade=?, bairro=?, estado=?, cep=?, WHERE ID_clientes=?", (nome, email, cpf, telefone, rua, numero, cidade, bairro, estado, cep, idCli))
+        cur.execute("UPDATE clientes set nome=?, email=?, cpf=?, telefone=?, rua=?, numero=?, cidade=?, bairro=?, estado=?, cep=? WHERE ID_clientes=?", (nome, email, cpf, telefone, rua, numero, cidade, bairro, estado, cep, idCli))
         con.commit()
         flash('Dados atualizados', 'success')
         return redirect(url_for('inicial'))
@@ -90,7 +90,7 @@ def edit_user(idCli):
 
     cur.execute("SELECT * from clientes WHERE ID_clientes=?", (idCli))
     dados = cur.fetchone()
-    return render_template('edit_cliente.html', dados=dados)
+    return render_template('clientes/edit_cliente.html', dados=dados)
 
 
 
@@ -110,7 +110,7 @@ def delete_user(idCli):
 #---------- Rota cliente escolha serviço ----------
 @app.route('/escolha_servico')
 def escolhaServico():
-    return render_template('escolha_servicos.html',dados="")
+    return render_template('clientes/escolha_servicos.html',dados="")
 
 
 
@@ -122,7 +122,7 @@ def escolhaServico():
 def index():
     
     #cur.execute("SELECT * FROM profissionais AS pr  JOIN cursos AS cur ON pr.ID_profiss = cur.fk_idProfiss JOIN experiencias AS exp ON pr.ID_profiss = exp.fk_IDprofiss;")  
-    return render_template('index.html')
+    return render_template('profissionais/index.html')
 
 @app.route('/indexServico')
 def indexServico():
@@ -132,7 +132,7 @@ def indexServico():
     cur.execute("SELECT * FROM servicos")
     servico=cur.fetchall()
 
-    return render_template('indexServicos.html', servicos=servico)
+    return render_template('profissionais/indexServicos.html', servicos=servico)
 
 #============PROFISSIONAIS==============
 @app.route('/cad_profissionais', methods=['POST', 'GET'])
@@ -157,7 +157,7 @@ def cad_profissionais():
         return redirect(url_for('inicial'))
         #return render_template('cad_cursos.html', cadastro=True) 
  
-    return render_template('cad_profissionais.html')
+    return render_template('profissionais/cad_profissionais.html')
 
 
 @app.route('/edit_profissionais/<int:idProf>', methods=['POST', 'GET'])
@@ -189,7 +189,9 @@ def edit_profissionais(idProf):
     
     cur.execute("SELECT * FROM profissionais WHERE ID_profiss=?", (idProf,))
     data = cur.fetchone()
-    return render_template('edit_profissionais.html', datas=data)
+    return render_template('profissionais/edit_profissionais.html', datas=data)
+
+
 
 @app.route('/delete_profissionais/<int:idProf>', methods=['GET'])
 def delete_profissionais(idProf):
@@ -202,6 +204,7 @@ def delete_profissionais(idProf):
     return redirect(url_for('index'))
 
 
+#====================== Criação da Rota que filtra profissionais por serviço ==========================
 
 @app.route('/profissionais/<profissao>', methods=['GET'])
 def list_profissionais(profissao):
@@ -234,7 +237,7 @@ def cad_curso():
     con.commit()
     flash('Dados Cadastrados', 'success')
     con.close()
-    return render_template('cad_experiencias.html', cadastro=True)
+    return render_template('profissionais/cad_experiencias.html', cadastro=True)
 
 @app.route('/listacursos/<int:id_profiss>')
 def list_cursos_prof(id_profiss):
@@ -244,7 +247,7 @@ def list_cursos_prof(id_profiss):
     cur = con.cursor()
     cur.execute("SELECT c.ID_curso, c.modalidade, c.instituicao, c.area FROM cursos AS c JOIN profissionais AS pr ON pr.ID_profiss = c.fk_idProfiss WHERE pr.ID_profiss =?", (id_profiss,))
     cursos = cur.fetchall()       
-    return render_template('lista_cursos.html', curs=cursos)
+    return render_template('profissionais/lista_cursos.html', curs=cursos)
 
 @app.route('/incluir_curso/<id_profiss>', methods=['POST', 'GET'])
 def incluir_curso(id_profiss):
@@ -259,7 +262,7 @@ def incluir_curso(id_profiss):
         flash('Dados Cadastrados', 'success')
         con.close()
         return redirect(url_for('list_cursos_prof',id_profiss=id_profiss))#id_profiss=id_profiss ainda não testado
-    return render_template('cad_cursos.html', cadastro = False)
+    return render_template('profissionais/cad_cursos.html', cadastro = False)
     
 @app.route("/edit_curso/<int:idCurso>", methods=["POST", "GET"])
 def edit_curso(idCurso):
@@ -281,7 +284,7 @@ def edit_curso(idCurso):
     cur.execute("SELECT c.ID_curso, c.modalidade, c.instituicao, c.area FROM cursos AS c JOIN profissionais AS pr ON pr.ID_profiss = c.fk_idProfiss WHERE pr.ID_profiss =?", (idCurso,)) 
     #cur.execute("SELECT * FROM cursos WHERE ID_curso=?", (idCurso,))
     curso = cur.fetchone()
-    return render_template('edit_cursos.html', cursos=curso)
+    return render_template('profissionais/edit_cursos.html', cursos=curso)
 
 @app.route('/delete_curso/<int:idCurso>', methods=['GET'])
 def delete_curso(idCurso):
@@ -316,7 +319,7 @@ def cad_experiencia():
     con.commit()
     flash('Dados Cadastrados', 'success')
     con.close()
-    return render_template('cad_servicos.html', cadastro=True)
+    return render_template('profissionais/cad_servicos.html', cadastro=True)
 
 @app.route('/lista_experiencias/<int:id_profiss>')
 def lista_experiencias(id_profiss):
@@ -328,7 +331,7 @@ def lista_experiencias(id_profiss):
     cur.execute("SELECT ID_experiencia, exp.cargo, exp.temp_servico, exp.empresa FROM experiencias AS exp JOIN profissionais AS pr ON pr.ID_profiss = exp.fk_IDprofiss WHERE pr.ID_profiss =?", (id_profiss,))
     experiencias = cur.fetchall()
             
-    return render_template('lista_experiencias.html', exper=experiencias)
+    return render_template('profissionais/lista_experiencias.html', exper=experiencias)
 
 
 @app.route('/add_exper/<int:id_profiss>', methods=['POST', 'GET'])
@@ -345,7 +348,7 @@ def add_experiencia(id_profiss):
         con.close()
         
         return redirect(url_for('lista_experiencias', id_profiss=id_profiss))
-    return render_template('cad_experiencias.html', cadastro=False)
+    return render_template('profissionais/cad_experiencias.html', cadastro=False)
    
 @app.route('/edit_experiencias/<int:idExperiencia>', methods=["POST", "GET"])
 def edit_experiencias(idExperiencia):
@@ -367,7 +370,7 @@ def edit_experiencias(idExperiencia):
     
     cur.execute("SELECT * FROM experiencias WHERE ID_experiencia=?", (idExperiencia,))
     experiencia = cur.fetchone()
-    return render_template('edit_experiencias.html', exper=experiencia)
+    return render_template('profissionais/edit_experiencias.html', exper=experiencia)
 
 @app.route('/delete_experiencia/<int:idExperiencia>', methods=['GET'])
 def delete_experiencia(idExperiencia):
@@ -397,7 +400,7 @@ def cad_servicos():
         flash('Dados Cadastrados', 'success')
         con.close()
         return redirect(url_for('index'))
-    return render_template('cad_servicos.html')
+    return render_template('profissionais/cad_Servicos.html')
 
 
 @app.route('/listaservicos/<int:id_profiss>', methods=['POST', 'GET'])
@@ -411,7 +414,7 @@ def lista_servicos(id_profiss):
     cur.execute("SELECT serv.ID_servico, serv.nome, serv.categoria, serv.valor FROM servicos AS serv JOIN profissionais AS pr JOIN oferece AS o ON serv.ID_servico=o.fk_servic WHERE pr.ID_profiss =?", (id_profiss,))
     servicos=cur.fetchall()
     con.close()
-    return render_template('lista_servicos.html', serv=servicos)
+    return render_template('profissionais/lista_servicos.html', serv=servicos)
 
 @app.route('/add_servicos/<int:id_profiss>', methods=['POST', 'GET'])
 def add_servicos(id_profiss):
@@ -430,7 +433,7 @@ def add_servicos(id_profiss):
         flash('Dados Cadastrados', 'success')
         con.close()
         return redirect(url_for('lista_servicos', id_profiss=id_profiss))
-    return render_template('cad_servicos.html', cadastro=False)
+    return render_template('profissionais/cad_Servicos.html', cadastro=False)
 
 @app.route('/edit_servicos/<int:idServico>', methods=["POST", "GET"])
 def edit_servicos(idServico):
@@ -450,7 +453,7 @@ def edit_servicos(idServico):
 
     cur.execute("SELECT * FROM servicos WHERE ID_servico=?", (idServico,))
     servico =cur.fetchone()
-    return render_template('edit_servicos.html', serv=servico)
+    return render_template('profissionais/edit_servicos.html', serv=servico)
 
 
 
