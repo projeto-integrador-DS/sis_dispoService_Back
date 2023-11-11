@@ -17,7 +17,6 @@ from profissionais.serv import serv_blueprint
 #------Importando o módulo cursos--------
 from profissionais.cursos import cursos_blueprint
 
-
 app = Flask(__name__)
 
 app.register_blueprint(clientes_blueprint)
@@ -27,7 +26,6 @@ app.register_blueprint(serv_blueprint)
 app.register_blueprint(cursos_blueprint)
 
 app.secret_key="marcelo14"
-
 
 if __name__ == '__main__':
     app.run(debug=True)
