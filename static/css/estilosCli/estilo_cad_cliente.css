@@ -27,7 +27,7 @@ label {
 }
 
 .container__pai__titulo {
-    padding: 2em 0em;
+    padding: 1em 0em;
     display: flex;
     justify-content: center;
 }
@@ -45,7 +45,7 @@ label {
 }
 
 .btns {
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 700 ;
     width: 12em;
 }

@@ -89,7 +89,7 @@ def edit_user(idCli):
         cur.execute("UPDATE clientes set nome=?, email=?, cpf=?, telefone=?, rua=?, numero=?, cidade=?, bairro=?, estado=?, cep=? WHERE ID_clientes=?", (nome, email, cpf, telefone, rua, numero, cidade, bairro, estado, cep, idCli))
         con.commit()
         flash('Dados atualizados', 'success')
-        return redirect(url_for('inicial'))
+        return redirect(url_for('clientes.inicial'))
     con = sql.connect("goservice.db")
     con.row_factory = sql.Row
     cur = con.cursor()
@@ -108,7 +108,7 @@ def delete_user(idCli):
     cur.execute("DELETE from clientes WHERE ID_clientes=?", (idCli))
     con.commit()
     flash('Dados deletados', 'warning')
-    return redirect(url_for('inicial'))
+    return redirect(url_for('clientes.inicial'))
 
 
 #====================== Criação da Rota que filtra profissionais por serviço ==========================
