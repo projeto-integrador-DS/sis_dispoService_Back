@@ -8,6 +8,19 @@ body {
     color: var(--cor-branca);
 }
 
+label {
+    font-size: 22px;
+    font-weight: 700;
+    font-weight: 700;
+}
+
+
+.titulo__pag {
+    font-size: 36px;
+    font-weight: 700;
+}
+
+
 .container__pai__logo {
     display: flex;
     justify-content: center;
@@ -26,7 +39,7 @@ body {
 
 
 .pai__botoes {
-    padding: 2em 12em;
+    padding: 1.5em 12em;
     display: flex;
     justify-content: space-around;
 }

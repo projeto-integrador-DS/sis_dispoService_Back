@@ -1,26 +1,23 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@700&display=swap');
+
 :root {
     --cor-preta: #000;
     --cor-branca: #FFF;
+    --font-principal: 'Inter', sans-serif;
 }
 
 
 body {
     background-color: var(--cor-preta);
     color: var(--cor-branca);
-    font-style: var(--font-principal); 
 }
-
 
 label {
     font-size: 22px;
     font-weight: 700;
-     
+    font-style: var(--font-principal);  
 }
 
-.titulo__pag {
-    font-size: 36px;
-    font-weight: 700;
-}
 
 
 .container__pai__logo {
@@ -42,7 +39,7 @@ label {
 }
 
 .pai__botoes {
-    padding: 1em 22em;
+    padding: 3em 0em;
     display: flex;
     justify-content: space-around;
 }

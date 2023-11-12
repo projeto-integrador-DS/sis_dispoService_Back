@@ -5,7 +5,7 @@
     <div class="col-5 mx-auto">
         <h3>Edite</h3><hr>
        
-        <form action="{{url_for('exp.edit_experiencias', idExperiencia=exper.ID_experiencia)}}" method="post">
+        <form action="{{url_for('expe.edit_experiencias', idExperiencia=exper.ID_experiencia)}}" method="post">
             <div class="form-group">
                 <label>cargo: </label>
                 <input type="text" name="cargo" required class="form-control" value="{{exper.cargo}}">

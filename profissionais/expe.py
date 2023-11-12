@@ -7,11 +7,11 @@ import sqlite3 as sql
 from profissionais.prof import getUltimoProfis
 
 
-exp_blueprint = Blueprint('exp', __name__, template_folder='templates')
+expe_blueprint = Blueprint('expe', __name__, template_folder='templates')
 
 
 #============EXPERIÊNCIAS==============
-@exp_blueprint.route('/experiencia', methods=['POST', 'GET'])
+@expe_blueprint.route('/experiencia', methods=['POST', 'GET'])
 def cad_experiencia():
     cargo       = request.form['cargo']
     temp_servico = request.form['temp_servico']
@@ -28,7 +28,7 @@ def cad_experiencia():
     return render_template('cad_servicos.html', cadastro=True)
 
 
-@exp_blueprint.route('/lista_experiencias/<int:id_profiss>')
+@expe_blueprint.route('/lista_experiencias/<int:id_profiss>')
 def lista_experiencias(id_profiss):
     
     con = sql.connect("goservice.db")
@@ -41,7 +41,7 @@ def lista_experiencias(id_profiss):
     return render_template('lista_experiencias.html', exper=experiencias)
 
 
-@exp_blueprint.route('/add_exper/<int:id_profiss>', methods=['POST', 'GET'])
+@expe_blueprint.route('/add_exper/<int:id_profiss>', methods=['POST', 'GET'])
 def add_experiencia(id_profiss):
     if(request.method == 'POST'):
         cargo       = request.form['cargo']
@@ -58,7 +58,7 @@ def add_experiencia(id_profiss):
     return render_template('cad_experiencias.html', cadastro=False)
 
 
-@exp_blueprint.route('/edit_experiencias/<int:idExperiencia>', methods=["POST", "GET"])
+@expe_blueprint.route('/edit_experiencias/<int:idExperiencia>', methods=["POST", "GET"])
 def edit_experiencias(idExperiencia):
     
     if request.method == 'POST':
@@ -82,7 +82,7 @@ def edit_experiencias(idExperiencia):
 
 
 
-@exp_blueprint.route('/delete_experiencia/<int:idExperiencia>', methods=['GET'])
+@expe_blueprint.route('/delete_experiencia/<int:idExperiencia>', methods=['GET'])
 def delete_experiencia(idExperiencia):
     con = sql.connect("goservice.db")
     cur = con.cursor()
