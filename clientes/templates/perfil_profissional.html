@@ -7,6 +7,7 @@
 {% endblock %}
 
 {% block body %}
+<h3 class="tit__pag">Lista de Profissionais</h3>
 <table class="table table-bordered table-dark bg-dark">
     <thead>
       <tr>
@@ -18,7 +19,7 @@
       </tr>
     </thead>
     <tbody>
-        {% for profissional in profissionais %}
+    {% for profissional in profissionais %}
       <tr>
         <td>{{profissional.nome}}</td>
         <td>{{profissional.cargo}}</td>
@@ -29,7 +30,7 @@
         <td><a href="{{url_for('clientes.edit_user', idCli=row.ID_clientes)}}" class="btn btn-primary"></a>Editar</td>
         <td><a href="{{url_for('clientes.delete_user', idCli=row.ID_clientes)}}" class="btn btn-danger" onclick="return confirm('Tem certeza que deseja apagar?')"></a>Deletar</td>
       </tr>
-      {% endfor %}
+    {% endfor %}
     </tbody>
   </table>
 {% endblock %}
