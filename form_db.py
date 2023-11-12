@@ -100,7 +100,7 @@ def cadastraProfissionais():
     con.commit()
     
 def cadastraServicos():
-    cur.execute("INSERT INTO servicos (fk_idprofiss,nome, categoria, valor) values(1, 'formatação de PC', 'manutenção', 80 )")
+    cur.execute("INSERT INTO servicos (nome, categoria, valor) values('formatação de PC', 'manutenção', 80 )")
     con.commit()
 
 def cadastraCursos():
@@ -109,7 +109,6 @@ def cadastraCursos():
 
 def cadastraExperiencia():
     cur.execute("INSERT INTO experiencias (fk_idprofiss, cargo, temp_servico, empresa) VALUES(1, 'pedreiro', '1a', 'j.i lanhouse')")
-    cur.execute("INSERT INTO experiencias (fk_idprofiss, cargo, temp_servico, empresa) VALUES(2, 'pedreiro', '2a', 'j.i lanhouse')")
     con.commit()
 
 cadastraClientes()

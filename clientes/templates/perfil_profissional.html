@@ -1,0 +1,35 @@
+{% extends 'bases/base_lista_profs.html' %}
+
+{% block title %} Perfil do Profissional {% endblock %}
+
+{% block customCSS %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/estilosCli/estilo_lista_prof.css')}}">
+{% endblock %}
+
+{% block body %}
+<table class="table table-bordered table-dark bg-dark">
+    <thead>
+      <tr>
+        <th scope="col">Nome</th>
+        <th scope="col">Profissão</th>
+        <th scope="col">Telefone</th>
+        <th scope="col">Cidade</th>
+        <th scope="col">Estado</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for profissional in profissionais %}
+      <tr>
+        <td>{{profissional.nome}}</td>
+        <td>{{profissional.cargo}}</td>
+        <td>{{profissional.telefone}}</td>
+        <td>{{profissional.cidade}}</td>
+        <td>{{profissional.uf}}</td>
+
+        <td><a href="{{url_for('clientes.edit_user', idCli=row.ID_clientes)}}" class="btn btn-primary"></a>Editar</td>
+        <td><a href="{{url_for('clientes.delete_user', idCli=row.ID_clientes)}}" class="btn btn-danger" onclick="return confirm('Tem certeza que deseja apagar?')"></a>Deletar</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

@@ -21,11 +21,11 @@ def cad_experiencia():
 
     con =  sql.connect('goservice.db')
     cur=con.cursor()
-    cur.execute("INSERT INTO experiencias(fk_IDprofiss, cargo, temp_servico, empresa) values(?,?,?,?)", (fk_idProf,cargo, temp_servico, empresa))
+    cur.execute("INSERT INTO experiencias(fk_IDprofiss, cargo, temp_servico, empresa) values(?,?,?,?)", (fk_idProf, cargo, temp_servico, empresa))
     con.commit()
     flash('Dados Cadastrados', 'success')
     con.close()
-    return render_template('cad_servicos.html', cadastro=True)
+    return render_template('cad_experiencias.html', cadastro=True)
 
 
 @expe_blueprint.route('/lista_experiencias/<int:id_profiss>')

@@ -1,0 +1,9 @@
+:root {
+    --cor-preta: #000;
+    --cor-branca: #FFF;
+}
+
+body {
+    background-color: var(--cor-preta);
+    color: var(--cor-branca);
+}
