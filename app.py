@@ -138,7 +138,7 @@ def cad_profissionais():
     return render_template('cad_profissionais.html')
 
 
-@app.route('/edit_profissionais/<int:idProf>', methods=['POST', 'GET'])
+@app.route('/edit_profissionais/<idProf>', methods=['POST', 'GET'])
 def edit_profissionais(idProf):
     
     if request.method == 'POST':
@@ -151,33 +151,34 @@ def edit_profissionais(idProf):
         num =       request.form['numero']
         bairro =    request.form["bairro"]
         cep =       request.form["cep"]
-        cep =       request.form["cep"]
         uf =        request.form['uf']
-
 
         con = sql.connect("goservice.db")
         cur = con.cursor()
         cur.execute("UPDATE profissionais SET nome=?, cpf=?, telefone=?, email=?, endereco=?, cidade=?, num=?, bairro=?, cep=?, uf=? WHERE ID_profiss=?", (nome, cpf, telefone, email, endereco, cidade, num, bairro, cep, uf, idProf))
         con.commit()
+        con.close()
         flash('Dados atualizados', 'success')
-        return redirect(url_for('index')) #ele não deve retorna para o index
+        return redirect(url_for('visual_profissional')) #ele não deve retorna para o index
+    
     con = sql.connect("goservice.db")
     con.row_factory = sql.Row
     cur = con.cursor()
-    
     cur.execute("SELECT * FROM profissionais WHERE ID_profiss=?", (idProf,))
     data = cur.fetchone()
     return render_template('edit_profissionais.html', datas=data)
 
-@app.route('/delete_profissionais/<int:idProf>', methods=['GET'])
-def delete_profissionais(idProf):
+@app.route('/delete_profissionais', methods=['GET'])
+def delete_profissionais():
+    idProf=get_id_usuario()
     con = sql.connect("goservice.db")
     cur = con.cursor()
     cur.execute("DELETE FROM profissionais WHERE ID_profiss=?", (idProf,))
     con.commit()
+    con.close()
     flash('Dados deletados', 'warning')
     
-    return redirect(url_for('index')) #ele deve retorna pra visualizado dos dados pessoais
+    return redirect(url_for('')) #ele deve retorna pra visualizado dos dados pessoais
 
 @app.route('/cad_profUser', methods=['POST', 'GET'])
 def cad_profUser():
@@ -193,7 +194,22 @@ def cad_profUser():
         con.close()
         return redirect(url_for('cad_curso'))
     return render_template('cad_profUser.html')
-  
+
+@app.route('/visual_profissional')
+def visual_profissional():
+    con=sql.connect('goservice.db')
+    cur=con.cursor()
+    con.row_factory=sql.Row
+    id_profiss=get_id_usuario()
+    consulta = '''  SELECT pr.ID_profiss, pr.nome, pr.CPF, pr.telefone, pr.email, pr.endereco, pr.num, pr.bairro, pr.CEP, pr.cidade, pr.uf
+                    FROM profissionais AS pr 
+                    WHERE pr.ID_profiss=?'''
+    cur.execute(consulta, (id_profiss,))
+    profissional = cur.fetchone()
+    
+    print(profissional)
+    con.close()
+    return render_template('visual_profissional.html', datas=profissional)
 
 class User_profiss(UserMixin):
     def __init__(self, id):

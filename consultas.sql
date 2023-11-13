@@ -13,6 +13,7 @@ DROP TABLE loginProf;
 DROP TABLE clientes;
 DROP TABLE oferece;
 
+DELETE FROM loginProf WHERE fk_profiss=3
 
 SELECT * FROM profissionais;
 SELECT * FROM cursos;
@@ -39,7 +40,11 @@ FROM experiencias AS exp
 JOIN profissionais AS pr ON pr.ID_profiss = exp.fk_IDprofiss
 WHERE pr.ID_profiss =3
 
+SELECT pr.nome, pr.cpf, pr.telefone, pr.email, pr.endereco, pr.num, pr.bairro, pr.CEP, pr.cidade, pr.uf
+FROM profissionais AS pr 
+WHERE pr.id_profiss= 3
 
+/* retorna os serviços que o profisisonal logado tem*/
 SELECT serv.ID_servico, serv.nome, serv.categoria, serv.valor 
 FROM oferece AS o 
 JOIN profissionais AS pr on o.fk_profiss=pr.ID_profiss 

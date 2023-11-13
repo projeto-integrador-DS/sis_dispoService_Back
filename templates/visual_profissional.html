@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block body %}
+
+<h3 class="text-center text-muted mb-3"></h3>
+<h3>dados: {{datas[0]}}</h3>
+
+<table class="table_cursos">
+  <thead>
+    <tr>
+      <th scope="col">NOME</th>
+      <th scope="col">CPF</th>
+      <th scope="col">TELEFONE</th>
+      <th scope="col">EMAIL</th>
+      <th scope="col">ENDERECO</th>
+      <th scope="col">NUMERO</th>
+      <th scope="col">BAIRRO</th>
+      <th scope="col">CEP</th>
+      <th scope="col">CIDADE</th>
+      <th scope="col">UF</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    
+    <tr>
+      <td>{{ datas[1] }}</td>
+      <td>{{ datas[2] }}</td>
+      <td>{{ datas[2] }}</td>
+      <td>{{ datas[3] }}</td>
+      <td>{{ datas[4] }}</td>
+      <td>{{ datas[5] }}</td>
+      <td>{{ datas[6] }}</td>
+      <td>{{ datas[7] }}</td>
+      <td>{{ datas[8] }}</td>
+      <td>{{ datas[9] }}</td>
+      <td><a href="{{url_for('edit_profissionais', idProf=datas[0])}}" class="btn btn-primary">Editar</a></td>
+      <td><a href="{{url_for('delete_profissionais', idProf=datas[0])}}" class="btn btn-danger" onclick="return confirm('Tem certeza que deseja apagar?')">Deletar</a></td>
+    </tr>
+  </tbody>
+</table>
+<td><a href="{{url_for('index')}}" class="btn btn-danger" >MENU</a></td>
+{% endblock %}
