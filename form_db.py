@@ -108,7 +108,7 @@ def cadastraCursos():
     con.commit()
 
 def cadastraExperiencia():
-    cur.execute("INSERT INTO experiencias (fk_idprofiss, cargo, temp_servico, empresa) VALUES(1, 'pintor', '1a', 'j.i lanhouse')")
+    cur.execute("INSERT INTO experiencias (fk_idprofiss, cargo, temp_servico, empresa) VALUES(1, 'pedreiro', '1a', 'j.i lanhouse')")
     con.commit()
 
 cadastraClientes()

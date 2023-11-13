@@ -122,9 +122,9 @@ def list_profissionais(profissao):
                 WHERE experiencias.cargo = '{profissao}';
             ''')
     dados = cur.fetchall()
-    con.close()
+   
     
     # Aqui, transformamos os resultados em um dicionário para jsonify
     profissionais_dict = [dict(zip([column[0] for column in cur.description], row)) for row in dados]
-    
+    con.close()
     return render_template('perfil_profissional.html', profissionais=profissionais_dict)
