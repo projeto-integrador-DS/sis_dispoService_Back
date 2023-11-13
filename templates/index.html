@@ -6,9 +6,9 @@
 <h2> Bem vindo: {{usuario}}</h2>
 
 <nav>
-  <p><a href="{{url_for('list_cursos_prof')}}">MEUS CURSOS</a></p>
-  <p><a href="{{url_for('lista_experiencias')}}">MINHAS EXPERIÊNCIAS PROFISSIONAIS</a></p>
-  <P><a href="{{url_for('lista_servicos')}}">MEUS SERVIÇOS</a></p>
+  <p><a href="{{url_for('cursos.list_cursos_prof')}}">MEUS CURSOS</a></p>
+  <p><a href="{{url_for('expe.lista_experiencias')}}">MINHAS EXPERIÊNCIAS PROFISSIONAIS</a></p>
+  <P><a href="{{url_for('serv.lista_servicos')}}">MEUS SERVIÇOS</a></p>
   
 </nav>
 {% endblock %}

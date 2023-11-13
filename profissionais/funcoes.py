@@ -1,5 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, flash, jsonify
-from flask_login import LoginManager
+from flask import  render_template, request, redirect, url_for, flash, jsonify
 import sqlite3 as sql
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask import Flask, render_template, request, redirect, url_for
@@ -17,8 +16,10 @@ def verificacao(username, senha):
     if user_prof and check_password_hash(user_prof[2], senha):
         usuario = User_profiss(username)
         login_user(usuario) #registra o usuário logado, cria uma sessão para o usuário
-        return redirect(url_for('protected'))
-    return render_template('login_profissional.html')
+        return redirect(url_for('prof.protected'))
+    flash('Credenciais inválidas', 'error')
+    return redirect(url_for('prof.login_profissional'))
+    #return render_template('login_profissional.html')
 
 
 def get_id_usuario():
@@ -28,6 +29,7 @@ def get_id_usuario():
     cur.execute("SELECT * FROM loginProf WHERE username=?", (current_user.id,))
     id_profiss = cur.fetchone()
     return id_profiss[0]
+    con.close()
 
 
 def getUltimoServico():

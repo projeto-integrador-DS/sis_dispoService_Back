@@ -18,7 +18,7 @@
             <img class="logo" src="{{ url_for('static', filename='img/goservice.png')}}" id="logo" alt="">
             <h3>Formulário de cadastro de Profissionais</h3>
         </div>
-        <form method="POST" action="{{url_for('cad_profUser')}}">
+        <form method="POST" action="{{url_for('prof.cad_profUser')}}">
             <div class="form-group">
                 <label>USUÁRIO</label>
                 <input type="text" name="username" id="" required class="form-control"> 

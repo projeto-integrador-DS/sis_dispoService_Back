@@ -2,7 +2,7 @@
 {% block body %}
 
 <h3 class="text-center text-muted mb-3"></h3>
-<p class="text-right"><a href="{{url_for('incluir_curso', id_profiss=id_profiss)}}" class="btn btn-success">+CURSO</a></p>
+<p class="text-right"><a href="{{url_for('cursos.incluir_curso', id_profiss=id_profiss)}}" class="btn btn-success">+CURSO</a></p>
 <h3>id: {{ id_profiss }}</h3>
 <table class="table_cursos">
   <thead>
@@ -21,12 +21,12 @@
       <td>{{linha.modalidade}}</td>
       <td>{{linha.instituicao}}</td>
       <td>{{linha.area}}</td>
-      <td><a href="{{url_for('edit_curso', id_curso=linha.ID_curso)}}" class="btn btn-primary">Editar</a></td>
-      <td><a href="{{url_for('delete_curso', id_curso=linha.ID_curso)}}" class="btn btn-danger" onclick="return confirm('Tem certeza que deseja apagar?')">Deletar</a></td>
+      <td><a href="{{url_for('cursos.edit_curso', id_curso=linha.ID_curso)}}" class="btn btn-primary">Editar</a></td>
+      <td><a href="{{url_for('cursos.delete_curso', id_curso=linha.ID_curso)}}" class="btn btn-danger" onclick="return confirm('Tem certeza que deseja apagar?')">Deletar</a></td>
     </tr>
     {% endfor %}
     
   </tbody>
 </table>
-<td><a href="{{url_for('index')}}" class="btn btn-danger" >MENU</a></td>
+<td><a href="{{url_for('prof.index')}}" class="btn btn-primary" >MENU</a></td>
 {% endblock %}

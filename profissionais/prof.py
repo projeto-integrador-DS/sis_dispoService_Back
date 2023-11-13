@@ -1,12 +1,10 @@
-from flask import Flask, render_template, request, redirect, url_for, flash, jsonify, Blueprint
+from flask import render_template, request, redirect, url_for, flash, Blueprint
 from flask_login import LoginManager
 import sqlite3 as sql
-from werkzeug.security import generate_password_hash, check_password_hash
-from flask import Flask, render_template, request, redirect, url_for
-from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
+from werkzeug.security import generate_password_hash
+from flask_login import LoginManager, login_required, logout_user, current_user
 
-from profissionais.funcoes import get_id_usuario
-from app import User_profiss
+from profissionais.user import User_profiss
 from profissionais.funcoes import verificacao, get_id_usuario, getUltimoServico, getUltimoProfis
 
 prof_blueprint = Blueprint('prof', __name__, template_folder='templates')
@@ -97,7 +95,7 @@ def delete_profissionais(idProf):
     con.commit()
     flash('Dados deletados', 'warning')
     
-    return redirect(url_for('prof.edit_profissionais')) #Está indo para a rota editar profissional
+    return redirect(url_for('clientes.inicial')) #Está indo para a rota editar profissional
 
 
 #=====================CADASTRAR USERNAME E SENHA DO USUARIO=======================
