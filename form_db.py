@@ -11,7 +11,7 @@ cur.execute('DROP TABLE IF EXISTS servicos')
 cur.execute('DROP TABLE IF EXISTS oferece')
 
 
-sql_clientes = '''CREATE TABLE "clientes"(
+sql_clientes = '''CREATE TABLE IF NOT EXISTS "clientes"(
     "ID_clientes" INTEGER PRIMARY KEY AUTOINCREMENT,
     "nome"      TEXT,
     "email"     TEXT,
@@ -25,15 +25,8 @@ sql_clientes = '''CREATE TABLE "clientes"(
     "cep"       TEXT
     )'''
 
-#cur.execute(sql)
-'''con.commit()
-con.close()
-#con = sql.connect('goservice.db')
-cur = con.cursor()'''
 
-
-
-sql_profissionais = '''CREATE TABLE "profissionais"(
+sql_profissionais = '''CREATE TABLE IF NOT EXISTS "profissionais"(
     "ID_profiss" INTEGER PRIMARY KEY AUTOINCREMENT,
     "nome"      TEXT,
     "CPF"       TEXT,
@@ -49,9 +42,9 @@ sql_profissionais = '''CREATE TABLE "profissionais"(
    
 
 
-sql_cursos = '''CREATE TABLE "cursos"(
+sql_cursos = '''CREATE TABLE IF NOT EXISTS "cursos"(
     "ID_curso" INTEGER PRIMARY KEY AUTOINCREMENT,
-    "fk_idProfiss"    INTEGER,
+    "fk_idProfiss"  INTEGER,
     "modalidade"    TEXT,
     "instituicao"   TEXT,
     "area"          TEXT,
@@ -59,7 +52,7 @@ sql_cursos = '''CREATE TABLE "cursos"(
 )'''
 
 
-sql_experiencias='''CREATE TABLE "experiencias"(
+sql_experiencias='''CREATE TABLE IF NOT EXISTS "experiencias"(
     "ID_experiencia" INTEGER PRIMARY KEY AUTOINCREMENT,
     "fk_IDprofiss"    INTEGER,
     "cargo"         TEXT,
@@ -68,19 +61,32 @@ sql_experiencias='''CREATE TABLE "experiencias"(
     FOREIGN KEY ("fk_IDprofiss") REFERENCES "profissionais" ("ID_profiss")
 )
 '''
-sql_servicos='''CREATE TABLE "servicos" (
+
+
+sql_servicos='''CREATE TABLE IF NOT EXISTS "servicos" (
     "ID_servico"    INTEGER PRIMARY KEY AUTOINCREMENT,
     "nome"          TEXT,
     "categoria"     TEXT,
     "valor"         REAL
 )
 '''
-sql_oferece='''CREATE TABLE "oferece"(
+
+
+sql_oferece='''CREATE TABLE IF NOT EXISTS "oferece"(
     "fk_profiss" INTEGER,
     "fk_servic"  INTEGER,
     FOREIGN KEY ("fk_profiss") REFERENCES "profissionais" ("ID_profiss"),
     FOREIGN KEY ("fk_servic") REFERENCES "servicos" ("ID_servico")
 )'''
+
+
+sql_login='''CREATE TABLE IF NOT EXISTS "loginProf"(
+    "fk_profiss" INTEGER,
+    "username"  TEXT,
+    "senha"     TEXT,
+    FOREIGN KEY ("fk_profiss") REFERENCES "profissionais" ("ID_profiss")
+)
+'''
 
 cur.execute(sql_clientes)
 cur.execute(sql_profissionais)
@@ -88,6 +94,7 @@ cur.execute(sql_cursos)
 cur.execute(sql_experiencias)
 cur.execute(sql_servicos)
 cur.execute(sql_oferece)
+cur.execute(sql_login)
 con.commit()
 
 def cadastraClientes():

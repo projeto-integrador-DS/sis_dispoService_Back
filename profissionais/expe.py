@@ -5,6 +5,7 @@ import sqlite3 as sql
 
 #---------importando funções do prof.py----------
 from profissionais.prof import getUltimoProfis
+from app import get_id_usuario
 
 
 expe_blueprint = Blueprint('expe', __name__, template_folder='templates')
@@ -13,37 +14,38 @@ expe_blueprint = Blueprint('expe', __name__, template_folder='templates')
 #============EXPERIÊNCIAS==============
 @expe_blueprint.route('/experiencia', methods=['POST', 'GET'])
 def cad_experiencia():
-    cargo       = request.form['cargo']
-    temp_servico = request.form['temp_servico']
-    empresa     = request.form['empresa']
+    if request.method == 'POST':
+        cargo       = request.form['cargo']
+        temp_servico = request.form['temp_servico']
+        empresa     = request.form['empresa']
 
-    fk_idProf   = getUltimoProfis()
+        fk_idProf   = getUltimoProfis()
 
-    con =  sql.connect('goservice.db')
-    cur=con.cursor()
-    cur.execute("INSERT INTO experiencias(fk_IDprofiss, cargo, temp_servico, empresa) values(?,?,?,?)", (fk_idProf, cargo, temp_servico, empresa))
-    con.commit()
-    flash('Dados Cadastrados', 'success')
-    con.close()
+        con =  sql.connect('goservice.db')
+        cur=con.cursor()
+        cur.execute("INSERT INTO experiencias(fk_IDprofiss, cargo, temp_servico, empresa) values(?,?,?,?)", (fk_idProf,cargo, temp_servico, empresa))
+        con.commit()
+        flash('Dados Cadastrados', 'success')
+        con.close()
+        return redirect(url_for('servicos.cad_servicos'))
     return render_template('cad_experiencias.html', cadastro=True)
 
 
 @expe_blueprint.route('/lista_experiencias/<int:id_profiss>')
-def lista_experiencias(id_profiss):
-    
+def lista_experiencias():
+    id_profiss=get_id_usuario()
     con = sql.connect("goservice.db")
-    
     con.row_factory = sql.Row
     cur = con.cursor()
     cur.execute("SELECT ID_experiencia, exp.cargo, exp.temp_servico, exp.empresa FROM experiencias AS exp JOIN profissionais AS pr ON pr.ID_profiss = exp.fk_IDprofiss WHERE pr.ID_profiss =?", (id_profiss,))
     experiencias = cur.fetchall()
-            
-    return render_template('lista_experiencias.html', exper=experiencias)
+    return render_template('lista_experiencias.html', exper=experiencias, id_profiss=id_profiss)
 
 
 @expe_blueprint.route('/add_exper/<int:id_profiss>', methods=['POST', 'GET'])
-def add_experiencia(id_profiss):
-    if(request.method == 'POST'):
+def add_experiencia():
+    id_profiss=get_id_usuario()
+    if request.method == 'POST':
         cargo       = request.form['cargo']
         temp_servico = request.form['temp_servico']
         empresa     = request.form['empresa']
@@ -54,7 +56,7 @@ def add_experiencia(id_profiss):
         flash('Dados Cadastrados', 'success')
         con.close()
         
-        return redirect(url_for('lista_experiencias', id_profiss=id_profiss))
+        return redirect(url_for('expe.lista_experiencias'))
     return render_template('cad_experiencias.html', cadastro=False)
 
 
@@ -62,7 +64,7 @@ def add_experiencia(id_profiss):
 def edit_experiencias(idExperiencia):
     
     if request.method == 'POST':
-        cargo =         request.form['cargo']
+        cargo =      request.form['cargo']
         tempoServico =       request.form["temp_servico"]
         empresa =  request.form["empresa"]
 
@@ -71,7 +73,8 @@ def edit_experiencias(idExperiencia):
         cur.execute("UPDATE experiencias SET cargo=?, temp_servico=?, empresa=? WHERE ID_experiencia=?", (cargo, tempoServico, empresa, idExperiencia))
         con.commit()
         flash('Dados atualizados', 'success')
-        return redirect(url_for('lista_experiencias', id_profiss=1))
+        id_profiss=get_id_usuario()
+        return redirect(url_for('expe.lista_experiencias', id_profiss=id_profiss))
     con = sql.connect("goservice.db")
     con.row_factory = sql.Row
     cur = con.cursor()
@@ -90,4 +93,5 @@ def delete_experiencia(idExperiencia):
     con.commit()
     con.close()
     flash('Dados deletados', 'warning')
-    return redirect(url_for('lista_experiencias', id_profiss=1))
+    id_profiss=get_id_usuario()
+    return redirect(url_for('expe.lista_experiencias', id_profiss=id_profiss))

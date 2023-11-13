@@ -19,13 +19,20 @@
             <a href="#">
                 <p class="inicial__filho__opcoes">Cliente</p>
             </a>
-            <a href="#">
+            <!-- manda para a rota login-->
+            <a href="{{url_for('login_profissional')}}">
                 <p class="inicial__filho__opcoes__prof">Profissional</p>
             </a>
         </div>
         <div class="inicial__pai__opcoes__cadastro">
+<<<<<<< HEAD:clientes/templates/inicial_01.html
             <a class="inicial__link__cadastro" href="{{url_for('clientes.add_user')}}">CADASTRE-SE</a>
             <a class="inicial__link__cadastro" href="{{url_for('prof.cad_profissionais')}}">CADASTRE-SE</a>
+=======
+            <a class="inicial__link__cadastro" href="{{url_for('add_user')}}">Cadastre-se</a>
+            <!-- creio que esse link ficaria melhor na tela de login 
+                <a class="inicial__link__cadastro" href="#">Cadastre-se</a>-->
+>>>>>>> login-profissional:templates/inicial_01.html
         </div>
     </main>
 

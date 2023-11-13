@@ -5,7 +5,11 @@
     <div class="col-5 mx-auto">
         <h3>Edite</h3><hr>
        
+<<<<<<< HEAD:profissionais/templates/edit_cursos.html
         <form action="{{url_for('cursos.edit_curso', idCurso=cursos.ID_curso)}}" method="post">
+=======
+        <form action="{{url_for('edit_curso', id_curso=cursos.ID_curso)}}" method="post">
+>>>>>>> login-profissional:templates/edit_cursos.html
             <div class="form-group">
                 <label>modalidade: </label>
                 <input type="text" name="modalidade" required class="form-control" value="{{cursos.modalidade}}">

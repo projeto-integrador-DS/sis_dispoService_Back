@@ -3,8 +3,8 @@ from flask_login import LoginManager
 import sqlite3 as sql
 
 #---------importando funções do prof.py----------
-from profissionais.prof import getUltimoProfis
-from profissionais.prof import prof_serv
+from profissionais.prof import getUltimoProfis, prof_serv, get_id_usuario
+
 
 
 serv_blueprint = Blueprint('serv', __name__, template_folder='templates')
@@ -27,26 +27,26 @@ def cad_servicos():
         prof_serv(ultimIDprof)
         flash('Dados Cadastrados', 'success')
         con.close()
-        return redirect(url_for('index'))
+        return redirect(url_for('prof.index'))
     return render_template('cad_Servicos.html')
 
 
 @serv_blueprint.route('/listaservicos/<int:id_profiss>', methods=['POST', 'GET'])
-def lista_servicos(id_profiss):
-    #essa função é chamada 2x (get e post) por isso está cadastrando 2x
-     #apenas para fins de teste
+def lista_servicos():
+    id_profiss=get_id_usuario()
     con = sql.connect('goservice.db')
     cur = con.cursor()
     cur.row_factory=sql.Row
-    
-    cur.execute("SELECT serv.ID_servico, serv.nome, serv.categoria, serv.valor FROM servicos AS serv JOIN profissionais AS pr JOIN oferece AS o ON serv.ID_servico=o.fk_servic WHERE pr.ID_profiss =?", (id_profiss,))
+   
+    cur.execute(" SELECT serv.ID_servico, serv.nome, serv.categoria, serv.valor FROM oferece AS o JOIN profissionais AS pr on o.fk_profiss=pr.ID_profiss JOIN servicos AS serv ON o.fk_servic = serv.ID_servico WHERE o.fk_profiss=?", (id_profiss,))
     servicos=cur.fetchall()
     con.close()
     return render_template('lista_servicos.html', serv=servicos)
 
 
 @serv_blueprint.route('/add_servicos/<int:id_profiss>', methods=['POST', 'GET'])
-def add_servicos(id_profiss):
+def add_servicos():
+    id_profiss=get_id_usuario()
     if request.method=='POST': 
         nome    =   request.form['nome']
         categoria=  request.form['categoria']
@@ -61,8 +61,8 @@ def add_servicos(id_profiss):
 
         flash('Dados Cadastrados', 'success')
         con.close()
-        return redirect(url_for('lista_servicos', id_profiss=id_profiss))
-    return render_template('cad_Servicos.html', cadastro=False)
+        return redirect(url_for('serv.lista_servicos'))
+    return render_template('cad_servicos.html', cadastro=False)
 
 
 @serv_blueprint.route('/edit_servicos/<int:idServico>', methods=["POST", "GET"])
@@ -76,7 +76,8 @@ def edit_servicos(idServico):
         cur=con.cursor()
         cur.execute("UPDATE servicos SET nome=?, categoria=?, valor=? WHERE ID_servico=?",(nome, categoria, valor, idServico))
         con.commit()
-        return redirect(url_for('lista_servicos', id_profiss=1))
+        id_profiss=get_id_usuario()
+        return redirect(url_for('serv.lista_servicos', id_profiss=id_profiss))
     con = sql.connect('goservice.db')
     cur = con.cursor()
     cur.row_factory=sql.Row
@@ -94,4 +95,5 @@ def delete_servicos(idServico):
     cur.execute("DELETE FROM servicos WHERE ID_servico=?", (idServico,))
     con.commit()
     con.close()
-    return redirect(url_for('lista_servicos', id_profiss=1))
+    id_profiss=get_id_usuario()
+    return redirect(url_for('lista_servicos', id_profiss=id_profiss))

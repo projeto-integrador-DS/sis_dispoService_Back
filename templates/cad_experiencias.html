@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% block body %}
+
+{%if cadastro %}
+<div class="row">
+    <div class="col-5 mx-auto">
+        <h3>cadastrar experiência</h3><br>
+        <form method="post" action="{{url_for('cad_experiencia')}}">
+            
+            <div class="form-group">
+                <label>cargo</label>
+                <input type="text" name="cargo" id="" required class="form-control"> 
+            </div>
+            <div class="form-group">
+                <label>temp_servico</label>
+                <input type="text" name="temp_servico" id="" required class="form-control"> 
+            </div>
+            <div class="form-group">
+                <label>empresa</label>
+                <input type="text" name="empresa" id="" required class="form-control"> 
+            </div>
+            
+            <br>
+            <input type="submit" value="Adicionar" class="btn btn-primary">
+        </form>
+    </div>
+</div>
+{% else %}
+<div class="row">
+    <div class="col-5 mx-auto">
+        <h3>incluir nova experiência</h3><br>
+        <form method="post" action="{{url_for('add_experiencia', id_profiss=id_profiss)}}">
+            
+            <div class="form-group">
+                <label>cargo</label>
+                <input type="text" name="cargo" id="" required class="form-control"> 
+            </div>
+            <div class="form-group">
+                <label>temp_servico</label>
+                <input type="text" name="temp_servico" id="" required class="form-control"> 
+            </div>
+            <div class="form-group">
+                <label>empresa</label>
+                <input type="text" name="empresa" id="" required class="form-control"> 
+            </div>
+            
+            <br>
+            <input type="submit" value="Adicionar" class="btn btn-primary">
+        </form>
+    </div>
+</div>
+{% endif %}
+{% endblock %}

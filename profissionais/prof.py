@@ -1,15 +1,23 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, jsonify, Blueprint
 from flask_login import LoginManager
 import sqlite3 as sql
+from werkzeug.security import generate_password_hash, check_password_hash
+from flask import Flask, render_template, request, redirect, url_for
+from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
+
+from profissionais.funcoes import get_id_usuario
+from app import User_profiss
+from profissionais.funcoes import verificacao, get_id_usuario, getUltimoServico, getUltimoProfis
 
 prof_blueprint = Blueprint('prof', __name__, template_folder='templates')
-
+login_manager = LoginManager()
 
 #---------- Começo CRUD Profissionais ----------
 
-@prof_blueprint.route('/index')
-def index(): 
-    return render_template('index.html')
+@prof_blueprint.route('/index', methods=['POST', 'GET'])
+def index():
+    id_profiss=get_id_usuario()
+    return render_template('index.html', id_profiss=id_profiss)
 
 @prof_blueprint.route('/indexServico')
 def indexServico():
@@ -42,11 +50,9 @@ def cad_profissionais():
         cur.execute("INSERT INTO profissionais(nome, cpf, telefone, email, endereco, cidade, num, bairro, cep, uf) values(?,?,?,?,?,?,?,?,?,?)", (nome, cpf, telefone, email, endereco, cidade, num, bairro, cep, uf))
         con.commit()
         flash('Dados Cadastrados', 'success')
-        return redirect(url_for('clientes.inicial'))
-        #return render_template('cad_cursos.html', cadastro=True) 
+        return redirect(url_for('prof.cad_profUser'))
  
     return render_template('cad_profissionais.html')
-
 
 
 #======================Editar Profissionais=======================
@@ -72,7 +78,7 @@ def edit_profissionais(idProf):
         cur.execute("UPDATE profissionais SET nome=?, cpf=?, telefone=?, email=?, endereco=?, cidade=?, num=?, bairro=?, cep=?, uf=? WHERE ID_profiss=?", (nome, cpf, telefone, email, endereco, cidade, num, bairro, cep, uf, idProf))
         con.commit()
         flash('Dados atualizados', 'success')
-        return redirect(url_for('inicial'))
+        return redirect(url_for('prof.inicial')) #Lenbrar de mudar a rota
     con = sql.connect("goservice.db")
     con.row_factory = sql.Row
     cur = con.cursor()
@@ -91,32 +97,69 @@ def delete_profissionais(idProf):
     con.commit()
     flash('Dados deletados', 'warning')
     
-    return redirect(url_for('index'))
+    return redirect(url_for('prof.edit_profissionais')) #Está indo para a rota editar profissional
 
 
-def getUltimoProfis():
-    con = sql.connect("goservice.db")
+#=====================CADASTRAR USERNAME E SENHA DO USUARIO=======================
+@prof_blueprint.route('/cad_profUser', methods=['POST', 'GET'])
+def cad_profUser():
+    if request.method=='POST':
+        username=request.form['username'].strip()
+        senha=request.form['senha'].strip()
+        con = sql.connect('goservice.db')
+        senha_hash = generate_password_hash(senha)
+        fk_idProfiss = getUltimoProfis()
+        cur = con.cursor()
+        cur.execute("INSERT INTO loginProf(fk_profiss, username, senha) VALUES (?,?,?)", (fk_idProfiss, username, senha_hash))
+        con.commit()
+        con.close()
+        return redirect(url_for('prof.cad_curso'))
+    return render_template('cad_profUser.html')
+
+
+@login_manager.user_loader
+def load_user(user_id):
+    con = sql.connect('goservice.db')
     cur = con.cursor()
-    cur.execute("SELECT MAX(ID_profiss) FROM profissionais;")
-    id = cur.fetchone()
-    idProf=id[0]
-    con.close()
-    return idProf
+    cur.execute("SELECT * FROM loginProf WHERE username=?", (user_id,))
+    user_prof = cur.fetchone()
+    if not user_prof:
+      
+        return 
+    
+    return User_profiss(user_prof[1])
 
-def getUltimoServico():
-    con = sql.connect("goservice.db")
-    cur = con.cursor()
-    cur.execute("SELECT MAX(ID_servico) FROM servicos;")
-    id = cur.fetchone()
-    idServ=id[0]
-    con.close()
-    return idServ
+
+@prof_blueprint.route('/login_profissional', methods=['POST', 'GET'])
+def login_profissional():
+    
+    if request.method=='POST':
+        username = request.form.get('username')
+        senha = request.form.get('senha')
+        return verificacao(username, senha)
+    return render_template("login_profissional.html")
+
+@prof_blueprint.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    return 'You are now logged out.'
+
+
+
+@prof_blueprint.route('/protected')
+@login_required
+def protected():
+    id_profiss=get_id_usuario()    
+    print(id_profiss)
+    return render_template('index.html', usuario=current_user.id, id_profiss=id_profiss)
+
 
 #============RELACIONA SERVIÇO COM PROFISSIONAL==============
 def prof_serv(id_profiss):
     
     id_prof=id_profiss
-    #temos um func1 e func2 se o func2 salvar um serviço antes do func1 o func1 terá salvo um serviço do func2
+
     id_Serv=getUltimoServico()
 
     con=sql.connect('goservice.db')
