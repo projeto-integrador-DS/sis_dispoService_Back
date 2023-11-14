@@ -5,9 +5,6 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask import Flask, render_template, request, redirect, url_for
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 
-from profissionais.funcoes import get_id_usuario
-from app import User_profiss
-from profissionais.funcoes import verificacao, get_id_usuario, getUltimoServico, getUltimoProfis
 
 prof_blueprint = Blueprint('prof', __name__, template_folder='templates')
 login_manager = LoginManager()
@@ -168,3 +165,56 @@ def prof_serv(id_profiss):
     cur.execute("INSERT INTO oferece (fk_profiss, fk_servic) values(?,?)", (id_prof, id_Serv))
     con.commit()
     con.close()
+
+def verificacao(username, senha):
+    con = sql.connect('goservice.db')
+    cur = con.cursor()
+    cur.execute("SELECT * FROM loginProf WHERE username=?", (username,))
+    user_prof = cur.fetchone()
+    
+    if user_prof and check_password_hash(user_prof[2], senha):
+        usuario = User_profiss(username)
+        login_user(usuario) #registra o usuário logado, cria uma sessão para o usuário
+        return redirect(url_for('protected'))
+    return render_template('login_profissional.html')
+
+
+def get_id_usuario():
+    con = sql.connect('goservice.db')
+    cur = con.cursor()
+    
+    cur.execute("SELECT * FROM loginProf WHERE username=?", (current_user.id,))
+    id_profiss = cur.fetchone()
+    return id_profiss[0]
+
+
+def getUltimoServico():
+    con = sql.connect("goservice.db")
+    cur = con.cursor()
+    cur.execute("SELECT MAX(ID_servico) FROM servicos;")
+    id = cur.fetchone()
+    idServ=id[0]
+    con.close()
+    return idServ
+
+def getUltimoProfis():
+    con = sql.connect("goservice.db")
+    cur = con.cursor()
+    cur.execute("SELECT MAX(ID_profiss) FROM profissionais;")
+    id = cur.fetchone()
+    idProf=id[0]
+    con.close()
+    return idProf
+
+def getUltimoServico():
+    con = sql.connect("goservice.db")
+    cur = con.cursor()
+    cur.execute("SELECT MAX(ID_servico) FROM servicos;")
+    id = cur.fetchone()
+    idServ=id[0]
+    con.close()
+    return idServ
+
+class User_profiss(UserMixin):
+    def __init__(self, id):
+        self.id = id
