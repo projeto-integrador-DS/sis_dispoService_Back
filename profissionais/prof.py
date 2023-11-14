@@ -1,10 +1,7 @@
-from flask import Flask, render_template, request, redirect, url_for, flash, jsonify, Blueprint
-from flask_login import LoginManager
+from flask import render_template, request, redirect, url_for, flash, Blueprint
 import sqlite3 as sql
-from werkzeug.security import generate_password_hash, check_password_hash
-from flask import Flask, render_template, request, redirect, url_for
-from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
-
+from werkzeug.security import generate_password_hash,check_password_hash
+from flask_login import LoginManager, login_required, logout_user,login_user, current_user, UserMixin
 
 prof_blueprint = Blueprint('prof', __name__, template_folder='templates')
 login_manager = LoginManager()
@@ -13,6 +10,7 @@ login_manager = LoginManager()
 
 @prof_blueprint.route('/index', methods=['POST', 'GET'])
 def index():
+    from profissionais.funcoes import get_id_usuario
     id_profiss=get_id_usuario()
     return render_template('index.html', id_profiss=id_profiss)
 
@@ -94,12 +92,13 @@ def delete_profissionais(idProf):
     con.commit()
     flash('Dados deletados', 'warning')
     
-    return redirect(url_for('prof.edit_profissionais')) #Está indo para a rota editar profissional
+    return redirect(url_for('clientes.inicial')) #Está indo para a rota editar profissional
 
 
 #=====================CADASTRAR USERNAME E SENHA DO USUARIO=======================
 @prof_blueprint.route('/cad_profUser', methods=['POST', 'GET'])
 def cad_profUser():
+    from profissionais.funcoes import getUltimoProfis
     if request.method=='POST':
         username=request.form['username'].strip()
         senha=request.form['senha'].strip()
@@ -129,6 +128,7 @@ def load_user(user_id):
 
 @prof_blueprint.route('/login_profissional', methods=['POST', 'GET'])
 def login_profissional():
+    from profissionais.funcoes import get_id_usuario, verificacao
     
     if request.method=='POST':
         username = request.form.get('username')
@@ -147,6 +147,7 @@ def logout():
 @prof_blueprint.route('/protected')
 @login_required
 def protected():
+    from profissionais.funcoes import get_id_usuario
     id_profiss=get_id_usuario()    
     print(id_profiss)
     return render_template('index.html', usuario=current_user.id, id_profiss=id_profiss)
@@ -154,7 +155,9 @@ def protected():
 
 #============RELACIONA SERVIÇO COM PROFISSIONAL==============
 def prof_serv(id_profiss):
-    
+
+    from profissionais.funcoes import getUltimoServico
+
     id_prof=id_profiss
 
     id_Serv=getUltimoServico()
@@ -166,54 +169,7 @@ def prof_serv(id_profiss):
     con.commit()
     con.close()
 
-def verificacao(username, senha):
-    con = sql.connect('goservice.db')
-    cur = con.cursor()
-    cur.execute("SELECT * FROM loginProf WHERE username=?", (username,))
-    user_prof = cur.fetchone()
-    
-    if user_prof and check_password_hash(user_prof[2], senha):
-        usuario = User_profiss(username)
-        login_user(usuario) #registra o usuário logado, cria uma sessão para o usuário
-        return redirect(url_for('protected'))
-    return render_template('login_profissional.html')
 
-
-def get_id_usuario():
-    con = sql.connect('goservice.db')
-    cur = con.cursor()
-    
-    cur.execute("SELECT * FROM loginProf WHERE username=?", (current_user.id,))
-    id_profiss = cur.fetchone()
-    return id_profiss[0]
-
-
-def getUltimoServico():
-    con = sql.connect("goservice.db")
-    cur = con.cursor()
-    cur.execute("SELECT MAX(ID_servico) FROM servicos;")
-    id = cur.fetchone()
-    idServ=id[0]
-    con.close()
-    return idServ
-
-def getUltimoProfis():
-    con = sql.connect("goservice.db")
-    cur = con.cursor()
-    cur.execute("SELECT MAX(ID_profiss) FROM profissionais;")
-    id = cur.fetchone()
-    idProf=id[0]
-    con.close()
-    return idProf
-
-def getUltimoServico():
-    con = sql.connect("goservice.db")
-    cur = con.cursor()
-    cur.execute("SELECT MAX(ID_servico) FROM servicos;")
-    id = cur.fetchone()
-    idServ=id[0]
-    con.close()
-    return idServ
 
 class User_profiss(UserMixin):
     def __init__(self, id):

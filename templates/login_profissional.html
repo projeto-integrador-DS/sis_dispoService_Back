@@ -1,4 +1,4 @@
-{% extends '/base.html' %}
+{% extends 'bases/base.html' %}
 
 {% block title %} Login Cliente {% endblock %}
 
@@ -10,7 +10,7 @@
 <div class="page">
     <img src="{{ url_for('static', filename='img/goservicebr.png')}}" id="logo" alt="">
     <br>
-    <form action="{{url_for('login_profissional')}}" method="POST" class="formLogin">
+    <form action="{{url_for('prof.login_profissional')}}" method="POST" class="formLogin">
         <h1 class="tit_principal">Login Cliente</h1>
         <img src="{{ url_for('static', filename='img/cliente.png')}}" id="foto_cli" alt="">
         {% with messages = get_flashed_messages() %}
@@ -36,6 +36,6 @@
         <input type="submit" name="trocar_senha" value="Acessar" class="btn" />
         
     </form>
-    <p class="text-right"><a href="{{url_for('cad_profissionais')}}" class="btn btn-success">+Novo Cadastro</a></p>
+    <p class="text-right"><a href="{{url_for('prof.cad_profissionais')}}" class="btn btn-success">+Novo Cadastro</a></p>
 </div>
 {% endblock %}

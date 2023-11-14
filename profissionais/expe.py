@@ -4,8 +4,8 @@ import sqlite3 as sql
 
 
 #---------importando funções do prof.py----------
-from profissionais.prof import getUltimoProfis
-from app import get_id_usuario
+from profissionais.funcoes import getUltimoProfis
+from profissionais.funcoes import get_id_usuario
 
 
 expe_blueprint = Blueprint('expe', __name__, template_folder='templates')

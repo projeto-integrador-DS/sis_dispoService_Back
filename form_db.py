@@ -41,7 +41,6 @@ sql_profissionais = '''CREATE TABLE IF NOT EXISTS "profissionais"(
     )'''
    
 
-
 sql_cursos = '''CREATE TABLE IF NOT EXISTS "cursos"(
     "ID_curso" INTEGER PRIMARY KEY AUTOINCREMENT,
     "fk_idProfiss"  INTEGER,

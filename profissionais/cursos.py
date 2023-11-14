@@ -1,10 +1,7 @@
-from flask import Flask, render_template, request, redirect, url_for, flash, jsonify, Blueprint
-from flask_login import LoginManager
+from flask import  render_template, request, redirect, url_for, flash, Blueprint
 import sqlite3 as sql
 
-#---------importando funções do prof.py----------
-from profissionais.prof import getUltimoProfis
-from profissionais.prof import get_id_usuario
+
 
 cursos_blueprint = Blueprint('exp', __name__, template_folder='templates')
 
@@ -12,6 +9,7 @@ cursos_blueprint = Blueprint('exp', __name__, template_folder='templates')
 #============CURSOS==============
 @cursos_blueprint.route('/curso', methods=['POST', 'GET'])
 def cad_curso():
+    from profissionais.funcoes import getUltimoProfis
     if request.method=='POST':
         modalidade  = request.form['modalidade']
         instituicao = request.form['instituicao']     
@@ -30,6 +28,7 @@ def cad_curso():
 
 @cursos_blueprint.route('/listacursos/<int:id_profiss>')
 def list_cursos_prof():
+    from profissionais.funcoes import get_id_usuario
     id_profiss= get_id_usuario()
     print("função list_cursos_prof", id_profiss)
     con = sql.connect("goservice.db")
@@ -42,6 +41,7 @@ def list_cursos_prof():
 
 @cursos_blueprint.route('/incluir_curso', methods=['POST', 'GET'])
 def incluir_curso():
+    from profissionais.funcoes import get_id_usuario
     id_profiss =get_id_usuario()
     print("chegou no incluir_curso:", id_profiss)
     if request.method=='POST':

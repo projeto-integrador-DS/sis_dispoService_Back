@@ -1,9 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, jsonify, Blueprint
-from flask_login import LoginManager
 import sqlite3 as sql
-
-#---------importando funções do prof.py----------
-from profissionais.prof import getUltimoProfis, prof_serv, get_id_usuario
 
 
 
@@ -13,6 +9,8 @@ serv_blueprint = Blueprint('serv', __name__, template_folder='templates')
 #============SERVIÇOS==============
 @serv_blueprint.route('/cad_servicos', methods=['POST', 'GET'])
 def cad_servicos():
+    from profissionais.prof import prof_serv
+    from profissionais.funcoes import getUltimoProfis
     if request.method=='POST':
         nome    =   request.form['nome']
         categoria=  request.form['categoria']
@@ -33,6 +31,7 @@ def cad_servicos():
 
 @serv_blueprint.route('/listaservicos/<int:id_profiss>', methods=['POST', 'GET'])
 def lista_servicos():
+    from profissionais.funcoes import get_id_usuario
     id_profiss=get_id_usuario()
     con = sql.connect('goservice.db')
     cur = con.cursor()
@@ -46,6 +45,8 @@ def lista_servicos():
 
 @serv_blueprint.route('/add_servicos/<int:id_profiss>', methods=['POST', 'GET'])
 def add_servicos():
+    from profissionais.prof import prof_serv
+    from profissionais.funcoes import get_id_usuario
     id_profiss=get_id_usuario()
     if request.method=='POST': 
         nome    =   request.form['nome']
@@ -67,6 +68,7 @@ def add_servicos():
 
 @serv_blueprint.route('/edit_servicos/<int:idServico>', methods=["POST", "GET"])
 def edit_servicos(idServico):
+    from profissionais.funcoes import  get_id_usuario
     if request.method=='POST':
         nome=request.form['nome']
         categoria=request.form['categoria']
@@ -90,6 +92,7 @@ def edit_servicos(idServico):
 #---------- Rota Excluir Serviços ----------
 @serv_blueprint.route('/delete_servicos/<int:idServico>', methods=["GET"])
 def delete_servicos(idServico):
+    from profissionais.funcoes import get_id_usuario
     con = sql.connect('goservice.db')
     cur = con.cursor()
     cur.execute("DELETE FROM servicos WHERE ID_servico=?", (idServico,))
