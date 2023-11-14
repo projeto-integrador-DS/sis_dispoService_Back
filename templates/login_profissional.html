@@ -1,6 +1,6 @@
-{% extends 'bases/base.html' %}
+{% extends 'bases_prof/base_login.html' %}
 
-{% block title %} Login Cliente {% endblock %}
+{% block title %} Login Profissional {% endblock %}
 
 {% block customCSS %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css')}}">
@@ -8,11 +8,11 @@
 
 {% block body %}
 <div class="page">
-    <img src="{{ url_for('static', filename='img/goservicebr.png')}}" id="logo" alt="">
+    <!--<img src="{{ url_for('static', filename='img/goservicebr.png')}}" id="logo" alt="">-->
     <br>
     <form action="{{url_for('prof.login_profissional')}}" method="POST" class="formLogin">
-        <h1 class="tit_principal">Login Cliente</h1>
-        <img src="{{ url_for('static', filename='img/cliente.png')}}" id="foto_cli" alt="">
+        <h1 class="tit_principal">Login Profissional</h1>
+        <img src="{{ url_for('static', filename='img/profissional.png')}}" id="foto_prof" alt="">
         {% with messages = get_flashed_messages() %}
 
         {% if messages %}
@@ -32,10 +32,11 @@
         <input type="text" name="username" placeholder="informe um nome de usuário" autofocus="true" />
         <label for="password">Senha</label>
         <input type="password" name="senha" placeholder="Digite sua senha" />
-        <a href="/">Esqueci minha senha</a>
-        <input type="submit" name="trocar_senha" value="Acessar" class="btn" />
+        <a class="link__senha" href="/">Esqueci minha senha</a>
+        <input type="submit" name="trocar_senha" value="Acessar" class="btn btn-success" />
+        <a href="{{url_for('prof.cad_profissionais')}}" class="btn btn-primary">Novo Cadastro</a>
         
     </form>
-    <p class="text-right"><a href="{{url_for('prof.cad_profissionais')}}" class="btn btn-success">+Novo Cadastro</a></p>
+    
 </div>
 {% endblock %}

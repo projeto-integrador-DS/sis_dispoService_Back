@@ -1,29 +1,42 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
+:root {
+    --cor-preta: #000;
+    --cor-branca: #FFF;
+    --cor-cinza: #666;
+    --cor-cinza-claro: #ccc;
+}
+
+
+
 body {
     font-family: 'Inter', sans-serif;
     margin: 0;
     padding: 0;
-    color: #023047
+    color: #023047;
+    background-color: var(--cor-preta);
 }
 
 .page {
+
     display: flex;
     flex-direction: column;
     align-items: center;
     align-content: center;
     justify-content: center;
     width: 100%;
-    height: 100vh;
-    background-color: #000000;
+    height: 100%;
+    color: #023047
 }
+
+
 
 .formLogin {
     display: flex;
     flex-direction: column;
-    background-color: #fff;
+    background-color: var(--cor-branca);
     border-radius: 7px;
-    padding: 40px;
+    padding: 2.5em;
     box-shadow: 10px 10px 40px rgba(0, 0, 0, 0.4);
     gap: 5px
 }
@@ -33,7 +46,7 @@ body {
 }
 
 
-#foto_cli {
+#foto_prof {
     display: block;
     width: 80px;
     height: 80px;
@@ -59,14 +72,14 @@ body {
 .formLogin p {
     display: inline-block;
     font-size: 14px;
-    color: #666;
-    margin-bottom: 25px;
+    color: var(--cor-cinza);
+    margin-bottom: 1.5em;
 }
 
 .formLogin input {
     padding: 15px;
     font-size: 14px;
-    border: 1px solid #ccc;
+    border: 1px solid var(--cor-cinza-claro);
     margin-bottom: 20px;
     margin-top: 5px;
     border-radius: 4px;
@@ -76,7 +89,7 @@ body {
 
 
 .formLogin input:focus {
-    border: 1px solid #000000;
+    border: 1px solid var(--cor-preta);
 }
 
 .formLogin label {
@@ -84,7 +97,7 @@ body {
     font-weight: 600;
 }
 
-.formLogin a {
+.link__senha {
     display: inline-block;
     margin-bottom: 20px;
     font-size: 13px;
@@ -92,25 +105,14 @@ body {
     transition: all linear 160ms;
 }
 
-.formLogin a:hover {
-    color: #fcf5f8;
-}
 
-.btn {
-    background-color: #0e0d0d;
-    color: #fff;
+.btns {
+    background-color: var(--cor-preta);
+    color: var(--cor-branca);
     font-size: 14px;
     font-weight: 600;
     border: none !important;
-    transition: all linear 160ms;
     cursor: pointer;
     margin: 0 !important;
-
-}
-
-.btn:hover {
-    transform: scale(1.05);
-    background-color: #bbb5b8;
-    color: #000000;
 
 }
