@@ -116,15 +116,18 @@ def delete_user(idCli):
 def list_profissionais(profissao):
     con = sql.connect("goservice.db")
     cur = con.cursor()
-    dados = cur.execute(f'''
+    cur.execute(f'''
                 SELECT * FROM profissionais
                 JOIN experiencias ON profissionais.ID_profiss = experiencias.fk_IDprofiss
                 WHERE experiencias.cargo = '{profissao}';
             ''')
     dados = cur.fetchall()
-   
+   # Obtém os nomes das colunas
+    colunas = [column[0] for column in cur.description]
+
+    # Converte os resultados para uma lista de dicionários
+    dados_json = [dict(zip(colunas, row)) for row in dados]
+
     
-    # Aqui, transformamos os resultados em um dicionário para jsonify
-    profissionais_dict = [dict(zip([column[0] for column in cur.description], row)) for row in dados]
-    con.close()
-    return render_template('perfil_profissional.html', profissionais=profissionais_dict)
+    # Converte a lista de dicionários para JSON usando jsonify
+    return render_template('perfil_profissional.html', profissionais=dados_json)

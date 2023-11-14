@@ -16,19 +16,19 @@
         <th scope="col">Telefone</th>
         <th scope="col">Cidade</th>
         <th scope="col">Estado</th>
+        <th scope="col">Ação</th>
       </tr>
     </thead>  
     <tbody>
-    {% for profissional in dados %}
+    {% for profissional in profissionais %}
       <tr>
-        <td>{{profissional['nome']}}</td>
-        <td>{{profissional.cargo}}</td>
-        <td>{{profissional.telefone}}</td>
-        <td>{{profissional.cidade}}</td>
-        <td>{{profissional.uf}}</td>
+        <td>{{ profissional['nome']  }}</td>
+        <td>{{ profissional['cargo'] }}</td>
+        <td>{{ profissional['telefone'] }}</td>
+        <td>{{ profissional['cidade'] }}</td>
+        <td>{{ profissional['uf'] }}</td>
 
-        <td><a href="{{url_for('clientes.edit_user', idCli=profissional.ID_clientes)}}" class="btn btn-primary"></a>Editar</td>
-        <td><a href="{{url_for('clientes.delete_user', idCli=profissional.ID_clientes)}}" class="btn btn-danger" onclick="return confirm('Tem certeza que deseja apagar?')"></a>Deletar</td>
+        <td><a href="{{url_for('clientes.edit_user', idCli=profissional.ID_clientes)}}" class="btn btn-primary">Ver Perfil</a></td>
       </tr>
     {% endfor %}
     </tbody>
