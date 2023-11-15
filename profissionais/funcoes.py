@@ -25,6 +25,14 @@ def get_id_usuario():
     id_profiss = cur.fetchone()
     return id_profiss[0]
 
+def get_id_cliente():
+    con = sql.connect('goservice.db')
+    cur = con.cursor()
+    
+    cur.execute("SELECT * FROM loginCli WHERE username=?", (current_user.id,))
+    id_cli = cur.fetchone()
+    return id_cli[0]
+
 
 def getUltimoServico():
     con = sql.connect("goservice.db")

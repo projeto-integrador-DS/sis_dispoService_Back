@@ -86,6 +86,13 @@ sql_login='''CREATE TABLE IF NOT EXISTS "loginProf"(
     FOREIGN KEY ("fk_profiss") REFERENCES "profissionais" ("ID_profiss")
 )
 '''
+sql_login_cli='''CREATE TABLE IF NOT EXISTS "loginCli"(
+    "fk_cli" INTEGER,
+    "username"  TEXT,
+    "senha"     TEXT,
+    FOREIGN KEY ("fk_cli") REFERENCES "clientes" ("ID_clientes")
+)
+'''
 
 cur.execute(sql_clientes)
 cur.execute(sql_profissionais)
@@ -94,6 +101,7 @@ cur.execute(sql_experiencias)
 cur.execute(sql_servicos)
 cur.execute(sql_oferece)
 cur.execute(sql_login)
+cur.execute(sql_login_cli)
 con.commit()
 
 def cadastraClientes():

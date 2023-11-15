@@ -16,17 +16,13 @@
             <img class="inicial__filho__imagens__usuarios" src="{{ url_for('static', filename='img/profissional.png')}}" alt="">
         </div>
         <div class="inicial__pai__opcoes">
-            <a href="#">
+            <a href="{{url_for('clientes.login_cliente')}}">
                 <p class="inicial__filho__opcoes">Cliente</p>
             </a>
             <!-- manda para a rota login-->
             <a href="{{url_for('prof.login_profissional')}}">
                 <p class="inicial__filho__opcoes__prof">Profissional</p>
             </a>
-        </div>
-        <div class="inicial__pai__opcoes__cadastro">
-            <a class="inicial__link__cadastro" href="{{url_for('clientes.add_user')}}">CADASTRE-SE</a>
-            <a class="inicial__link__cadastro" href="{{url_for('prof.cad_profissionais')}}">CADASTRE-SE</a>
         </div>
     </main>
 

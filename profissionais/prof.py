@@ -109,7 +109,7 @@ def cad_profUser():
         cur.execute("INSERT INTO loginProf(fk_profiss, username, senha) VALUES (?,?,?)", (fk_idProfiss, username, senha_hash))
         con.commit()
         con.close()
-        return redirect(url_for('prof.cad_curso'))
+        return redirect(url_for('exp.cad_curso'))
     return render_template('cad_profUser.html')
 
 
@@ -127,8 +127,9 @@ def load_user(user_id):
 
 
 @prof_blueprint.route('/login_profissional', methods=['POST', 'GET'])
+#@login_required Estava sem, porém se adicionado causa erro no login do profissional 
 def login_profissional():
-    from profissionais.funcoes import get_id_usuario, verificacao
+    from profissionais.funcoes import verificacao
     
     if request.method=='POST':
         username = request.form.get('username')

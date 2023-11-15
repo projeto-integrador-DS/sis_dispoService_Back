@@ -76,7 +76,7 @@ body {
     margin-bottom: 1.5em;
 }
 
-.formLogin input {
+.input {
     padding: 15px;
     font-size: 14px;
     border: 1px solid var(--cor-cinza-claro);
@@ -106,13 +106,23 @@ body {
 }
 
 
+.botoes__pai {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 15px;
+}
+
 .btns {
-    background-color: var(--cor-preta);
+    width: 250px;
+    padding: 11px;
     color: var(--cor-branca);
-    font-size: 14px;
+    font-size: 15px;
     font-weight: 600;
     border: none !important;
     cursor: pointer;
-    margin: 0 !important;
+    margin-bottom: 10px;
 
 }
+

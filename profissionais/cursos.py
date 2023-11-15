@@ -21,7 +21,7 @@ def cad_curso():
         con.commit()
         flash('Dados Cadastrados', 'success')
         con.close()
-        return redirect(url_for('prof.cad_experiencia'))
+        return redirect(url_for('expe.cad_experiencia'))
     return render_template('cad_cursos.html', cadastro =True)
 
 

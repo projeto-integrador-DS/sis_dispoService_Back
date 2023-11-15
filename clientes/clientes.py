@@ -1,8 +1,11 @@
-from flask import Flask, render_template, request, redirect, url_for, flash, jsonify, Blueprint
-from flask_login import LoginManager
+from flask import render_template, request, redirect, url_for, flash, Blueprint
 import sqlite3 as sql
+from werkzeug.security import generate_password_hash,check_password_hash
+from flask_login import LoginManager, login_required, logout_user,login_user, current_user, UserMixin
 
 clientes_blueprint = Blueprint('clientes', __name__, template_folder='templates')
+login_manager = LoginManager()
+
 
 #---------- Rota Inicial ----------
 @clientes_blueprint.route('/')
@@ -131,3 +134,51 @@ def list_profissionais(profissao):
     
     # Converte a lista de dicionários para JSON usando jsonify
     return render_template('perfil_profissional.html', profissionais=dados_json)
+
+#=================Login Cliente=================
+@login_manager.user_loader
+def load_user(user_id):
+    con = sql.connect('goservice.db')
+    cur = con.cursor()
+    cur.execute("SELECT * FROM loginProf WHERE username=?", (user_id,))
+    user_cli = cur.fetchone()
+    if not user_cli:
+      
+        return 
+    
+    return UserCliente(user_cli[1])
+
+
+@clientes_blueprint.route('/login_cliente', methods=['POST', 'GET'])
+#@login_required Estava sem, porém se adicionado causa erro no login do profissional 
+def login_cliente():
+    from profissionais.funcoes import  verificacao
+    
+    if request.method=='POST':
+        username = request.form.get('username')
+        senha = request.form.get('senha')
+        return verificacao(username, senha)
+    return render_template("login_cliente.html")
+
+@clientes_blueprint.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    return 'You are now logged out.'
+
+
+
+@clientes_blueprint.route('/protected')
+@login_required
+def protected():
+    from profissionais.funcoes import get_id_cliente
+    id_cli=get_id_cliente()    
+    print(id_cli)
+    return render_template('index.html', usuario=current_user.id, id_cli=id_cli)
+
+
+
+class UserCliente(UserMixin):
+    def __init__(self, id):
+        self.id = id
+

@@ -1,6 +1,7 @@
 from flask import Flask
 
 
+
 #------Importando o módulo cliente--------
 from clientes.clientes import clientes_blueprint
 
@@ -20,6 +21,7 @@ from profissionais.cursos import cursos_blueprint
 app = Flask(__name__)
 
 
+#login_manager = LoginManager(app)
 
 def cria_blueprint():
     app.register_blueprint(clientes_blueprint)
@@ -32,5 +34,5 @@ app.secret_key="daniel123"
 
 
 if __name__ == '__main__':
-    cria_blueprint()   
+    cria_blueprint()  
     app.run(debug=True)

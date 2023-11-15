@@ -52,13 +52,14 @@ def add_servicos():
         nome    =   request.form['nome']
         categoria=  request.form['categoria']
         valor   =   request.form['valor']
-
+       
+        prof_serv(id_profiss)
         con=sql.connect("goservice.db")
         cur = con.cursor()
-        cur.execute("INSERT INTO servicos(nome, categoria, valor) values(?, ?, ?)",(nome, categoria, valor))
+        cur.execute("INSERT INTO servicos(nome, categoria, valor) values(?, ?, ?, ?)",(nome, categoria, valor))
         con.commit()
         
-        prof_serv(id_profiss) #relaciona as tabelas servicos e profissionais
+         #relaciona as tabelas servicos e profissionais
 
         flash('Dados Cadastrados', 'success')
         con.close()
