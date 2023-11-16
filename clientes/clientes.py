@@ -174,7 +174,7 @@ def protected():
     from profissionais.funcoes import get_id_cliente
     id_cli=get_id_cliente()    
     print(id_cli)
-    return render_template('index.html', usuario=current_user.id, id_cli=id_cli)
+    return render_template('escolha_servico.html', usuario=current_user.id, id_cli=id_cli)
 
 
 

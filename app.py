@@ -1,6 +1,6 @@
 from flask import Flask
-
-
+from flask_login import LoginManager
+from profissionais.prof import login_manager
 
 #------Importando o módulo cliente--------
 from clientes.clientes import clientes_blueprint
@@ -19,6 +19,8 @@ from profissionais.cursos import cursos_blueprint
 
 
 app = Flask(__name__)
+login_manager.init_app(app)
+
 
 
 #login_manager = LoginManager(app)

@@ -3,6 +3,9 @@ import sqlite3 as sql
 from werkzeug.security import generate_password_hash,check_password_hash
 from flask_login import LoginManager, login_required, logout_user,login_user, current_user, UserMixin
 
+from profissionais.prof import User_profiss
+
+
 def verificacao(username, senha):
     con = sql.connect('goservice.db')
     cur = con.cursor()
@@ -10,11 +13,11 @@ def verificacao(username, senha):
     user_prof = cur.fetchone()
     
     if user_prof and check_password_hash(user_prof[2], senha):
-        from profissionais.prof import User_profiss
         usuario = User_profiss(username)
         login_user(usuario) #registra o usuário logado, cria uma sessão para o usuário
-        return redirect(url_for('protected'))
-    return render_template('login_profissional.html')
+        return redirect(url_for('prof.protected'))
+    return render_template('login_profission')
+
 
 
 def get_id_usuario():
@@ -51,12 +54,3 @@ def getUltimoProfis():
     idProf=id[0]
     con.close()
     return idProf
-
-def getUltimoServico():
-    con = sql.connect("goservice.db")
-    cur = con.cursor()
-    cur.execute("SELECT MAX(ID_servico) FROM servicos;")
-    id = cur.fetchone()
-    idServ=id[0]
-    con.close()
-    return idServ

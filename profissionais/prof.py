@@ -127,7 +127,7 @@ def load_user(user_id):
 
 
 @prof_blueprint.route('/login_profissional', methods=['POST', 'GET'])
-#@login_required Estava sem, porém se adicionado causa erro no login do profissional 
+#@login_required #Estava sem, porém se adicionado causa erro no login do profissional 
 def login_profissional():
     from profissionais.funcoes import verificacao
     

@@ -43,23 +43,22 @@ def lista_servicos():
     return render_template('lista_servicos.html', serv=servicos)
 
 
-@serv_blueprint.route('/add_servicos/<int:id_profiss>', methods=['POST', 'GET'])
+@serv_blueprint.route('/add_servicos', methods=['POST', 'GET'])
 def add_servicos():
-    from profissionais.prof import prof_serv
     from profissionais.funcoes import get_id_usuario
+    from profissionais.prof import prof_serv
     id_profiss=get_id_usuario()
     if request.method=='POST': 
         nome    =   request.form['nome']
         categoria=  request.form['categoria']
         valor   =   request.form['valor']
-       
-        prof_serv(id_profiss)
+
         con=sql.connect("goservice.db")
         cur = con.cursor()
-        cur.execute("INSERT INTO servicos(nome, categoria, valor) values(?, ?, ?, ?)",(nome, categoria, valor))
+        cur.execute("INSERT INTO servicos(nome, categoria, valor) values(?, ?, ?)",(nome, categoria, valor))
         con.commit()
         
-         #relaciona as tabelas servicos e profissionais
+        prof_serv(id_profiss) #relaciona as tabelas servicos e profissionais
 
         flash('Dados Cadastrados', 'success')
         con.close()
