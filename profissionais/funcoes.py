@@ -4,6 +4,10 @@ from werkzeug.security import generate_password_hash,check_password_hash
 from flask_login import LoginManager, login_required, logout_user,login_user, current_user, UserMixin
 
 from profissionais.prof import User_profiss
+from clientes.clientes import UserCliente
+
+
+
 
 
 def verificacao(username, senha):
@@ -16,7 +20,26 @@ def verificacao(username, senha):
         usuario = User_profiss(username)
         login_user(usuario) #registra o usuário logado, cria uma sessão para o usuário
         return redirect(url_for('prof.protected'))
-    return render_template('login_profission')
+    flash('Login invalido', 'warning')
+    return redirect(url_for('prof.login_prof'))
+
+
+
+
+def verificacaoCli(username, senha):
+    con = sql.connect('goservice.db')
+    cur = con.cursor()
+    cur.execute("SELECT * FROM loginCli WHERE username=?", (username,))
+    user_cli = cur.fetchone()
+    
+    if user_cli and check_password_hash(user_cli[2], senha):
+        usuario = UserCliente(username)
+        login_user(usuario) #registra o usuário logado, cria uma sessão para o usuário
+        return redirect(url_for('clientes.protected'))
+    flash('Login invalido', 'warning')
+    return redirect(url_for('clientes.login_cliente'))
+
+
 
 
 
@@ -28,13 +51,21 @@ def get_id_usuario():
     id_profiss = cur.fetchone()
     return id_profiss[0]
 
+
+
+
 def get_id_cliente():
     con = sql.connect('goservice.db')
     cur = con.cursor()
     
     cur.execute("SELECT * FROM loginCli WHERE username=?", (current_user.id,))
     id_cli = cur.fetchone()
+    print(id_cli)
     return id_cli[0]
+
+
+
+
 
 
 def getUltimoServico():
@@ -46,7 +77,22 @@ def getUltimoServico():
     con.close()
     return idServ
 
+
+
+
+
+
 def getUltimoProfis():
+    con = sql.connect("goservice.db")
+    cur = con.cursor()
+    cur.execute("SELECT MAX(ID_profiss) FROM profissionais;")
+    id = cur.fetchone()
+    idProf=id[0]
+    con.close()
+    return idProf
+
+
+def getUltimoCli():
     con = sql.connect("goservice.db")
     cur = con.cursor()
     cur.execute("SELECT MAX(ID_profiss) FROM profissionais;")

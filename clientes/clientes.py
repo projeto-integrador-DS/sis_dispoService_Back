@@ -140,7 +140,7 @@ def list_profissionais(profissao):
 def load_user(user_id):
     con = sql.connect('goservice.db')
     cur = con.cursor()
-    cur.execute("SELECT * FROM loginProf WHERE username=?", (user_id,))
+    cur.execute("SELECT * FROM loginCli WHERE username=?", (user_id,))
     user_cli = cur.fetchone()
     if not user_cli:
       
@@ -149,15 +149,34 @@ def load_user(user_id):
     return UserCliente(user_cli[1])
 
 
+#=====================CADASTRAR USERNAME E SENHA DO USUARIO CLIENTE=======================
+@clientes_blueprint.route('/cad_profCli', methods=['POST', 'GET'])
+def cad_profUser():
+    from profissionais.funcoes import getUltimoProfis
+    if request.method=='POST':
+        username=request.form['username'].strip()
+        senha=request.form['senha'].strip()
+        con = sql.connect('goservice.db')
+        senha_hash = generate_password_hash(senha)
+        fk_cli = getUltimoProfis()
+        cur = con.cursor()
+        cur.execute("INSERT INTO loginProf(fk_profiss, username, senha) VALUES (?,?,?)", (fk_cli, username, senha_hash))
+        con.commit()
+        con.close()
+        return redirect(url_for('exp.cad_curso'))
+    return render_template('cad_profUser.html')
+
+
+
 @clientes_blueprint.route('/login_cliente', methods=['POST', 'GET'])
 #@login_required Estava sem, porém se adicionado causa erro no login do profissional 
 def login_cliente():
-    from profissionais.funcoes import  verificacao
+    from profissionais.funcoes import  verificacaoCli
     
     if request.method=='POST':
         username = request.form.get('username')
         senha = request.form.get('senha')
-        return verificacao(username, senha)
+        return verificacaoCli(username, senha)
     return render_template("login_cliente.html")
 
 @clientes_blueprint.route('/logout')
