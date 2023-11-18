@@ -126,3 +126,14 @@ body {
 
 }
 
+.pai__imagem__titulo {
+    display: flex;
+    justify-content: space-evenly;
+    
+}
+
+.img__logo__voltar {
+    width: 50px;
+    margin: 0 2em 0 0;
+}
+

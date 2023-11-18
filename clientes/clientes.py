@@ -13,16 +13,6 @@ def inicial():
     return render_template('inicial_01.html')
 
 
-#---------- Rota Login Cliente ----------
-@clientes_blueprint.route('/login', methods=['POST'])
-def login():
-
-    email = request.form.get('email')
-    senha = request.form.get('senha')
-
-    return render_template('login.html')
-
-
 #---------- Rota cliente escolha serviço ----------
 @clientes_blueprint.route('/escolha_servico')
 def escolhaServico():
@@ -68,7 +58,7 @@ def add_user():
         cur.execute("insert into clientes(NOME, EMAIL, CPF, TELEFONE, RUA, NUMERO, BAIRRO, CIDADE, ESTADO, CEP) values (?,?,?,?,?,?,?,?,?,?)", (nome, email, cpf, telefone, rua, numero, cidade, bairro, estado, cep))
         con.commit()
         flash('Dados Cadastrados', 'success')
-        return redirect(url_for('clientes.inicial'))
+        return redirect(url_for('clientes.cad_profCli'))
     return render_template('cad_cliente.html')
 
 
@@ -151,7 +141,7 @@ def load_user(user_id):
 
 #=====================CADASTRAR USERNAME E SENHA DO USUARIO CLIENTE=======================
 @clientes_blueprint.route('/cad_profCli', methods=['POST', 'GET'])
-def cad_profUser():
+def cad_profCli():
     from profissionais.funcoes import getUltimoProfis
     if request.method=='POST':
         username=request.form['username'].strip()
@@ -163,8 +153,8 @@ def cad_profUser():
         cur.execute("INSERT INTO loginProf(fk_profiss, username, senha) VALUES (?,?,?)", (fk_cli, username, senha_hash))
         con.commit()
         con.close()
-        return redirect(url_for('exp.cad_curso'))
-    return render_template('cad_profUser.html')
+        return redirect(url_for('clientes.inicial'))
+    return render_template('cad_cliUser.html')
 
 
 
@@ -178,6 +168,7 @@ def login_cliente():
         senha = request.form.get('senha')
         return verificacaoCli(username, senha)
     return render_template("login_cliente.html")
+    
 
 @clientes_blueprint.route('/logout')
 @login_required
