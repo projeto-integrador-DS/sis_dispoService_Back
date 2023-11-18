@@ -16,7 +16,9 @@ def inicial():
 #---------- Rota cliente escolha serviço ----------
 @clientes_blueprint.route('/escolha_servico')
 def escolhaServico():
-    return render_template('escolha_servicos.html',dados="")
+    from profissionais.funcoes import get_id_cliente
+    id_cli=get_id_cliente()
+    return render_template('escolha_servicos.html',usuario=current_user.id, id_cli=id_cli)
 
 
 #---------- Rota Menu CLiente ----------
@@ -79,7 +81,7 @@ def edit_user(idCli):
         
         con = sql.connect("goservice.db")
         cur = con.cursor()
-        cur.execute("UPDATE clientes set nome=?, email=?, cpf=?, telefone=?, rua=?, numero=?, cidade=?, bairro=?, estado=?, cep=? WHERE ID_clientes=?", (nome, email, cpf, telefone, rua, numero, cidade, bairro, estado, cep, idCli))
+        cur.execute("UPDATE clientes SET nome=?, email=?, cpf=?, telefone=?, rua=?, numero=?, cidade=?, bairro=?, estado=?, cep=? WHERE ID_clientes=?", (nome, email, cpf, telefone, rua, numero, cidade, bairro, estado, cep, idCli))
         con.commit()
         flash('Dados atualizados', 'success')
         return redirect(url_for('clientes.inicial'))
@@ -133,24 +135,23 @@ def load_user(user_id):
     cur.execute("SELECT * FROM loginCli WHERE username=?", (user_id,))
     user_cli = cur.fetchone()
     if not user_cli:
-      
-        return 
-    
+        return None
     return UserCliente(user_cli[1])
+
 
 
 #=====================CADASTRAR USERNAME E SENHA DO USUARIO CLIENTE=======================
 @clientes_blueprint.route('/cad_profCli', methods=['POST', 'GET'])
 def cad_profCli():
-    from profissionais.funcoes import getUltimoProfis
+    from profissionais.funcoes import getUltimoCli
     if request.method=='POST':
         username=request.form['username'].strip()
         senha=request.form['senha'].strip()
         con = sql.connect('goservice.db')
         senha_hash = generate_password_hash(senha)
-        fk_cli = getUltimoProfis()
+        fk_cli = getUltimoCli()
         cur = con.cursor()
-        cur.execute("INSERT INTO loginProf(fk_profiss, username, senha) VALUES (?,?,?)", (fk_cli, username, senha_hash))
+        cur.execute("INSERT INTO loginCli(fk_cli, username, senha) VALUES (?,?,?)", (fk_cli, username, senha_hash))
         con.commit()
         con.close()
         return redirect(url_for('clientes.inicial'))
@@ -159,15 +160,19 @@ def cad_profCli():
 
 
 @clientes_blueprint.route('/login_cliente', methods=['POST', 'GET'])
-#@login_required Estava sem, porém se adicionado causa erro no login do profissional 
 def login_cliente():
     from profissionais.funcoes import  verificacaoCli
     
-    if request.method=='POST':
+    if request.method == 'POST':
+        if current_user.is_authenticated:
+            return 'Usuário já autenticado.'
+        
         username = request.form.get('username')
         senha = request.form.get('senha')
         return verificacaoCli(username, senha)
+        
     return render_template("login_cliente.html")
+
     
 
 @clientes_blueprint.route('/logout')
@@ -181,14 +186,28 @@ def logout():
 @clientes_blueprint.route('/protected')
 @login_required
 def protected():
-    from profissionais.funcoes import get_id_cliente
-    id_cli=get_id_cliente()    
-    print(id_cli)
-    return render_template('escolha_servico.html', usuario=current_user.id, id_cli=id_cli)
+    if current_user.is_authenticated:
+        from profissionais.funcoes import get_id_cliente
+        # O usuário está autenticado, é seguro acessar current_user.id
+        id_do_usuario = current_user.id
+        id_cli=get_id_cliente()    
+        print(id_cli)
+        return render_template('escolha_servico.html', usuario=id_do_usuario, id_cli=id_cli)
+    return redirect(url_for('clientes.login_cliente'))
 
 
+
+"""
+class UserCliente(UserMixin):
+    def __init__(self, id):
+        self.id = id
+
+"""
 
 class UserCliente(UserMixin):
     def __init__(self, id):
         self.id = id
+
+    def get_id(self):
+        return self.id
 

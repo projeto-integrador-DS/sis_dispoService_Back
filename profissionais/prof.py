@@ -64,7 +64,6 @@ def edit_profissionais(idProf):
         num =       request.form['numero']
         bairro =    request.form["bairro"]
         cep =       request.form["cep"]
-        cep =       request.form["cep"]
         uf =        request.form['uf']
 
 
@@ -120,14 +119,11 @@ def load_user(user_id):
     cur.execute("SELECT * FROM loginProf WHERE username=?", (user_id,))
     user_prof = cur.fetchone()
     if not user_prof:
-      
-        return 
-    
+        return None
     return User_profiss(user_prof[1])
 
 
 @prof_blueprint.route('/login_profissional', methods=['POST', 'GET'])
-#@login_required #Estava sem, porém se adicionado causa erro no login do profissional 
 def login_profissional():
     from profissionais.funcoes import verificacao
     
@@ -141,7 +137,7 @@ def login_profissional():
 @login_required
 def logout():
     logout_user()
-    return 'You are now logged out.'
+    return redirect(url_for('clientes.inicial'))
 
 
 
@@ -149,7 +145,7 @@ def logout():
 @login_required
 def protected():
     from profissionais.funcoes import get_id_usuario
-    id_profiss=get_id_usuario()    
+    id_profiss = get_id_usuario()    
     print(id_profiss)
     return render_template('index.html', usuario=current_user.id, id_profiss=id_profiss)
 

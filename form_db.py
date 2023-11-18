@@ -86,7 +86,7 @@ sql_login='''CREATE TABLE IF NOT EXISTS "loginProf"(
     FOREIGN KEY ("fk_profiss") REFERENCES "profissionais" ("ID_profiss")
 )
 '''
-sql_login_cli='''CREATE TABLE IF NOT EXISTS "loginCli"(
+sql_login_cli = '''CREATE TABLE IF NOT EXISTS "loginCli"(
     "fk_cli" INTEGER,
     "username"  TEXT,
     "senha"     TEXT,
