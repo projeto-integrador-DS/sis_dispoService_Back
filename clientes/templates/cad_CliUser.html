@@ -1,36 +1,40 @@
-{% extends 'bases/base.html' %}
+{% extends 'bases_cli/base_cad.html' %}
+
+
+{% block title %} Cadastro de Login e Senha {% endblock %}
+
+{% block customCSS %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/estilosCli/estilo_cad_cliUser.css')}}">
+{% endblock %}
 {% block body %}
 <div class="row">
     <style>
-        .container__pai__logo {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            gap: 15px;
-        }
-        .logo {
-            width: 370px;
-            height: 150px;
-        }
+       
     </style>
     <div class="col-5 mx-auto">
         <div class="container__pai__logo">
-            <img class="logo" src="{{ url_for('static', filename='img/goservice.png')}}" id="logo" alt="">
-            <h3>Cadastre seu login e senha</h3>
+            <img class="logo" src="{{ url_for('static', filename='img/goservicebr.png')}}" id="logo" alt="">  
+        </div>
+        <div class="container__pai__titulo">
+            <h3 class="titulo__pag">Cadastre seu login e senha</h3>
         </div>
         <form method="POST" action="{{url_for('clientes.cad_profCli')}}">
             <div class="form-group">
                 <label>USUÁRIO</label>
-                <input type="text" name="username" id="" required class="form-control"> 
+                <input type="text" name="username" id="" required class="form-control bg-black text-white"> 
             </div>
             
             <div class="form-group">
                 <label>SENHA</label>
-                <input type="text" name="senha" id="" required class="form-control"> 
+                <input type="text" name="senha" id="" required class="form-control bg-black text-white"> 
             </div>
             
             <br>
-            <input type="submit" value="Adicionar" class="btn btn-primary">
+            <div class="pai__botoes">
+                <input type="submit" value="Adicionar" class="btn bg-success text-white my-2 my-sm-0 btns">
+                <a class="btn bg-white text-black my-2 my-sm-0 btns" href="{{url_for('clientes.login_cliente')}}">Voltar
+                </a>
+            </div>
         </form>
     </div>
 </div>
