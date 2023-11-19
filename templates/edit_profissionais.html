@@ -5,7 +5,7 @@
     <div class="col-5 mx-auto">
         <h3>Edite</h3><hr>
        
-        <form action="{{url_for('edit_profissionais', idProf=datas.ID_profiss)}}" method="post">
+        <form action="{{url_for('profissional.edit_profissionais', idProf=datas.ID_profiss)}}" method="post">
             <div class="form-group">
                 <label>Nome: </label>
                 <input type="text" name="nome" required class="form-control" value="{{datas.nome}}">

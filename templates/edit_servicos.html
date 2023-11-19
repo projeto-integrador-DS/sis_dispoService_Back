@@ -5,7 +5,7 @@
     <div class="col-5 mx-auto">
         <h3>Edite</h3><hr>
        
-        <form action="{{url_for('edit_servicos', idServico=serv.ID_servico)}}" method="post">
+        <form action="{{url_for('servico.edit_servicos', idServico=serv.ID_servico)}}" method="post">
             <div class="form-group">
                 <label>nome: </label>
                 <input type="text" name="nome" required class="form-control" value="{{serv.nome}}">
