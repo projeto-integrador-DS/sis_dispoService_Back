@@ -6,11 +6,9 @@
 {% block customCSS %}
   <link rel="stylesheet" href="{{ url_for('static', filename='css/estilosCli/estilo_cad_cliUser.css')}}">
 {% endblock %}
+
 {% block body %}
 <div class="row">
-    <style>
-       
-    </style>
     <div class="col-5 mx-auto">
         <div class="container__pai__logo">
             <img class="logo" src="{{ url_for('static', filename='img/goservicebr.png')}}" id="logo" alt="">  
@@ -20,20 +18,18 @@
         </div>
         <form method="POST" action="{{url_for('clientes.cad_profCli')}}">
             <div class="form-group">
-                <label>USUÁRIO</label>
+                <label>Usuário:</label>
                 <input type="text" name="username" id="" required class="form-control bg-black text-white"> 
             </div>
             
             <div class="form-group">
-                <label>SENHA</label>
+                <label>Senha:</label>
                 <input type="text" name="senha" id="" required class="form-control bg-black text-white"> 
             </div>
             
             <br>
             <div class="pai__botoes">
-                <input type="submit" value="Adicionar" class="btn bg-success text-white my-2 my-sm-0 btns">
-                <a class="btn bg-white text-black my-2 my-sm-0 btns" href="{{url_for('clientes.login_cliente')}}">Voltar
-                </a>
+                <input type="submit" value="Adicionar" class="btn bg-success text-white my-2 my-sm-0 btns"> 
             </div>
         </form>
     </div>
