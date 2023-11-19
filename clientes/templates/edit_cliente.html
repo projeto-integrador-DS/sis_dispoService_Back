@@ -13,7 +13,7 @@
             <img class="logo" src="{{ url_for('static', filename='img/goservicebr.png')}}" id="logo" alt="">
         </div>
         <div class="container__pai__titulo">
-            <h3>Editar Usuário: {{dados.nome}}</h3>
+            <h3>Editando Usuário: {{dados.nome}}</h3>
         </div>
             <form class="flex-lg-row" action="{{url_for('clientes.edit_user', idCli=dados.ID_clientes)}}" method="post" >
                 <div class="row">
@@ -41,7 +41,7 @@
                     </div>
                     <div class="col">
                         <div class="form-group col-md-2">
-                            <label>Num Casa</label>
+                            <label>N° Casa</label>
                             <input type="number" name="numero" id="" value="{{dados.numero}}" class="form-control bg-black text-white">
                         </div>
                         <div class="form-group">
