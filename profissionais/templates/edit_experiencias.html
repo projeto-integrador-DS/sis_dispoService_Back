@@ -1,25 +1,36 @@
-{% extends 'bases/base.html' %}
+{% extends 'bases_prof/base_cad.html' %}
+
+{% block title %} Editando Experiências {% endblock %}
+
+{% block customCSS %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/estilosProf/estilo_cad_profUser.css')}}">
+{% endblock %}
 
 {% block body %}
 <div class="row">
     <div class="col-5 mx-auto">
-        <h3>Edite</h3><hr>
+        <div class="container__pai__logo">
+            <img class="logo" src="{{ url_for('static', filename='img/goservicebr.png')}}" id="logo" alt="">
+        </div>
+        <div class="container__pai__titulo">
+            <h3 class="titulo__pag">Editando Experiências</h3>
+        </div>
        
         <form action="{{url_for('expe.edit_experiencias', idExperiencia=exper.ID_experiencia)}}" method="post">
             <div class="form-group">
                 <label>cargo: </label>
-                <input type="text" name="cargo" required class="form-control" value="{{exper.cargo}}">
+                <input type="text" name="cargo" required class="form-control bg-black text-white" value="{{exper.cargo}}">
             </div>
             
             <div class="form-group">
                 <label>fdfd </label>
-                <input type="text" name="temp_servico" required class="form-control" value="{{exper.temp_servico}}">
+                <input type="text" name="temp_servico" required class="form-control bg-black text-white" value="{{exper.temp_servico}}">
             </div>
             <div class="form-group">
                 <label>area: </label>
-                <input type="text" name="empresa" required class="form-control" value="{{exper.empresa}}">
+                <input type="text" name="empresa" required class="form-control bg-black text-white" value="{{exper.empresa}}">
             </div>
-                <input type="submit" value="Confirmar" class="btn btn-primary">
+                <div class="pai__botoes"><input type="submit" value="Confirmar" class="btn bg-success text-white my-2 my-sm-0 btns"></div>
         </form>
     </div>
 </div>

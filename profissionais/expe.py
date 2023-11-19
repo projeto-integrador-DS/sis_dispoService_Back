@@ -30,7 +30,7 @@ def cad_experiencia():
         return redirect(url_for('serv.cad_servicos'))
     return render_template('cad_experiencias.html', cadastro=True)
 
-
+#=============Rota com erro===============
 @expe_blueprint.route('/lista_experiencias/<int:id_profiss>')
 def lista_experiencias():
     id_profiss=get_id_usuario()
@@ -42,6 +42,8 @@ def lista_experiencias():
     return render_template('lista_experiencias.html', exper=experiencias, id_profiss=id_profiss)
 
 
+
+#===================Rota com erro================
 @expe_blueprint.route('/add_exper/<int:id_profiss>', methods=['POST', 'GET'])
 def add_experiencia():
     id_profiss=get_id_usuario()

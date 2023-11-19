@@ -28,7 +28,7 @@ def cad_servicos():
         return redirect(url_for('prof.index'))
     return render_template('cad_Servicos.html')
 
-
+# ============Erro nessa rota===============
 @serv_blueprint.route('/listaservicos/<int:id_profiss>', methods=['POST', 'GET'])
 def lista_servicos():
     from profissionais.funcoes import get_id_usuario
@@ -42,7 +42,7 @@ def lista_servicos():
     con.close()
     return render_template('lista_servicos.html', serv=servicos)
 
-
+#===========Erro nessa rota==========
 @serv_blueprint.route('/add_servicos', methods=['POST', 'GET'])
 def add_servicos():
     from profissionais.funcoes import get_id_usuario

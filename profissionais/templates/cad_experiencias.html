@@ -1,4 +1,4 @@
-{% extends 'bases/base.html' %}
+{% extends 'bases_prof/base_cad.html' %}
 
 {% block title %} Cadastro de Experiências {% endblock %}
 
@@ -38,9 +38,6 @@
                         
                         <div class="pai__botoes">
                             <input type="submit" value="Adicionar" class="btn bg-success text-white botao-submit">
-                            <a class="btn bg-white text-black my-2 my-sm-0 btns botao-submit" href="{{url_for('prof.cad_profissionais')}}" >
-                                Voltar
-                            </a>
                         </div>
                     </div>
                 </div>
@@ -79,9 +76,6 @@
         
             <div class="pai__botoes">
                 <input type="submit" value="Adicionar" class="btn bg-success text-white botao-submit">
-                <a class="btn bg-white text-black my-2 my-sm-0 btns botao-submit" href="{{url_for('prof.cad_profissionais')}}" >
-                    Voltar
-                </a>
             </div>
         </form>
     </div>

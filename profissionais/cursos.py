@@ -25,7 +25,7 @@ def cad_curso():
     return render_template('cad_cursos.html', cadastro =True)
 
 
-
+#============Rota com erro============
 @cursos_blueprint.route('/listacursos/<int:id_profiss>')
 def list_cursos_prof():
     from profissionais.funcoes import get_id_usuario
@@ -38,7 +38,7 @@ def list_cursos_prof():
     cursos = cur.fetchall()      
     return render_template('lista_cursos.html', curs=cursos)
 
-
+#===========Rota com erro=============
 @cursos_blueprint.route('/incluir_curso', methods=['POST', 'GET'])
 def incluir_curso():
     from profissionais.funcoes import get_id_usuario
@@ -59,6 +59,8 @@ def incluir_curso():
     return render_template('cad_cursos.html', cadastro = False, id_profiss=id_profiss)
 
 
+
+#==============Rota com erro===============
 @cursos_blueprint.route("/edit_curso/<int:idCurso>", methods=["POST", "GET"])
 def edit_curso(id_curso):
     
