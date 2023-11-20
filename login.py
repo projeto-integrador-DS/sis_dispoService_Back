@@ -33,7 +33,7 @@ def login_profissional():
         username = request.form.get('username')
         senha = request.form.get('senha')
         return verificacao(username, senha)
-    return render_template("login_profissional.html")
+    return render_template("/profissional/login_profissional.html")
 
 def verificacao(username, senha):
     con = sql.connect('goservice.db')
@@ -45,7 +45,7 @@ def verificacao(username, senha):
         usuario = User_profiss(username)
         login_user(usuario) #registra o usuário logado, cria uma sessão para o usuário
         return redirect(url_for('login.protected'))
-    return render_template('login_profissional.html')
+    return render_template('/profissional/login_profissional.html')
 
 @bp_login.route('/logout')
 @login_required
@@ -67,4 +67,3 @@ def get_id_usuario():
     cur.execute("SELECT * FROM loginProf WHERE username=?", (current_user.id,))
     id_profiss = cur.fetchone()
     return id_profiss[0]
-

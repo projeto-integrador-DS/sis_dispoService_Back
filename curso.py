@@ -18,7 +18,7 @@ def cad_curso():
         con.commit()
         flash('Dados Cadastrados', 'success')
         con.close()
-        return render_template('cad_experiencias.html', cadastro=True)
+        return render_template('/experiencia/cad_experiencias.html', cadastro=True)
     return None
     #return render_template('cad_cursos.html', cadastro =True)
 
@@ -31,7 +31,7 @@ def list_cursos_prof():
     cur = con.cursor()
     cur.execute("SELECT c.ID_curso, c.modalidade, c.instituicao, c.area FROM cursos AS c JOIN profissionais AS pr ON pr.ID_profiss = c.fk_idProfiss WHERE pr.ID_profiss =?", (id_profiss,))
     cursos = cur.fetchall()      
-    return render_template('lista_cursos.html', curs=cursos)
+    return render_template('/curso/lista_cursos.html', curs=cursos)
 
 @bp_curso.route('/incluir_curso', methods=['POST', 'GET'])
 def incluir_curso():
@@ -49,7 +49,7 @@ def incluir_curso():
         flash('Dados Cadastrados', 'success')
         con.close()
         return redirect(url_for('curso.list_cursos_prof'))
-    return render_template('cad_cursos.html', cadastro = False, id_profiss=id_profiss)
+    return render_template('/curso/cad_cursos.html', cadastro = False, id_profiss=id_profiss)
     
 @bp_curso.route("/edit_curso/<id_curso>", methods=["POST", "GET"])
 def edit_curso(id_curso):
@@ -72,7 +72,7 @@ def edit_curso(id_curso):
     cur.execute("SELECT c.ID_curso, c.modalidade, c.instituicao, c.area FROM cursos AS c JOIN profissionais AS pr ON pr.ID_profiss = c.fk_idProfiss WHERE c.ID_curso =?", (id_curso,)) 
     #cur.execute("SELECT * FROM cursos WHERE ID_curso=?", (idCurso,))
     curso = cur.fetchone()
-    return render_template('edit_cursos.html', cursos=curso)
+    return render_template('/curso/edit_cursos.html', cursos=curso)
 
 @bp_curso.route('/delete_curso/<int:id_curso>', methods=['GET'])
 def delete_curso(id_curso):

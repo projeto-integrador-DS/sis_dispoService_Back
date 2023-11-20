@@ -20,7 +20,7 @@ def cad_experiencia():
         con.commit()
         flash('Dados Cadastrados', 'success')
         con.close()
-        return render_template('cad_servicos.html',cadastro=True)
+        return render_template('/servico/cad_servicos.html',cadastro=True)
         #return redirect(url_for('cad_servicos'))
     return None
     #return render_template('cad_experiencias.html', cadastro=True)
@@ -33,7 +33,7 @@ def lista_experiencias():
     cur = con.cursor()
     cur.execute("SELECT ID_experiencia, exp.cargo, exp.temp_servico, exp.empresa FROM experiencias AS exp JOIN profissionais AS pr ON pr.ID_profiss = exp.fk_IDprofiss WHERE pr.ID_profiss =?", (id_profiss,))
     experiencias = cur.fetchall()
-    return render_template('lista_experiencias.html', exper=experiencias, id_profiss=id_profiss)
+    return render_template('/experiencia/lista_experiencias.html', exper=experiencias, id_profiss=id_profiss)
 
 @bp_experiencia.route('/add_exper', methods=['POST', 'GET'])
 def add_experiencia():
@@ -50,7 +50,7 @@ def add_experiencia():
         con.close()
         
         return redirect(url_for('experiencia.lista_experiencias'))
-    return render_template('cad_experiencias.html', cadastro=False)
+    return render_template('/experiencia/cad_experiencias.html', cadastro=False)
    
 @bp_experiencia.route('/edit_experiencias/<int:idExperiencia>', methods=["POST", "GET"])
 def edit_experiencias(idExperiencia):
@@ -73,7 +73,7 @@ def edit_experiencias(idExperiencia):
     
     cur.execute("SELECT * FROM experiencias WHERE ID_experiencia=?", (idExperiencia,))
     experiencia = cur.fetchone()
-    return render_template('edit_experiencias.html', exper=experiencia)
+    return render_template('/experiencia/edit_experiencias.html', exper=experiencia)
 
 @bp_experiencia.route('/delete_experiencia/<int:idExperiencia>', methods=['GET'])
 def delete_experiencia(idExperiencia):

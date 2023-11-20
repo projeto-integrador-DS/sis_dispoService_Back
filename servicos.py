@@ -20,7 +20,7 @@ def cad_servicos():
         prof_serv(ultimIDprof)
         flash('Dados Cadastrados', 'success')
         con.close()
-        return render_template('login_profissional.html')
+        return render_template('/profissional/login_profissional.html')
         #return redirect(url_for('login_profissional'))
     return None
     #return render_template('cad_servicos.html', cadastro=True)
@@ -35,7 +35,7 @@ def lista_servicos():
     cur.execute(" SELECT serv.ID_servico, serv.nome, serv.categoria, serv.valor FROM oferece AS o JOIN profissionais AS pr on o.fk_profiss=pr.ID_profiss JOIN servicos AS serv ON o.fk_servic = serv.ID_servico WHERE o.fk_profiss=?", (id_profiss,))
     servicos=cur.fetchall()
     con.close()
-    return render_template('lista_servicos.html', serv=servicos)
+    return render_template('/servico/lista_servicos.html', serv=servicos)
 
 @bp_servicos.route('/add_servicos', methods=['POST', 'GET'])
 def add_servicos():
@@ -55,7 +55,7 @@ def add_servicos():
         flash('Dados Cadastrados', 'success')
         con.close()
         return redirect(url_for('servico.lista_servicos'))
-    return render_template('cad_servicos.html', cadastro=False)
+    return render_template('/servico/cad_servicos.html', cadastro=False)
 
 @bp_servicos.route('/edit_servicos/<int:idServico>', methods=["POST", "GET"])
 def edit_servicos(idServico):
@@ -76,7 +76,7 @@ def edit_servicos(idServico):
 
     cur.execute("SELECT * FROM servicos WHERE ID_servico=?", (idServico,))
     servico =cur.fetchone()
-    return render_template('edit_servicos.html', serv=servico)
+    return render_template('/servico/edit_servicos.html', serv=servico)
 
 
 @bp_servicos.route('/delete_servicos/<int:idServico>', methods=["GET"])

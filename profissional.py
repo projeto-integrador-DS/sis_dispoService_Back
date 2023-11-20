@@ -34,7 +34,7 @@ def cad_profissionais():
         return redirect(url_for('profissional.cad_profUser'))
         #return render_template('cad_cursos.html', cadastro=True) 
  
-    return render_template('cad_profissionais.html')
+    return render_template('/profissional/cad_profissionais.html')
 
 
 @bp_profissional.route('/edit_profissionais/<idProf>', methods=['POST', 'GET'])
@@ -65,7 +65,7 @@ def edit_profissionais(idProf):
     cur = con.cursor()
     cur.execute("SELECT * FROM profissionais WHERE ID_profiss=?", (idProf,))
     data = cur.fetchone()
-    return render_template('edit_profissionais.html', datas=data)
+    return render_template('/profissional/edit_profissionais.html', datas=data)
 
 @bp_profissional.route('/delete_profissionais', methods=['GET'])
 def delete_profissionais():
@@ -92,9 +92,9 @@ def cad_profUser():
         cur.execute("INSERT INTO loginProf(fk_profiss, username, senha) VALUES (?,?,?)", (fk_idProfiss, username, senha_hash))
         con.commit()
         con.close()
-        return render_template('cad_cursos.html', cadastro =True)
+        return render_template('/curso/cad_cursos.html', cadastro =True)
         #return redirect(url_for('cad_curso'))
-    return render_template('cad_profUser.html')
+    return render_template('/profissional/cad_profUser.html')
 
 @bp_profissional.route('/visual_profissional')
 def visual_profissional():
@@ -110,7 +110,7 @@ def visual_profissional():
     
     print(profissional)
     con.close()
-    return render_template('visual_profissional.html', datas=profissional)
+    return render_template('/profissional/visual_profissional.html', datas=profissional)
 
 def getUltimoProfis():
     con = sql.connect("goservice.db")
