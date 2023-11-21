@@ -14,7 +14,7 @@
             <h3 class="titulo__pag">Cadastro de Clientes</h3>
         </div>
 
-        <form class="flex-lg-row" method="post" action="{{url_for('clientes.add_user')}}">
+        <form class="flex-lg-row" method="post" action="{{url_for('clientes.cadastra_cliente')}}">
             <div class="row">
                 
                 <div class="col">
@@ -64,7 +64,7 @@
                 <br>
                 <div class="pai__botoes">
                     <input type="submit" value="Adicionar" class="btn bg-success text-white my-2 my-sm-0 btns">
-                    <a class="btn bg-white text-black my-2 my-sm-0 btns" href="{{url_for('clientes.login_cliente')}}">Voltar
+                    <a class="btn bg-white text-black my-2 my-sm-0 btns" href="{{url_for('logincliente.login_cliente')}}">Voltar
                     </a>
                 </div>
             </div>

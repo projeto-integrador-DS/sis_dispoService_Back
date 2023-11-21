@@ -16,7 +16,7 @@ def inicial():
 #---------- Rota cliente escolha serviço ----------
 @clientes_blueprint.route('/escolha_servico')
 def escolhaServico():
-    from profissionais.funcoes import get_id_cliente
+    from clientes.login_cli import get_id_cliente
     id_cli=get_id_cliente()
     return render_template('escolha_servicos.html',usuario=current_user.id, id_cli=id_cli)
 
@@ -42,7 +42,7 @@ def clientes_cadastrados():
 
 #---------- Rota Cadastrar Cliente ----------
 @clientes_blueprint.route('/cadastre-se', methods=['POST', 'GET'])
-def add_user():
+def cadastra_cliente():
     if request.method == 'POST':
         nome =      request.form['nome']
         email =     request.form['email']
@@ -130,6 +130,8 @@ def list_profissionais(profissao):
 #=================Login Cliente=================
 @login_manager.user_loader
 def load_user(user_id):
+    from clientes.login_cli import UserCliente
+
     con = sql.connect('goservice.db')
     cur = con.cursor()
     cur.execute("SELECT * FROM loginCli WHERE username=?", (user_id,))
@@ -155,59 +157,4 @@ def cad_profCli():
         con.commit()
         con.close()
         return redirect(url_for('clientes.inicial'))
-    return render_template('cad_cliUser.html')
-
-
-
-@clientes_blueprint.route('/login_cliente', methods=['POST', 'GET'])
-def login_cliente():
-    from profissionais.funcoes import  verificacaoCli
-    
-    if request.method == 'POST':
-        if current_user.is_authenticated:
-            return 'Usuário já autenticado.'
-        
-        username = request.form.get('username')
-        senha = request.form.get('senha')
-        return verificacaoCli(username, senha)
-        
-    return render_template("login_cliente.html")
-
-    
-
-@clientes_blueprint.route('/logout')
-@login_required
-def logout():
-    logout_user()
-    return 'You are now logged out.'
-
-
-
-@clientes_blueprint.route('/protected')
-@login_required
-def protected():
-    if current_user.is_authenticated:
-        from profissionais.funcoes import get_id_cliente
-        # O usuário está autenticado, é seguro acessar current_user.id
-        id_do_usuario = current_user.id
-        id_cli=get_id_cliente()    
-        print(id_cli)
-        return render_template('escolha_servico.html', usuario=id_do_usuario, id_cli=id_cli)
-    return redirect(url_for('clientes.login_cliente'))
-
-
-
-"""
-class UserCliente(UserMixin):
-    def __init__(self, id):
-        self.id = id
-
-"""
-
-class UserCliente(UserMixin):
-    def __init__(self, id):
-        self.id = id
-
-    def get_id(self):
-        return self.id
-
+    return render_template('cad_CliUser.html')

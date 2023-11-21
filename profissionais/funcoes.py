@@ -4,7 +4,7 @@ from werkzeug.security import generate_password_hash,check_password_hash
 from flask_login import LoginManager, login_required, logout_user,login_user, current_user, UserMixin
 
 from profissionais.prof import User_profiss
-from clientes.clientes import UserCliente
+from clientes.login_cli import UserCliente
 
 
 
@@ -50,7 +50,6 @@ def get_id_usuario():
     cur.execute("SELECT * FROM loginProf WHERE username=?", (current_user.id,))
     id_profiss = cur.fetchone()
     return id_profiss[0]
-
 
 
 

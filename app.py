@@ -5,6 +5,9 @@ from profissionais.prof import login_manager
 #------Importando o módulo cliente--------
 from clientes.clientes import clientes_blueprint
 
+#------Importando o módulo login-cliente------
+from clientes.login_cli import bp_logincli
+
 #------Importando o módulo profissional--------
 from profissionais.prof import prof_blueprint
 
@@ -31,6 +34,7 @@ def cria_blueprint():
     app.register_blueprint(expe_blueprint)
     app.register_blueprint(serv_blueprint)
     app.register_blueprint(cursos_blueprint)
+    app.register_blueprint(bp_logincli)
 
 app.secret_key="daniel123"
 
