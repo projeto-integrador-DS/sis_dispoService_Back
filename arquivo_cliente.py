@@ -1,35 +1,28 @@
 from flask import render_template, request, redirect, url_for, flash, Blueprint
 import sqlite3 as sql
-from werkzeug.security import generate_password_hash,check_password_hash
+
 from flask_login import LoginManager, login_required, logout_user,login_user, current_user, UserMixin
 
-clientes_blueprint = Blueprint('clientes', __name__, template_folder='templates')
-login_manager = LoginManager()
+bpclientes_blueprint = Blueprint('clientes', __name__)
 
 
 #---------- Rota Inicial ----------
-@clientes_blueprint.route('/')
+@bpclientes_blueprint.route('/')
 def inicial():
-    return render_template('inicial_01.html')
+    return render_template('clientes/inicial_01.html')
 
 
 #---------- Rota cliente escolha serviço ----------
-@clientes_blueprint.route('/escolha_servico')
+@bpclientes_blueprint.route('/escolha_servico')
 def escolhaServico():
     from clientes.login_cli import get_id_cliente
     id_cli=get_id_cliente()
     return render_template('escolha_servicos.html',usuario=current_user.id, id_cli=id_cli)
 
 
-#---------- Rota Menu CLiente ----------
-@clientes_blueprint.route('/menu_cliente')
-def menu_cliente():
-    return render_template('menu_cliente.html')
-
-
 
 #---------- Rota Clientes Cadastrados ----------
-@clientes_blueprint.route('/clientes_cadastrados')
+@bpclientes_blueprint.route('/clientes_cadastrados')
 def clientes_cadastrados():
     con = sql.connect("goservice.db")
     con.row_factory = sql.Row
@@ -41,7 +34,7 @@ def clientes_cadastrados():
 
 
 #---------- Rota Cadastrar Cliente ----------
-@clientes_blueprint.route('/cadastre-se', methods=['POST', 'GET'])
+@bpclientes_blueprint.route('/cadastre-se', methods=['POST', 'GET'])
 def cadastra_cliente():
     if request.method == 'POST':
         nome =      request.form['nome']
@@ -61,11 +54,11 @@ def cadastra_cliente():
         con.commit()
         flash('Dados Cadastrados', 'success')
         return redirect(url_for('clientes.cad_profCli'))
-    return render_template('cad_cliente.html')
+    return render_template('clientes/cad_cliente.html')
 
 
 #---------- Rota Editar Cliente ----------
-@clientes_blueprint.route('/edit_user/<string:idCli>', methods=['POST', 'GET'])
+@bpclientes_blueprint.route('/edit_user/<string:idCli>', methods=['POST', 'GET'])
 def edit_user(idCli):
     if request.method == 'POST':
         nome =      request.form['nome']
@@ -91,12 +84,12 @@ def edit_user(idCli):
 
     cur.execute("SELECT * from clientes WHERE ID_clientes=?", (idCli))
     dados = cur.fetchone()
-    return render_template('edit_cliente.html', dados=dados)
+    return render_template('clientes/edit_cliente.html', dados=dados)
 
 
 
 #---------- Rota Excluir Cliente ----------
-@clientes_blueprint.route('/delete_user/<string:idCli>', methods=['GET'])
+@bpclientes_blueprint.route('/delete_user/<string:idCli>', methods=['GET'])
 def delete_user(idCli):
     con = sql.connect("goservice.db")
     cur = con.cursor()
@@ -106,8 +99,10 @@ def delete_user(idCli):
     return redirect(url_for('clientes.inicial'))
 
 
+
+
 #====================== Criação da Rota que filtra profissionais por serviço ==========================
-@clientes_blueprint.route('/profissionais/<profissao>', methods=['GET'])
+@bpclientes_blueprint.route('/profissionais/<profissao>', methods=['GET'])
 def list_profissionais(profissao):
     con = sql.connect("goservice.db")
     cur = con.cursor()
@@ -127,34 +122,3 @@ def list_profissionais(profissao):
     # Converte a lista de dicionários para JSON usando jsonify
     return render_template('perfil_profissional.html', profissionais=dados_json)
 
-#=================Login Cliente=================
-@login_manager.user_loader
-def load_user(user_id):
-    from clientes.login_cli import UserCliente
-
-    con = sql.connect('goservice.db')
-    cur = con.cursor()
-    cur.execute("SELECT * FROM loginCli WHERE username=?", (user_id,))
-    user_cli = cur.fetchone()
-    if not user_cli:
-        return None
-    return UserCliente(user_cli[1])
-
-
-
-#=====================CADASTRAR USERNAME E SENHA DO USUARIO CLIENTE=======================
-@clientes_blueprint.route('/cad_profCli', methods=['POST', 'GET'])
-def cad_profCli():
-    from profissionais.funcoes import getUltimoCli
-    if request.method=='POST':
-        username=request.form['username'].strip()
-        senha=request.form['senha'].strip()
-        con = sql.connect('goservice.db')
-        senha_hash = generate_password_hash(senha)
-        fk_cli = getUltimoCli()
-        cur = con.cursor()
-        cur.execute("INSERT INTO loginCli(fk_cli, username, senha) VALUES (?,?,?)", (fk_cli, username, senha_hash))
-        con.commit()
-        con.close()
-        return redirect(url_for('clientes.inicial'))
-    return render_template('cad_CliUser.html')

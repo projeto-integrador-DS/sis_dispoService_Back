@@ -1,21 +1,22 @@
-{% extends 'bases_prof/base_cad.html' %}
+{% extends 'clientes/base/base_cad.html' %}
+
 
 {% block title %} Cadastro de Login e Senha {% endblock %}
 
 {% block customCSS %}
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/estilosProf/estilo_cad_profUser.css')}}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/estilosCli/estilo_cad_cliUser.css')}}">
 {% endblock %}
 
 {% block body %}
 <div class="row">
     <div class="col-5 mx-auto">
         <div class="container__pai__logo">
-            <img class="logo" src="{{ url_for('static', filename='img/goservicebr.png')}}" id="logo" alt="">
+            <img class="logo" src="{{ url_for('static', filename='img/goservicebr.png')}}" id="logo" alt="">  
         </div>
         <div class="container__pai__titulo">
             <h3 class="titulo__pag">Cadastre seu login e senha</h3>
         </div>
-        <form method="POST" action="{{url_for('prof.cad_profUser')}}">
+        <form method="POST" action="{{url_for('logincliente.cad_profCli')}}">
             <div class="form-group">
                 <label>Usuário:</label>
                 <input type="text" name="username" id="" required class="form-control bg-black text-white"> 
@@ -28,7 +29,7 @@
             
             <br>
             <div class="pai__botoes">
-                <input type="submit" value="Adicionar" class="btn bg-success text-white my-2 my-sm-0 btns">
+                <input type="submit" value="Adicionar" class="btn bg-success text-white my-2 my-sm-0 btns"> 
             </div>
         </form>
     </div>

@@ -1,30 +1,28 @@
-{% extends 'bases_prof/base_login.html' %}
+{% extends 'clientes/base/base_login.html' %}
 
-{% block title %} Login Profissional {% endblock %}
+{% block title %} Login Cliente {% endblock %}
 
 {% block customCSS %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css')}}">
 {% endblock %}
 
 {% block body %}
-<div class="page">
-    <!--<img src="{{ url_for('static', filename='img/goservicebr.png')}}" id="logo" alt="">-->
+<div class="page"> 
     <br>
-    <form action="{{url_for('prof.login_profissional')}}" method="POST" class="formLogin">
+    <form action="{{url_for('logincliente.login_cliente')}}" method="POST" class="formLogin">
         <div class="pai__imagem__titulo">
             <a class="" href="{{url_for('clientes.inicial')}}">
                 <img class="img__logo__voltar" src="../../static/img/voltar.png" alt="">
             </a>
-            <h1 class="tit_principal">Login Profissional</h1>
+            <h1 class="tit_principal">Login Cliente</h1>
         </div>
-        
-        <img src="{{ url_for('static', filename='img/profissional.png')}}" id="foto_prof" alt="">
+        <img src="{{ url_for('static', filename='img/cliente.png')}}" id="foto_prof" alt="">
         {% with messages = get_flashed_messages() %}
 
         {% if messages %}
         <br>
         {% for message in messages %}
-        <div class="alert alert-primary alert-dismissible" role="alert">
+        <div class="alert alert-primary alert-danger" role="alert">
             <strong> {{ message }}</strong>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" ></button>
         </div>
@@ -34,14 +32,14 @@
         {% endwith %}
         <p>Digite os seus dados de acesso no campo abaixo.</p>
         
-        <label for="username">Nome de Usuário:</label>
+        <label for="username">Usuário:</label>
         <input class="input" type="text" name="username" placeholder="informe um nome de usuário" autofocus="true" />
         <label for="password">Senha:</label>
         <input class="input" type="password" name="senha" placeholder="Digite sua senha" />
         <a class="link__senha" href="/">Esqueci minha senha</a>
         <div class="botoes__pai">
-            <input type="submit" name="acessar" value="Acessar" class="btn btn-success btns" />
-            <a href="{{url_for('prof.cad_profissionais')}}" class="btn btn-primary btns">Novo Cadastro</a>
+            <input type="submit" name="trocar_senha" value="Acessar" class="btn btn-success btns" />
+            <a href="{{url_for('clientes.cadastra_cliente')}}" class="btn btn-primary btns">Novo Cadastro</a>
         </div>
         
     </form>
