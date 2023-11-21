@@ -31,7 +31,7 @@ def clientes_cadastrados():
     cur = con.cursor()
     cur.execute("select * from clientes")
     data = cur.fetchall()
-    return render_template('cadastrados.html', dados=data)
+    return render_template('clientes/cadastrados.html', dados=data)
 
 
 
@@ -55,7 +55,7 @@ def cadastra_cliente():
         cur.execute("insert into clientes(NOME, EMAIL, CPF, TELEFONE, RUA, NUMERO, BAIRRO, CIDADE, ESTADO, CEP) values (?,?,?,?,?,?,?,?,?,?)", (nome, email, cpf, telefone, rua, numero, cidade, bairro, estado, cep))
         con.commit()
         flash('Dados Cadastrados', 'success')
-        return redirect(url_for('clientes.cad_profCli'))
+        return redirect(url_for('logincliente.cad_profCli'))
     return render_template('clientes/cad_cliente.html')
 
 
@@ -86,7 +86,7 @@ def edit_user(idCli):
 
     cur.execute("SELECT * from clientes WHERE ID_clientes=?", (idCli))
     dados = cur.fetchone()
-    return render_template('clientes/cliente.html', dados=dados)
+    return render_template('clientes/edit_cliente.html', dados=dados)
 
 
 
@@ -95,7 +95,7 @@ def edit_user(idCli):
 def delete_user(idCli):
     con = sql.connect("goservice.db")
     cur = con.cursor()
-    cur.execute("DELETE from clientes WHERE ID_clientes=?", (idCli))
+    cur.execute("DELETE  from clientes WHERE ID_clientes=?", (idCli,))
     con.commit()
     flash('Dados deletados', 'warning')
     return redirect(url_for('clientes.inicial'))
