@@ -1,7 +1,8 @@
 from flask import render_template, request, redirect, url_for, flash, Blueprint
 import sqlite3 as sql
-
 from flask_login import LoginManager, login_required, logout_user,login_user, current_user, UserMixin
+
+
 
 bpclientes_blueprint = Blueprint('clientes', __name__)
 
@@ -13,8 +14,9 @@ def inicial():
 
 
 #---------- Rota cliente escolha serviço ----------
-@bpclientes_blueprint.route('/escolha_servico')
-def escolhaServico():
+@login_required
+@bpclientes_blueprint.route('/escolha_servico/<string:id_cli>')
+def escolhaServico(id_cli):
     from clientes.login_cli import get_id_cliente
     id_cli=get_id_cliente()
     return render_template('escolha_servicos.html',usuario=current_user.id, id_cli=id_cli)
@@ -84,7 +86,7 @@ def edit_user(idCli):
 
     cur.execute("SELECT * from clientes WHERE ID_clientes=?", (idCli))
     dados = cur.fetchone()
-    return render_template('clientes/edit_cliente.html', dados=dados)
+    return render_template('clientes/cliente.html', dados=dados)
 
 
 
@@ -120,5 +122,5 @@ def list_profissionais(profissao):
 
     
     # Converte a lista de dicionários para JSON usando jsonify
-    return render_template('perfil_profissional.html', profissionais=dados_json)
+    return render_template('clientes/perfil_profissional.html', profissionais=dados_json)
 
