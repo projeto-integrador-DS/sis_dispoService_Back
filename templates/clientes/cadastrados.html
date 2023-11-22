@@ -1,11 +1,8 @@
-{% extends 'clientes/base/base_cad.html' %}
-{% block customCSS %}
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/estilo_menu_profissional.css')}}">
-{% endblock %}
+{% extends 'clientes/base/base_cadastrados.html' %}
+
 {% block body %}
-<h3 class="text-center text-muted mb-3"></h3>
-<p class="text-right"><a href="{{url_for('clientes.cadastra_cliente')}}" class="btn bg-white link-dark">+Novo Cadastro</a></p>
-<table class="table table-bordered table-dark bg-dark">
+
+  <h3 class="titulo__pagina">Clientes Cadastrados</h3>
     <thead>
       <tr>
         <th scope="col">ID</th>
@@ -14,11 +11,13 @@
         <th scope="col">Cpf</th>
         <th scope="col">Telefone</th>
         <th scope="col">Rua</th>
-        <th scope="col">Número</th>
+        <th scope="col">N° Casa</th>
         <th scope="col">Bairro</th>
         <th scope="col">Cidade</th>
         <th scope="col">Estado</th>
         <th scope="col">Cep</th>
+        <th scope="col">Editar</th>
+        <th scope="col">Excluir</th>
       </tr>
     </thead>
     <tbody>
@@ -40,6 +39,6 @@
       </tr>
       {% endfor %}
     </tbody>
-  </table>
+</table>
 
 {% endblock %}

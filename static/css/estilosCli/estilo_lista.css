@@ -8,6 +8,23 @@ body {
     color: var(--cor-branca);
 }
 
+.titulo__pagina {
+    text-align: center;
+    font-size: 32px;
+    font-weight: 800;
+}
+
+.botao {
+    margin: 3em 0em 3em 3em;
+}
+
+
+.tabela {
+    display: block;
+    margin: 0em 0em 2em 0em;
+    padding: 3em;
+}
+
 .img__logo__voltar{
     width: 50px;
 }
