@@ -1,0 +1,54 @@
+:root {
+    --cor-preta: #000;
+    --cor-branca: #FFF;
+}
+
+
+body {
+    background-color: var(--cor-preta);
+    color: var(--cor-branca);
+    font-style: var(--font-principal); 
+}
+
+
+label {
+    font-size: 20px;
+    font-weight: 700;
+     
+}
+
+.titulo__pag {
+    font-size: 36px;
+    font-weight: 700;
+}
+
+
+.container__pai__logo {
+    display: flex;
+    justify-content: center;
+    
+}
+
+.logo {
+    width: 370px;
+    height: 150px;
+}
+
+.container__pai__titulo {
+    padding: 1em 0em;
+    display: flex;
+    justify-content: center;
+
+}
+
+.pai__botoes {
+    padding: 1em 22em;
+    display: flex;
+    justify-content: space-around;
+}
+
+.botao-submit {
+    font-size: 14px;
+    font-weight: 700;
+    width: 12em;
+}

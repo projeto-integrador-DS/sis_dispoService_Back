@@ -1,0 +1,21 @@
+:root {
+    --cor-preta: #000;
+    --cor-branca: #FFF;
+}
+
+body {
+    background-color: var(--cor-preta);
+    color: var(--cor-branca);
+}
+
+.img__logo__voltar{ /*estilo do base_lista_profs.html*/
+    width: 50px;
+}
+
+.tit__pag {
+    font-size: 32px;
+    font-weight: 700;
+    padding: 1em 0em;
+    display: flex;
+    justify-content: center;
+}
