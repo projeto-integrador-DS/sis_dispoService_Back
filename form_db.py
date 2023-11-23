@@ -28,6 +28,7 @@ sql_clientes = '''CREATE TABLE IF NOT EXISTS "clientes"(
 
 sql_profissionais = '''CREATE TABLE IF NOT EXISTS "profissionais"(
     "ID_profiss" INTEGER PRIMARY KEY AUTOINCREMENT,
+    "fk_cliente" INTEGER,
     "nome"      TEXT,
     "CPF"       TEXT,
     "telefone"  TEXT,
@@ -37,7 +38,10 @@ sql_profissionais = '''CREATE TABLE IF NOT EXISTS "profissionais"(
     "bairro"    TEXT,
     "CEP"       TEXT,
     cidade      TEXT,
-    "uf"        TEXT
+    "uf"        TEXT,
+    "profissao" TEXT,
+    FOREIGN KEY ("fk_cliente") REFERENCES "clientes" ("ID_clientes")
+
     )'''
    
 
