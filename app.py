@@ -3,8 +3,11 @@ from flask_login import LoginManager
 
 #------Importando o módulo cliente-----
 from cliente import bpclientes_blueprint
+
 #------Importando o módulo login-cliente------
 from login_cli import bp_logincli
+
+#------Importando a instancia login_manager------
 from login_cli import login_manager
 
 app = Flask(__name__)

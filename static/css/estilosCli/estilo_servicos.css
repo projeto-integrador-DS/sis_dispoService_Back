@@ -1,5 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
+
+:root {
+    --cor-preta: #000;
+    --cor-branca: #FFF;
+    --cor-cinza: #ECECEC;
+    --cor-cinza-escuro: #CBC8C8;
+    --fonte-inter: 'Inter', sans-serif;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -9,13 +18,15 @@
 
 body {
     font-family: 'Inter', sans-serif;
-    background-color: #000;
-    color: #f6f6f6;
+    background-color: var(--cor-cinza);
+    color:  var(--cor-preta);
 }
 
 .pai__titulo {
     padding-top: 4em;
     display: flex;
+    flex-direction: column;
+    align-items: center;
     justify-content: center;
 }
 
@@ -39,18 +50,18 @@ body {
     position: relative;
     display: inline-block;
     padding: 50px;
-    color: #03e9f4;
-    border: #03e9f4 3px solid;
+    color: var(--cor-preta);
+    background-color: var(--cor-cinza-escuro);
+    box-shadow: 1px 3px var(--cor-cinza);
     border-radius: 16px;
     text-transform: uppercase;
-    transition: 0.5s;
     letter-spacing: 4px;
     overflow: hidden;
     text-decoration: none;
     font-size: 22px;
     outline: 0;
 
-    box-shadow: inset 0 0 32px 0 #03e9f4, 0 0 32px 0 #03e9f4;
+    box-shadow: inset 0 0 32px 0 var(--cor-cinza-escuro), 0 0 32px 0 var(--cor-cinza-escuro);
     text-shadow: 0 0 8px hsl(0 0 100% / 0.3), 0 0 32px;
 }
 
@@ -81,9 +92,9 @@ body {
     bottom: 0;
     left: 0;
     right: 0;
-    box-shadow: 0 0 128px 32px #03e9f4;
+    box-shadow: 0 0 128px 32px var(--cor-preta);
     opacity: 0;
-    background-color: #03e9f4;
+    background-color: var(--cor-preta); 
     z-index: -1;
     transition: opacity 100ms linear;
 }
