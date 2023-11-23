@@ -3,24 +3,24 @@
 {% block title %} Página Inicial {% endblock %}
 
 {% block customCSS %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/inicial_style.css')}}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/estilosCli/estilo_inicio.css') }}">
 {% endblock %}
 
 {% block content %}
     <main>
         <div class="inicial__pai__logo">
-            <img class="inicial__filho__logo" src="{{ url_for('static', filename='img/goservicebr.png')}}" alt="Logo da Empresa GoService">
+            <img class="inicial__filho__logo" src="{{ url_for('static', filename='img/goservice.png')}}" alt="Logo da Empresa GoService">
         </div>
         <div class="inicial__pai__imagens__usuarios">
             <img class="inicial__filho__imagens__usuarios" src="{{ url_for('static', filename='img/cliente.png')}}" alt="">
             <img class="inicial__filho__imagens__usuarios" src="{{ url_for('static', filename='img/profissional.png')}}" alt="">
         </div>
         <div class="inicial__pai__opcoes">
-            <a href="{{url_for('logincliente.login_cliente')}}">
+            <a class="inicial__filho__link" href="{{url_for('logincliente.login_cliente')}}">
                 <p class="inicial__filho__opcoes">Cliente</p>
             </a>
             <!-- manda para a rota login-->
-            <a href="#">
+            <a class="inicial__filho__link" href="#">
                 <p class="inicial__filho__opcoes__prof">Profissional</p>
             </a>
         </div>

@@ -1,8 +1,15 @@
 {% extends 'clientes/base/base_cadastrados.html' %}
 
+{% block title %} Lista de Cadastrados {% endblock %}
+
+{% block customCSS %} 
+<link rel="stylesheet" href="{{ url_for('static', filename='css/estilosCli/estilo_lista.css') }}"> 
+{% endblock %}
+
 {% block body %}
 
   <h3 class="titulo__pagina">Clientes Cadastrados</h3>
+  <table class="table table-bordered table-dark bg-dark tabela">
     <thead>
       <tr>
         <th scope="col">ID</th>
