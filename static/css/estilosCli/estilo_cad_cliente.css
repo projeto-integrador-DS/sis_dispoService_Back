@@ -5,6 +5,7 @@
     --cor-preta: #000;
     --cor-branca: #FFF;
     --cor-cinza: #ECECEC;
+    --cor-cinza-escuro: #CBC8C8;
     --fonte-inter: 'Inter', sans-serif;
 }
 
@@ -26,6 +27,18 @@ input {
     font-size: 20px;
     font-weight: 700;
     font-family: var(--fonte-inter);
+    
+}
+
+textarea:focus, input:focus, select:focus {
+    box-shadow: 0 0 0 0;
+    border: 0 none;
+    outline: 0;
+}
+
+.caixa {
+    box-shadow: 1px 3px var(--cor-cinza-escuro);
+    
 }
 
 
