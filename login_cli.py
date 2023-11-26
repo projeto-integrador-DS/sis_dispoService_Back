@@ -25,11 +25,8 @@ def load_user(user_id):
 
 @bp_logincli.route('/login_cliente', methods=['POST', 'GET'])
 def login_cliente():
-    
-    
     if request.method == 'POST':
-        if current_user.is_authenticated:
-            return 'Usuário já autenticado.'
+        
         
         username = request.form.get('username')
         senha = request.form.get('senha')

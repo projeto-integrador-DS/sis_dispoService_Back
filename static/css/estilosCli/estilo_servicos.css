@@ -23,7 +23,7 @@ body {
 }
 
 .pai__titulo {
-    padding-top: 4em;
+    padding-top: 2.5em;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -117,7 +117,7 @@ body {
 .filho__container__pedreiro:hover,
 .filho__container__encanador:hover,
 .filho__container__cuidador:hover {
-    color: #131d16;
+    color: var(--cor-branca);
     text-shadow: none;
 }
 
