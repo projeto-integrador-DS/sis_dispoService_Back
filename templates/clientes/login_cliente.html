@@ -32,14 +32,14 @@
         {% endwith %}
         <p>Digite os seus dados de acesso no campo abaixo.</p>
         
-        <label for="username">Usuário:</label>
+        <label class="form__label__cli" for="username">Usuário:</label>
         <input class="input" type="text" name="username" placeholder="informe um nome de usuário" autofocus="true" />
-        <label for="password">Senha:</label>
+        <label class="form__label__cli" for="password">Senha:</label>
         <input class="input" type="password" name="senha" placeholder="Digite sua senha" />
         <a class="link__senha" href="/">Esqueci minha senha</a>
         <div class="botoes__pai">
-            <input type="submit" name="trocar_senha" value="Acessar" class="btn btn-success btns" />
-            <a href="{{url_for('clientes.cadastra_cliente')}}" class="btn btn-primary btns">Novo Cadastro</a>
+            <input type="submit" name="trocar_senha" value="Acessar" class="btn btn-dark btns" />
+            <a href="{{url_for('clientes.cadastra_cliente')}}" class="btn btn-success btns">Novo Cadastro</a>
         </div>
         
     </form>

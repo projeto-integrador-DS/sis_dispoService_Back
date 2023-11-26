@@ -3,22 +3,20 @@
 :root {
     --cor-preta: #000;
     --cor-branca: #FFF;
-    --cor-cinza: #666;
-    --cor-cinza-claro: #ccc;
+    --cor-cinza: #ECECEC;
+    --cor-cinza-escuro: #CBC8C8;
+    --fonte-inter: 'Inter', sans-serif;
 }
-
 
 
 body {
     font-family: 'Inter', sans-serif;
     margin: 0;
     padding: 0;
-    color: #023047;
-    background-color: var(--cor-preta);
+    background-color: var(--cor-cinza-escuro);
 }
 
 .page {
-
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -29,17 +27,22 @@ body {
     color: #023047
 }
 
+.form__label__cli {
+    font-size: 18px;
+}
 
 
 .formLogin {
     display: flex;
     flex-direction: column;
-    background-color: var(--cor-branca);
+    background-color: var(--cor-cinza);
+    opacity: 0.9;
     border-radius: 7px;
     padding: 2.5em;
     box-shadow: 10px 10px 40px rgba(0, 0, 0, 0.4);
     gap: 5px
 }
+
 
 .tit_principal {
     text-align: center;
@@ -78,19 +81,16 @@ body {
 
 .input {
     padding: 15px;
-    font-size: 14px;
+    font-size: 18px;
     border: 1px solid var(--cor-cinza-claro);
     margin-bottom: 20px;
     margin-top: 5px;
     border-radius: 4px;
     transition: all linear 160ms;
+    border:  none;
     outline: none;
 }
 
-
-.formLogin input:focus {
-    border: 1px solid var(--cor-preta);
-}
 
 .formLogin label {
     font-size: 14px;
