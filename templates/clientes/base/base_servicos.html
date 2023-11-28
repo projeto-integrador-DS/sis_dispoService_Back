@@ -15,10 +15,11 @@
               <span class="navbar-toggler-icon"></span>
             </button>
           
-            <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+            <div class="collapse navbar-collapse justify-content-end " id="navbarSupportedContent">
               <ul class="navbar-nav mr-auto">
               </ul>
-                <a href="{{url_for('clientes.edit_user',idCli=id_cli)}}" class="btn filho__container__encanador my-2 my-sm-0" style="padding: 6px 16px !important;font-size: 12px; border-radius: 10px; border: solid 1.5px">Editar Perfil</a>
+                <a href="{{url_for('clientes.edit_user',idCli=id_cli)}}" class="btn filho__container__encanador my-2 my-sm-0" style="padding: 6px 16px !important;font-size: 12px; border-radius: 10px; margin-right: 1.5em; ">Editar Perfil</a>
+                <a href="{{url_for('logincliente.logout')}}" class="btn filho__container__encanador my-2 my-sm-0" style="padding: 6px 16px !important;font-size: 12px; border-radius: 10px; ">Fazer Logout</a>
             </div>
           </nav>
     </header>

@@ -55,7 +55,7 @@ def verificacaoCli(username, senha):
 @login_required
 def logout():
     logout_user()
-    return 'You are now logged out.'
+    return redirect(url_for('clientes.inicial'))
 
 
 @bp_logincli.route('/protected')
