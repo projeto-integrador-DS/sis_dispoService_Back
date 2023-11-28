@@ -1,18 +1,9 @@
 {% extends 'base.html' %}
 {% block body %}
 <div class="row">
-    <style>
-        .container__pai__logo {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            gap: 15px;
-        }
-        .logo {
-            width: 370px;
-            height: 150px;
-        }
-    </style>
+  
+    <link rel="stylesheet" href="../../static/css/profissional/estilo_cad_profissionais.css">
+    
     <div class="col-5 mx-auto">
         <div class="container__pai__logo">
             <img class="logo" src="{{ url_for('static', filename='img/goservice.png')}}" id="logo" alt="">

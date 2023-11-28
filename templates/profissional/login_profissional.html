@@ -12,7 +12,7 @@
     <br>
     <form action="{{url_for('login.login_profissional')}}" method="POST" class="formLogin">
         <h1 class="tit_principal">Login Cliente</h1>
-        <img src="{{ url_for('static', filename='img/cliente.png')}}" id="foto_cli" alt="">
+        <img src="{{ url_for('static', filename='img/profissional.png')}}" id="foto_cli" alt="">
         {% with messages = get_flashed_messages() %}
 
         {% if messages %}

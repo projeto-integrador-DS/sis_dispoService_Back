@@ -3,8 +3,9 @@
 
 {%if cadastro%}
 <div class="row">
+    <link rel="stylesheet" href="../../static/css/servico/estilo_cad_serv.css">
     <div class="col-5 mx-auto">
-        <h3>defina os serviços</h3><br>
+        <h3>QUAIS SERVIÇOS VOCÊ PRESTA?</h3><br>
         <form method="post" action="{{url_for('servico.cad_servicos')}}">
             <div class="form-group">
                 <label>nome</label>
