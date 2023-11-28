@@ -1,7 +1,15 @@
 {% extends 'base.html' %}
 {% block body %}
 <h3 class="text-center text-muted mb-3"></h3>
+<!-- 
+  <div class="sidenav">
+  <a href="#" class="active">Active</a>
+  <a href="#">Link</a>
+  <a href="#">Link</a>
+  <a href="#" class="disabled">Disabled</a>
+</div>
 
+-->
 <h2> Bem vindo: {{usuario}}</h2>
 <nav>
   <p><a href="{{url_for('curso.list_cursos_prof')}}">MEUS CURSOS</a></p>
