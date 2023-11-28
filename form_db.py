@@ -9,6 +9,7 @@ cur.execute('DROP TABLE IF EXISTS experiencias')
 cur.execute('DROP TABLE IF EXISTS cursos')
 cur.execute('DROP TABLE IF EXISTS servicos')
 cur.execute('DROP TABLE IF EXISTS oferece')
+cur.execute('DROP TABLE IF EXISTS loginProf')
 
 
 sql_clientes = '''CREATE TABLE IF NOT EXISTS "clientes"(
@@ -94,7 +95,7 @@ sql_login_cli = '''CREATE TABLE IF NOT EXISTS "loginCli"(
     "fk_cli" INTEGER,
     "username"  TEXT,
     "senha"     TEXT,
-    FOREIGN KEY ("fk_cli") REFERENCES "clientes" ("ID_clientes")
+    FOREIGN KEY ("fk_cli") REFERENCES "clientes" ("ID_clientes") ON DELETE CASCADE
 )
 '''
 
