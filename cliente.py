@@ -58,6 +58,7 @@ def cadastra_cliente():
     return render_template('/clientes/cad_cliente.html')
 
 
+#=====================CADASTRAR USERNAME E SENHA DO USUARIO CLIENTE=======================
 @bpclientes_blueprint.route('/cad_profCli', methods=['POST', 'GET'])
 def cad_profCli():
     if request.method=='POST':

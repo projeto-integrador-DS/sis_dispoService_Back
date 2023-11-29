@@ -9,20 +9,7 @@
     {% block customCSS %}  {% endblock %}
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-md navbar-dark bg-transparent p-lg-2">
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-            </button>
-          
-            <div class="collapse navbar-collapse justify-content-end " id="navbarSupportedContent">
-              <ul class="navbar-nav mr-auto">
-              </ul>
-                <a href="{{url_for('clientes.edit_user',idCli=id_cli)}}" class="btn filho__container__encanador my-2 my-sm-0" style="padding: 6px 16px !important;font-size: 12px; border-radius: 10px; margin-right: 1.5em; ">Editar Perfil</a>
-                <a href="{{url_for('logincliente.logout')}}" class="btn filho__container__encanador my-2 my-sm-0" style="padding: 6px 16px !important;font-size: 12px; border-radius: 10px; ">Fazer Logout</a>
-            </div>
-          </nav>
-    </header>
+    
     <div class="">
         {% with messages=get_flashed_messages(with_categories=true) %}
             {% if messages %}

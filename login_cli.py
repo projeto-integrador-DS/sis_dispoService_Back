@@ -79,4 +79,3 @@ def get_id_cliente():
 
 
 
-#=====================CADASTRAR USERNAME E SENHA DO USUARIO CLIENTE=======================
