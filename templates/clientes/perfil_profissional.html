@@ -23,12 +23,17 @@
     {% for profissional in profissionais %}
       <tr>
         <td>{{ profissional['nome']  }}</td>
-        <td>{{ profissional['cargo'] }}</td>
+        <td>{{ profissional['profissao'] }}</td>
         <td>{{ profissional['telefone'] }}</td>
         <td>{{ profissional['cidade'] }}</td>
         <td>{{ profissional['uf'] }}</td>
 
-        <td><img class="lista__prof-icone" src="{{urf_for('static', filename='img/whats.png')}}" alt="ícone do whatsapp"> <a href="https://wa.me/55{{ profissional['telefone'] }}" class="btn btn-primary">Ver Perfil</a></td>
+        <td>
+          <a href="https://wa.me/55{{ profissional['telefone'] }}">
+            <img class="lista__prof-icone" src="{{ url_for('static', filename='img/whats.png')}}" alt="ícone do whatsapp">
+          </a>
+
+        </td>
       </tr>
     {% endfor %}
     </tbody>

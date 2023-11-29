@@ -40,7 +40,7 @@ sql_profissionais = '''CREATE TABLE IF NOT EXISTS "profissionais"(
     "CEP"       TEXT,
     cidade      TEXT,
     "uf"        TEXT,
-    "profissao" TEXT,
+    "profissao" TEXT
     FOREIGN KEY ("fk_cliente") REFERENCES "clientes" ("ID_clientes")
 
     )'''
@@ -114,7 +114,7 @@ def cadastraClientes():
     con.commit()
 
 def cadastraProfissionais():
-    cur.execute("INSERT INTO profissionais (ID_profiss, nome, CPF, telefone, email, endereco, cidade, num, bairro, cep, uf ) values(1, 'Daniel', '703.968.604-00', '(87)9.81355794', 'danielverissimo1d@gmail.com', 'rua c', '08', 'centro', '55355000', 'paranatama-pe', 'pe')")
+    cur.execute("INSERT INTO profissionais (ID_profiss, nome, CPF, telefone, email, endereco, cidade, num, bairro, cep, uf, profissao ) values(1, 'Daniel', '703.968.604-00', '(87)9.81355794', 'danielverissimo1d@gmail.com', 'rua c', '08', 'centro', '55355000', 'paranatama-pe', 'pe', 'pedreiro')")
     
     con.commit()
     

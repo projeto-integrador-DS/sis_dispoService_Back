@@ -119,24 +119,37 @@ def delete_user(idCli):
 
 
 #====================== Criação da Rota que filtra profissionais por serviço ==========================
+def obter_profissionais_por_profissao(profissao):
+    try:
+        with sql.connect("goservice.db") as con:
+            cur = con.cursor()
+            print(profissao)
+            # Use parâmetros na consulta para evitar injeção de SQL
+            cur.execute('''
+                        SELECT * FROM profissionais
+                        WHERE profissao = ?;
+                    ''', (profissao,))
+
+            dados = cur.fetchall()
+            print('ggdgdgg',dados)
+            # Obtém os nomes das colunas
+            colunas = [column[0] for column in cur.description]
+
+            # Converte os resultados para uma lista de dicionários
+            dados_json = [dict(zip(colunas, row)) for row in dados]
+
+            return dados_json
+
+    except sql.Error as err:
+        print(f"Erro ao executar a consulta: {err}")
+        return None
+
+# Exemplo de uso na rota
 @bpclientes_blueprint.route('/profissionais/<profissao>', methods=['GET'])
 def list_profissionais(profissao):
-    con = sql.connect("goservice.db")
-    cur = con.cursor()
-    cur.execute(f'''
-                SELECT * FROM clientes AS cl
-                JOIN profissionais AS pr ON cl.ID_clientes= pr.fk_cliente
-                WHERE pr.profissao = '{profissao}';
-            ''')
-    dados = cur.fetchall()
-   # Obtém os nomes das colunas
-    colunas = [column[0] for column in cur.description]
+    profissionais = obter_profissionais_por_profissao(profissao)
 
-    # Converte os resultados para uma lista de dicionários
-    dados_json = [dict(zip(colunas, row)) for row in dados]
-    # Converte a lista de dicionários para JSON usando jsonify
-    return render_template('clientes/perfil_profissional.html', profissionais=dados_json)
-
+    return render_template('clientes/perfil_profissional.html', profissionais=profissionais)
 
 def getUltimoCli():
     con = sql.connect("goservice.db")
