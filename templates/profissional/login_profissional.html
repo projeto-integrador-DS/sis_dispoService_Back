@@ -1,6 +1,6 @@
-{% extends '/base.html' %}
+{% extends '/bases/baseLogin.html' %}
 
-{% block title %} Login Cliente {% endblock %}
+{% block title %} Login Profissional {% endblock %}
 
 {% block customCSS %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css')}}">
@@ -11,8 +11,10 @@
     <img src="{{ url_for('static', filename='img/goservicebr.png')}}" id="logo" alt="">
     <br>
     <form action="{{url_for('login.login_profissional')}}" method="POST" class="formLogin">
-        <h1 class="tit_principal">Login Cliente</h1>
-        <img src="{{ url_for('static', filename='img/profissional.png')}}" id="foto_cli" alt="">
+        
+        <h1 class="tit_principal">Login Profissional</h1>
+
+        <img src="{{ url_for('static', filename='img/profissional.png')}}" id="foto_prof" alt="">
         {% with messages = get_flashed_messages() %}
 
         {% if messages %}
@@ -28,14 +30,18 @@
         {% endwith %}
         <p>Digite os seus dados de acesso no campo abaixo.</p>
         
-        <label for="username">E-mail</label>
-        <input type="text" name="username" placeholder="informe um nome de usuário" autofocus="true" />
-        <label for="password">Senha</label>
-        <input type="password" name="senha" placeholder="Digite sua senha" />
-        <a href="/">Esqueci minha senha</a>
-        <input type="submit" name="trocar_senha" value="Acessar" class="btn" />
+        <label class="form__Label__prof" for="username">E-mail:</label>
+        <input class="input" type="text" name="username" placeholder="informe um nome de usuário" autofocus="true" />
+        
+        <label class="form__Label__prof" for="password">Senha: </label>
+        <input class="input" type="password" name="senha" placeholder="Digite sua senha" />
+        <a class="link__senha" href="/">Esqueci minha senha</a>
+        <div class="botoes__pai">
+            <input type="submit" name="trocar_senha" value="Acessar" class="btn btn-dark btns"/>
+            <a href="{{url_for('profissional.cad_profissionais')}}" class="btn btn-success">Novo Cadastro</a></p>
+        </div>
         
     </form>
-    <p class="text-right"><a href="{{url_for('profissional.cad_profissionais')}}" class="btn btn-success">+Novo Cadastro</a></p>
+   
 </div>
 {% endblock %}

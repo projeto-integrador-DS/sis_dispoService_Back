@@ -9,22 +9,13 @@
     <link rel="stylesheet" href="../../static/css/index_profiss.css">
 </head>
 <body>
+    <div class="container-fluid p-5 bg-primary text-white text-center">
+        <h1>GOSERVICE</h1>
+        <p>ÁREA DO PROFISSIONAL</p> 
+    </div>
+    {% block side %}
 
-
-<div class="container-fluid p-5 bg-primary text-white text-center">
-  <h1>GOSERVICE</h1>
-  <p>ÁREA DO PROFISSIONAL</p> 
-</div>
-{% with messages=get_flashed_messages(with_categories=true) %}
-{% if messages %}
-    {% for category, message in messages %}
-        <div class="alert alert-{{category}}">{{message}}</div>
-    {% endfor %}
-{% endif %}
-{% endwith %}
-{% block body %}
-
-{% endblock %}
+    {% endblock %}
 </body>
 </html>
 

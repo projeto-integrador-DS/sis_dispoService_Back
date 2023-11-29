@@ -1,20 +1,20 @@
-{% extends 'base.html' %}
-{% block body %}
+{% extends 'bases/base_index_profiss.html' %}
+{% block side %}
 <h3 class="text-center text-muted mb-3"></h3>
-<!-- 
-  <div class="sidenav">
-  <a href="#" class="active">Active</a>
-  <a href="#">Link</a>
-  <a href="#">Link</a>
-  <a href="#" class="disabled">Disabled</a>
-</div>
+  <!-- 
+    
+    <a href="{{url_for('curso.list_cursos_prof')}}" class="active">Active</a>
+    <a href="#">Link</a>
+    <a href="#">Link</a>
+    <a href="#" class="disabled">Disabled</a>
 
--->
-<h2> Bem vindo: {{usuario}}</h2>
-<nav>
-  <p><a href="{{url_for('curso.list_cursos_prof')}}">MEUS CURSOS</a></p>
-  <p><a href="{{url_for('experiencia.lista_experiencias')}}">MINHAS EXPERIÊNCIAS PROFISSIONAIS</a></p>
-  <P><a href="{{url_for('servico.lista_servicos')}}">MEUS SERVIÇOS</a></p>
-  <P><a href="{{url_for('profissional.visual_profissional')}}">MOSTRAR MEUS DADOS</a></p>
-</nav>
+
+  -->
+  <h2> Bem vindo: {{usuario}}</h2>
+  <div class="sidenav">
+    <a href="{{url_for('curso.list_cursos_prof')}}">MEUS CURSOS</a>
+    <a href="{{url_for('experiencia.lista_experiencias')}}">MINHAS EXPERIÊNCIAS PROFISSIONAIS</a>
+    <a href="{{url_for('servico.lista_servicos')}}">MEUS SERVIÇOS</a>
+    <a href="{{url_for('profissional.visual_profissional')}}">MOSTRAR MEUS DADOS</a>
+  </div>
 {% endblock %}
