@@ -6,6 +6,8 @@
     --cor-branca: #FFF;
     --cor-cinza: #ECECEC;
     --cor-cinza-escuro: #CBC8C8;
+    --azul-forte: #2f44a9;
+    --cinza-forte: #626262;
     --fonte-inter: 'Inter', sans-serif;
 }
 
@@ -92,9 +94,9 @@ body {
     bottom: 0;
     left: 0;
     right: 0;
-    box-shadow: 0 0 128px 32px var(--cor-preta);
+    box-shadow: 0 0 128px 32px var(--cinza-forte);
     opacity: 0;
-    background-color: var(--cor-preta); 
+    background-color: var(--cinza-forte); 
     z-index: -1;
     transition: opacity 100ms linear;
 }
@@ -118,6 +120,7 @@ body {
 .filho__container__encanador:hover,
 .filho__container__cuidador:hover {
     color: var(--cor-branca);
+    
     text-shadow: none;
 }
 

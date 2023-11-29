@@ -2,7 +2,9 @@
 
 {% block title %} Perfil do Profissional {% endblock %}
 
-
+{% block customCSS %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/estilosCli/estilo_lista.css')}}">  
+{% endblock %}
 
 {% block body %}
 <h3 class="tit__pag">Lista de Profissionais</h3>
@@ -26,7 +28,7 @@
         <td>{{ profissional['cidade'] }}</td>
         <td>{{ profissional['uf'] }}</td>
 
-        <td><a href="{{url_for('clientes.edit_user', idCli=profissional.ID_clientes)}}" class="btn btn-primary">Ver Perfil</a></td>
+        <td><img class="lista__prof-icone" src="{{urf_for('static', filename='img/whats.png')}}" alt="ícone do whatsapp"> <a href="https://wa.me/55{{ profissional['telefone'] }}" class="btn btn-primary">Ver Perfil</a></td>
       </tr>
     {% endfor %}
     </tbody>
