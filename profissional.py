@@ -2,6 +2,7 @@ from flask import Blueprint, render_template, request, redirect, url_for, flash
 from werkzeug.security import generate_password_hash
 import sqlite3 as sql
 from login import get_id_usuario
+from form_db import setup
 
 bp_profissional=Blueprint('profissional',__name__)
 
@@ -11,9 +12,13 @@ def index():
     return render_template('index.html', id_profiss=id_profiss)
 
 #============PROFISSIONAIS==============
+@bp_profissional.route('/')
+def inicial():
+    return render_template('inicial_01.html')
 
 @bp_profissional.route('/cad_profissionais', methods=['POST', 'GET'])
 def cad_profissionais():
+    setup()
     if request.method == 'POST':
         nome =      request.form['nome']
         cpf =       request.form["cpf"]

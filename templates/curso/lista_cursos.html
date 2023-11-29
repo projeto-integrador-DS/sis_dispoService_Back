@@ -1,32 +1,47 @@
-{% extends 'base.html' %}
+{% extends '/bases/base_index_profiss.html' %}
+
+
+{% block customCSS %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/profissional/estilo_cad_profissional.css')}}" >
+   
+    
+{% endblock %}
+
 {% block body %}
 
-<h3 class="text-center text-muted mb-3"></h3>
-<p class="text-right"><a href="{{url_for('curso.incluir_curso', id_profiss=id_profiss)}}" class="btn btn-success">+CURSO</a></p>
-<h3>id: {{ id_profiss }}</h3>
-<table class="table_cursos">
-  <thead>
-    <tr>
-      <th scope="col">ID</th>
-      <th scope="col">modalidade</th>
-      <th scope="col">instituicao</th>
-      <th scope="col">area</th>
-    </tr>
-  </thead>
+  <h3 class="text-center text-muted mb-3"></h3>
+  <p class="text-right"><a href="{{url_for('curso.incluir_curso', id_profiss=id_profiss)}}" class="btn btn-success">+CURSO</a></p>
   
-  <tbody>
-    {% for linha in curs %}
-    <tr>
-      <td>{{loop.index}}</td>
-      <td>{{linha.modalidade}}</td>
-      <td>{{linha.instituicao}}</td>
-      <td>{{linha.area}}</td>
-      <td><a href="{{url_for('curso.edit_curso', id_curso=linha.ID_curso)}}" class="btn btn-primary">Editar</a></td>
-      <td><a href="{{url_for('curso.delete_curso', id_curso=linha.ID_curso)}}" class="btn btn-danger" onclick="return confirm('Tem certeza que deseja apagar?')">Deletar</a></td>
-    </tr>
-    {% endfor %}
+  <h3>id: {{ id_profiss }}</h3>
+
+  {% block content %}
+
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">modalidade</th>
+        <th scope="col">instituicao</th>
+        <th scope="col">area</th>
+      </tr>
+    </thead>
     
-  </tbody>
-</table>
-<td><a href="{{url_for('profissional.index')}}" class="btn btn-danger" >MENU</a></td>
+    <tbody>
+      {% for linha in curs %}
+      <tr>
+        <td>{{loop.index}}</td>
+        <td>{{linha.modalidade}}</td>
+        <td>{{linha.instituicao}}</td>
+        <td>{{linha.area}}</td>
+        <td><a href="{{url_for('curso.edit_curso', id_curso=linha.ID_curso)}}" class="btn btn-primary">Editar</a></td>
+        <td><a href="{{url_for('curso.delete_curso', id_curso=linha.ID_curso)}}" class="btn btn-danger" onclick="return confirm('Tem certeza que deseja apagar?')">Deletar</a></td>
+      </tr>
+      {% endfor %}
+      
+    </tbody>
+  </table>
+  
+   
+  {% endblock %}
+  <td><a href="{{url_for('profissional.index')}}" class="btn btn-danger" >MENU</a></td>
 {% endblock %}

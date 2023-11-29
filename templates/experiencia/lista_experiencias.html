@@ -1,32 +1,45 @@
-{% extends 'base.html' %}
+{% extends '/bases/base_index_profiss.html' %}
+
+{% block customCSS %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/profissional/estilo_cad_profissional.css')}}" >
+    
+    </style>
+{% endblock %}
+
 {% block body %}
 <h3 class="text-center text-muted mb-3"></h3>
 <p class="text-right"><a href="{{url_for('experiencia.add_experiencia')}}" class="btn btn-success">+Novo Cadastro</a></p>
-<table class="table_experiencias">
-  <thead>
-    <tr>
-      <th scope="col">ID</th>
-      <th scope="col">cargo</th>
-      <th scope="col">tempo de serviço</th>
-      <th scope="col">empresa</th>
-    </tr>
-  </thead>
-  
-  <tbody>
-    {% for experiencia in exper %}
-    <tr>
-      <td>{{loop.index}}</td>
-      <!-- <td>{{experiencia.ID_experiencia}}</td> -->
-      <td>{{experiencia.cargo}}</td>
-      <td>{{experiencia.temp_servico}}</td>
-      <td>{{experiencia.empresa}}</td>
-      <td><a href="{{url_for('experiencia.edit_experiencias', idExperiencia=experiencia.ID_experiencia)}}" class="btn btn-primary">Editar</a></td>
-      <td><a href="{{url_for('experiencia.delete_experiencia', idExperiencia=experiencia.ID_experiencia)}}" class="btn btn-danger" onclick="return confirm('Tem certeza que deseja apagar?')">Deletar</a></td>      
-    </tr>
+  {% block content %}
     
-    {% endfor %}
+      <table class="table table-bordered" >
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">cargo</th>
+            <th scope="col">tempo de serviço</th>
+            <th scope="col">empresa</th>
+          </tr>
+        </thead>
+        
+        <tbody>
+          {% for experiencia in exper %}
+          <tr>
+            <td>{{loop.index}}</td>
+            <!-- <td>{{experiencia.ID_experiencia}}</td> -->
+            <td>{{experiencia.cargo}}</td>
+            <td>{{experiencia.temp_servico}}</td>
+            <td>{{experiencia.empresa}}</td>
+            <td><a href="{{url_for('experiencia.edit_experiencias', idExperiencia=experiencia.ID_experiencia)}}" class="btn btn-primary">Editar</a></td>
+            <td><a href="{{url_for('experiencia.delete_experiencia', idExperiencia=experiencia.ID_experiencia)}}" class="btn btn-danger" onclick="return confirm('Tem certeza que deseja apagar?')">Deletar</a></td>      
+          </tr>
+          
+          {% endfor %}
+          
+        </tbody>
+      </table>
+    </div>
     
-  </tbody>
-</table>
+  {% endblock %}
+
 <a href="{{url_for('profissional.index')}}" class="btn btn-danger" >MENU</a>
 {% endblock %}

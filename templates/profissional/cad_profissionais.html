@@ -1,14 +1,20 @@
-{% extends 'base.html' %}
+{% extends '/bases/base_cadastro.html' %}
+
+{% block title %} cadastro de profissional {% endblock %}
+{% block customCSS %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/profissional/estilo_cad_profissional.css')}}" >
+{% endblock %}
+
 {% block body %}
-<div class="row">
-  
-    <link rel="stylesheet" href="../../static/css/profissional/estilo_cad_profissionais.css">
-    
-    <div class="col-5 mx-auto">
+
+    <div class="col-9 mx-auto">
         <div class="container__pai__logo">
-            <img class="logo" src="{{ url_for('static', filename='img/goservice.png')}}" id="logo" alt="">
-            <h3>Formulário de cadastro de Profissionais</h3>
+            <img class="logo" src="{{ url_for('static', filename='img/goservice.png')}}" alt="">
         </div>
+        <div class="container__pai__titulo">
+            <h3 class="titulo_pag">Formulário de cadastro de Profissionais</h3>
+        </div>
+
         <form class="flex-lg-row" method="post" action="{{url_for('profissional.cad_profissionais')}}">
             <div class="row">
                 <div class="col">       
@@ -60,7 +66,7 @@
 
             <div class="pai_botoes">
                 <input type="submit" value="Adicionar" class="btn bg-success text-white my-2 my-sm-0 btns">
-                <a class="btn bg-dark text-white my-2 my-sm-0 btns" href="{{#}}">VOLTAR</a>
+                <a class="btn bg-dark text-white my-2 my-sm-0 btns" href="#">VOLTAR</a>
             </div>
             
         </form>

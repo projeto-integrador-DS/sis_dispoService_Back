@@ -1,26 +1,32 @@
-{% extends 'base.html' %}
+{% extends '/bases/base_index_profiss.html' %}
+
+
+{% block customCSS %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/profissional/estilo_cad_profissional.css')}}" >
+{% endblock %}
 
 {% block body %}
 <div class="row">
     <div class="col-5 mx-auto">
         <h3>Edite</h3><hr>
-       
-        <form action="{{url_for('curso.edit_curso', id_curso=cursos.ID_curso)}}" method="post">
-            <div class="form-group">
-                <label>modalidade: </label>
-                <input type="text" name="modalidade" required class="form-control" value="{{cursos.modalidade}}">
-            </div>
-            
-            <div class="form-group">
-                <label>instituicao: </label>
-                <input type="text" name="instituicao" required class="form-control" value="{{cursos.instituicao}}">
-            </div>
-            <div class="form-group">
-                <label>area: </label>
-                <input type="text" name="area" required class="form-control" value="{{cursos.area}}">
-            </div>
-                <input type="submit" value="Confirmar" class="btn btn-primary">
-        </form>
+       {% block content %}
+            <form action="{{url_for('curso.edit_curso', id_curso=cursos.ID_curso)}}" method="post">
+                <div class="form-group">
+                    <label>modalidade: </label>
+                    <input type="text" name="modalidade" required class="form-control" value="{{cursos.modalidade}}">
+                </div>
+                
+                <div class="form-group">
+                    <label>instituicao: </label>
+                    <input type="text" name="instituicao" required class="form-control" value="{{cursos.instituicao}}">
+                </div>
+                <div class="form-group">
+                    <label>area: </label>
+                    <input type="text" name="area" required class="form-control" value="{{cursos.area}}">
+                </div>
+                    <input type="submit" value="Confirmar" class="btn btn-primary">
+            </form>
+       {% endblock %}
     </div>
 </div>
 {% endblock %}

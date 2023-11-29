@@ -1,9 +1,14 @@
-{% extends 'base.html' %}
+{% extends '/bases/base_cadastro.html' %}
+
+{% block customCSS %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/profissional/estilo_cad_profissional.css')}}" >
+{% endblock %}
+
 {% block body %}
 
-{%if cadastro%}
+{% if cadastro %}
 <div class="row">
-    <link rel="stylesheet" href="../../static/css/curso/estilo_cad_cursos.css">
+    
     <div class="col-5 mx-auto">
         <h3>cursos</h3><br>
         <form method="post" action="{{url_for('curso.cad_curso')}}">

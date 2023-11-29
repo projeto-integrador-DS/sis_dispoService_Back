@@ -1,5 +1,8 @@
-{% extends 'base.html' %}
+{% extends '/bases/base_index_profiss.html' %}
 
+{% block customCSS %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/profissional/estilo_cad_profissional.css')}}" >
+{% endblock %}
 {% block body %}
 <div class="row">
     <div class="col-5 mx-auto">

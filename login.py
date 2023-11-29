@@ -58,7 +58,8 @@ def logout():
 def protected():
     id_profiss=get_id_usuario()    
     print(id_profiss)
-    return render_template('index.html', usuario=current_user.id, id_profiss=id_profiss)
+    return render_template("/bases/base_index_profiss.html")
+    #return render_template('index.html', usuario=current_user.id, id_profiss=id_profiss)
 
 def get_id_usuario():
     con = sql.connect('goservice.db')
