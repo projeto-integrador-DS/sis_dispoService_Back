@@ -23,26 +23,34 @@ body {
     align-content: center;
     justify-content: center;
     width: 100%;
-    height: 100vh;
-    background-color: #000000;
+    height: 100%;
+    color: #023047;
+    background-color: var(--cor-cinza-escuro);
 }
+
+.form__label__cli {
+    font-size: 18px;
+}
+
 
 .formLogin {
     display: flex;
     flex-direction: column;
-    background-color: #fff;
+    background-color: var(--cor-cinza);
+    opacity: 0.9;
     border-radius: 7px;
-    padding: 40px;
+    padding: 2.5em;
     box-shadow: 10px 10px 40px rgba(0, 0, 0, 0.4);
     gap: 5px
 }
+
 
 .tit_principal {
     text-align: center;
 }
 
 
-#foto_cli {
+#foto_prof {
     display: block;
     width: 80px;
     height: 80px;
@@ -68,32 +76,29 @@ body {
 .formLogin p {
     display: inline-block;
     font-size: 14px;
-    color: #666;
-    margin-bottom: 25px;
+    color: var(--cor-cinza);
+    margin-bottom: 1.5em;
 }
 
-.formLogin input {
+.input {
     padding: 15px;
-    font-size: 14px;
-    border: 1px solid #ccc;
+    font-size: 18px;
+    border: 1px solid var(--cor-cinza-claro);
     margin-bottom: 20px;
     margin-top: 5px;
     border-radius: 4px;
     transition: all linear 160ms;
+    border:  none;
     outline: none;
 }
 
-
-.formLogin input:focus {
-    border: 1px solid #000000;
-}
 
 .formLogin label {
     font-size: 14px;
     font-weight: 600;
 }
 
-.formLogin a {
+.link__senha {
     display: inline-block;
     margin-bottom: 20px;
     font-size: 13px;
@@ -101,25 +106,35 @@ body {
     transition: all linear 160ms;
 }
 
-.formLogin a:hover {
-    color: #fcf5f8;
+
+.botoes__pai {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 15px;
 }
 
-.btn {
-    background-color: #0e0d0d;
-    color: #fff;
-    font-size: 14px;
+.btns {
+    width: 250px;
+    padding: 11px;
+    color: var(--cor-branca);
+    font-size: 15px;
     font-weight: 600;
     border: none !important;
-    transition: all linear 160ms;
     cursor: pointer;
-    margin: 0 !important;
+    margin-bottom: 10px;
 
 }
 
-.btn:hover {
-    transform: scale(1.05);
-    background-color: #bbb5b8;
-    color: #000000;
-
+.pai__imagem__titulo {
+    display: flex;
+    justify-content: space-evenly;
+    
 }
+
+.img__logo__voltar {
+    width: 50px;
+    margin: 0 2em 0 0;
+}
+
