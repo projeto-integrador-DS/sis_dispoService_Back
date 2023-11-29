@@ -44,3 +44,15 @@ body {
     display: flex;
     justify-content: center;
 }
+
+.lista__prof-icone {
+    width: 35px;
+}
+
+.lista__prof-icone:hover {
+    cursor: pointer;
+}
+
+th,td {
+    text-align: center;
+}
