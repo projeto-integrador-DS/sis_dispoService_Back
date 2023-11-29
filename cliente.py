@@ -94,7 +94,7 @@ def edit_user(idCli):
         cur.execute("UPDATE clientes SET nome=?, email=?, cpf=?, telefone=?, rua=?, numero=?, cidade=?, bairro=?, estado=?, cep=? WHERE ID_clientes=?", (nome, email, cpf, telefone, rua, numero, cidade, bairro, estado, cep, idCli))
         con.commit()
         flash('Dados atualizados', 'success')
-        return redirect(url_for('clientes.inicial'))
+        return redirect(url_for('logincliente.protected'))
     con = sql.connect("goservice.db")
     con.row_factory = sql.Row
     cur = con.cursor()
