@@ -1,0 +1,59 @@
+{% if cadastro %}
+    {% extends '/bases/base_cadastro.html' %}
+{% else %}
+    {% extends '/bases/base_index_profiss.html' %}
+{% endif %}
+
+{% block body %}
+
+{% if cadastro %}
+<div class="row">
+    
+    <div class="col-5 mx-auto">
+        <h3>INSERIR EXPERIÊNCIA PROFISSIONAL </h3><br>
+        <form method="post" action="{{url_for('experiencia.cad_experiencia')}}">
+            
+            <div class="form-group">
+                <label>cargo</label>
+                <input type="text" name="cargo" id="" required class="form-control"> 
+            </div>
+            <div class="form-group">
+                <label>temp_servico</label>
+                <input type="text" name="temp_servico" id="" required class="form-control"> 
+            </div>
+            <div class="form-group">
+                <label>empresa</label>
+                <input type="text" name="empresa" id="" required class="form-control"> 
+            </div>
+            
+            <br>
+            <input type="submit" value="Adicionar" class="btn btn-primary">
+        </form>
+    </div>
+</div>
+{% else %}
+<div class="row">
+    <div class="col-5 mx-auto">
+        <h3>ADICIONAR NOVA EXERIÊNCIA</h3><br>
+        <form method="post" action="{{url_for('experiencia.add_experiencia', id_profiss=id_profiss)}}">
+            
+            <div class="form-group">
+                <label>cargo</label>
+                <input type="text" name="cargo" id="" required class="form-control"> 
+            </div>
+            <div class="form-group">
+                <label>temp_servico</label>
+                <input type="text" name="temp_servico" id="" required class="form-control"> 
+            </div>
+            <div class="form-group">
+                <label>empresa</label>
+                <input type="text" name="empresa" id="" required class="form-control"> 
+            </div>
+            
+            <br>
+            <input type="submit" value="Adicionar" class="btn btn-primary">
+        </form>
+    </div>
+</div>
+{% endif %}
+{% endblock %}
