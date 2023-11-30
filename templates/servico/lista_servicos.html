@@ -2,7 +2,6 @@
 
 {% block customCSS %}
     <link rel="stylesheet" href="{{ url_for('static', filename='css/profissional/estilo_cad_profissional.css')}}" >
-    
 {% endblock %}
 
 {% block body %}
@@ -10,7 +9,7 @@
 <p class="text-right"><a href="{{url_for('servico.add_servicos')}}" class="btn btn-success">+Incluir Servico</a></p>
   {% block content %}
   
-  <table class="table table-bordered">
+  <table class="table table-bordered table-dark bg-dark tabela">
     <thead>
       <tr>
         <th scope="col">ID</th>

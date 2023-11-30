@@ -1,9 +1,6 @@
 {% extends '/bases/base_cadastro.html' %}
 
 {% block title %} cadastro de profissional {% endblock %}
-{% block customCSS %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/profissional/estilo_cad_profissional.css')}}" >
-{% endblock %}
 
 {% block body %}
 
@@ -12,7 +9,7 @@
             <img class="logo" src="{{ url_for('static', filename='img/goservice.png')}}" alt="">
         </div>
         <div class="container__pai__titulo">
-            <h3 class="titulo_pag">Formulário de cadastro de Profissionais</h3>
+            <h3 class="titulo__pag">Formulário de cadastro de Profissionais</h3>
         </div>
 
         <form class="flex-lg-row" method="post" action="{{url_for('profissional.cad_profissionais')}}">
@@ -64,7 +61,7 @@
                     <br>
                 </div>
 
-            <div class="pai_botoes">
+            <div class="pai__botoes">
                 <input type="submit" value="Adicionar" class="btn bg-success text-white my-2 my-sm-0 btns">
                 <a class="btn bg-dark text-white my-2 my-sm-0 btns" href="#">VOLTAR</a>
             </div>

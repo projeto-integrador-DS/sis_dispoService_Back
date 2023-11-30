@@ -1,8 +1,8 @@
-{% extends '/bases/base_cadastro.html' %}
-
-{% block customCSS %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/profissional/estilo_cad_profissional.css')}}" >
-{% endblock %}
+{% if cadastro %}
+    {% extends '/bases/base_cadastro.html' %}
+{% else %}
+    {% extends '/bases/base_index_profiss.html' %}
+{% endif %}
 
 {% block body %}
 
@@ -30,7 +30,9 @@
         </form>
     </div>
 </div>
-{%else%}
+
+{% else %}
+
 <div class="row">
     <div class="col-5 mx-auto">
         <h3>cursos</h3><br>
@@ -48,11 +50,11 @@
                 <label>area</label>
                 <input type="text" name="area" id="" required class="form-control"> 
             </div>
-            
             <br>
             <input type="submit" value="Adicionar" class="btn btn-primary">
         </form>
     </div>
 </div>
+
 {%endif%}
 {% endblock %}
