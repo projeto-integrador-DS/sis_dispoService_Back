@@ -31,7 +31,8 @@ def setup():
         "bairro"    TEXT,
         "CEP"       TEXT,
         cidade      TEXT,
-        "uf"        TEXT
+        "uf"        TEXT,
+        "profissao" TEXT
         )'''
     
 

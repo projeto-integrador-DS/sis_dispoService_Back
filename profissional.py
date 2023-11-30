@@ -31,10 +31,11 @@ def cad_profissionais():
         bairro =    request.form["bairro"]
         cep =       request.form["cep"]
         uf =        request.form['uf']
+        profissao=  request.form["profissao"]
         
         con = sql.connect("goservice.db")
         cur = con.cursor()
-        cur.execute("INSERT INTO profissionais(nome, cpf, telefone, email, endereco, cidade, num, bairro, cep, uf) values(?,?,?,?,?,?,?,?,?,?)", (nome, cpf, telefone, email, endereco, cidade, num, bairro, cep, uf))
+        cur.execute("INSERT INTO profissionais(nome, cpf, telefone, email, endereco, cidade, num, bairro, cep, uf, profissao) values(?,?,?,?,?,?,?,?,?,?,?)", (nome, cpf, telefone, email, endereco, cidade, num, bairro, cep, uf, profissao))
         con.commit()
         flash('Dados Cadastrados', 'success')
         return redirect(url_for('profissional.cad_profUser'))
@@ -57,10 +58,11 @@ def edit_profissionais(idProf):
         bairro =    request.form["bairro"]
         cep =       request.form["cep"]
         uf =        request.form['uf']
+        profissao = request.form['profissao']
 
         con = sql.connect("goservice.db")
         cur = con.cursor()
-        cur.execute("UPDATE profissionais SET nome=?, cpf=?, telefone=?, email=?, endereco=?, cidade=?, num=?, bairro=?, cep=?, uf=? WHERE ID_profiss=?", (nome, cpf, telefone, email, endereco, cidade, num, bairro, cep, uf, idProf))
+        cur.execute("UPDATE profissionais SET nome=?, cpf=?, telefone=?, email=?, endereco=?, cidade=?, num=?, bairro=?, cep=?, uf=?, profissao=? WHERE ID_profiss=?", (nome, cpf, telefone, email, endereco, cidade, num, bairro, cep, uf, profissao, idProf))
         con.commit()
         con.close()
         flash('Dados atualizados', 'success')
@@ -71,6 +73,7 @@ def edit_profissionais(idProf):
     cur = con.cursor()
     cur.execute("SELECT * FROM profissionais WHERE ID_profiss=?", (idProf,))
     data = cur.fetchone()
+    
     return render_template('/profissional/edit_profissionais.html', datas=data)
 
 @bp_profissional.route('/delete_profissionais', methods=['GET'])
@@ -108,13 +111,12 @@ def visual_profissional():
     cur=con.cursor()
     con.row_factory=sql.Row
     id_profiss=get_id_usuario()
-    consulta = '''  SELECT pr.ID_profiss, pr.nome, pr.CPF, pr.telefone, pr.email, pr.endereco, pr.num, pr.bairro, pr.CEP, pr.cidade, pr.uf
+    consulta = '''  SELECT pr.ID_profiss, pr.nome, pr.CPF, pr.telefone, pr.email, pr.endereco, pr.num, pr.bairro, pr.CEP, pr.cidade, pr.uf, pr.profissao
                     FROM profissionais AS pr 
                     WHERE pr.ID_profiss=?'''
     cur.execute(consulta, (id_profiss,))
     profissional = cur.fetchone()
     
-    print(profissional)
     con.close()
     return render_template('/profissional/visual_profissional.html', datas=profissional)
 

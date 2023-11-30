@@ -1,7 +1,7 @@
 {% extends '/bases/base_index_profiss.html' %}
 
 {% block customCSS %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/profissional/estilo_cad_profissional.css')}}" >
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/estilo_cadastro')}}" >
     
 {% endblock %}
 
@@ -24,6 +24,7 @@
         <th scope="col">CEP</th>
         <th scope="col">CIDADE</th>
         <th scope="col">UF</th>
+        <th scope="col">PROFISSAO</th>
       </tr>
     </thead>
 
@@ -40,6 +41,7 @@
         <td>{{ datas[8] }}</td>
         <td>{{ datas[9] }}</td>
         <td>{{ datas[10] }}</td>
+        <td>{{ datas[11] }}</td>
         <td><a href="{{url_for('profissional.edit_profissionais', idProf=datas[0])}}" class="btn btn-primary">Editar</a></td>
         <td><a href="{{url_for('profissional.delete_profissionais', idProf=datas[0])}}" class="btn btn-danger" onclick="return confirm('Tem certeza que deseja apagar?')">Deletar</a></td>
       </tr>
