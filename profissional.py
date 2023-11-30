@@ -6,6 +6,7 @@ from form_db import setup
 
 bp_profissional=Blueprint('profissional',__name__)
 
+#acho acho que podemos excluir essa rota
 @bp_profissional.route('/index', methods=['POST', 'GET'])
 def index():
     id_profiss=get_id_usuario()
@@ -37,7 +38,7 @@ def cad_profissionais():
         con.commit()
         flash('Dados Cadastrados', 'success')
         return redirect(url_for('profissional.cad_profUser'))
-        #return render_template('cad_cursos.html', cadastro=True) 
+       
  
     return render_template('/profissional/cad_profissionais.html')
 
@@ -63,7 +64,7 @@ def edit_profissionais(idProf):
         con.commit()
         con.close()
         flash('Dados atualizados', 'success')
-        return redirect(url_for('profissional.visual_profissional')) #ele não deve retorna para o index
+        return redirect(url_for('profissional.visual_profissional'))
     
     con = sql.connect("goservice.db")
     con.row_factory = sql.Row

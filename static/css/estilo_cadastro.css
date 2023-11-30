@@ -52,6 +52,7 @@ textarea:focus, input:focus, select:focus {
 .container__pai__logo {
     display: flex;
     justify-content: center;
+
 }
 
 .container__pai__titulo {
@@ -61,7 +62,7 @@ textarea:focus, input:focus, select:focus {
     justify-content: center;
 }
 
-.logo {
+#logo {
     width: 370px;
     height: 150px;
 }

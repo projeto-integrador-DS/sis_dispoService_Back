@@ -24,10 +24,11 @@ body {
     justify-content: center;
     width: 100%;
     height: 100%;
-    color: #023047
+    color: #023047;
+    background-color: var(--cor-cinza-escuro);
 }
 
-.form__label__prof {
+.form__label__cli {
     font-size: 18px;
 }
 
@@ -117,7 +118,7 @@ body {
 .btns {
     width: 250px;
     padding: 11px;
-    color: var(--cor-branca);
+   
     font-size: 15px;
     font-weight: 600;
     border: none !important;
@@ -136,4 +137,3 @@ body {
     width: 50px;
     margin: 0 2em 0 0;
 }
-

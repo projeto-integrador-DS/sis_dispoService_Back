@@ -7,17 +7,17 @@
 {% endblock %}
 
 {% block body %}
-<h3 class="text-center text-muted mb-3"></h3>
-<p class="text-right"><a href="{{url_for('experiencia.add_experiencia')}}" class="btn btn-success">+Novo Cadastro</a></p>
+<h3 class="text-center text-muted mb-3"> MINHAS EXPERIÊNCIAS </h3>
+<p class="text-right"><a href="{{url_for('experiencia.add_experiencia')}}" class="btn btn-success">NOVA EXPERIENCIA</a></p>
   {% block content %}
     
       <table class="table table-bordered table-dark bg-dark tabela" >
         <thead>
           <tr>
             <th scope="col">ID</th>
-            <th scope="col">cargo</th>
-            <th scope="col">tempo de serviço</th>
-            <th scope="col">empresa</th>
+            <th scope="col">CARGO</th>
+            <th scope="col">TEMPO DE SERVIÇO</th>
+            <th scope="col">EMPRESA</th>
           </tr>
         </thead>
         
@@ -37,9 +37,11 @@
           
         </tbody>
       </table>
+    <li>
+        <a href="{{url_for('profissional.index')}}" class="btn btn-light" >VOLTAR</a>
+    </li>
     </div>
     
   {% endblock %}
 
-<a href="{{url_for('profissional.index')}}" class="btn btn-danger" >MENU</a>
 {% endblock %}

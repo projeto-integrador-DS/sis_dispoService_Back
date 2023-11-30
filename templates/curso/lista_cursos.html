@@ -7,19 +7,18 @@
 
 {% block body %}
 
-  <h3 class="text-center text-muted mb-3"></h3>
-  <a href="{{url_for('curso.incluir_curso', id_profiss=id_profiss)}}" class="btn btn-success">INCLUIR CURSO</a>
+  <h3 class="text-center text-muted mb-3">MEUS CURSOS</h3>
+  <p class="text-right"><a href="{{url_for('curso.incluir_curso', id_profiss=id_profiss)}}" class="btn btn-success">NOVO CURSO</a></p>
   
-
   {% block content %}
 
   <table class="table table-bordered table-dark bg-dark tabela">
     <thead>
       <tr>
         <th scope="col">ID</th>
-        <th scope="col">modalidade</th>
-        <th scope="col">instituicao</th>
-        <th scope="col">area</th>
+        <th scope="col">MODALIDADE</th>
+        <th scope="col">INSTITUIÇÃO</th>
+        <th scope="col">AREA</th>
       </tr>
     </thead>
     
@@ -37,8 +36,10 @@
       
     </tbody>
   </table>
-  
+<li>
+    <a href="{{url_for('profissional.index')}}" class="btn btn-light" >VOLTAR</a>
+</li>
    
   {% endblock %}
-  <td><a href="{{url_for('profissional.index')}}" class="btn btn-danger" >MENU</a></td>
+  
 {% endblock %}

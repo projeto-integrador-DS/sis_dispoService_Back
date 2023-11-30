@@ -6,9 +6,8 @@
 {% endblock %}
 
 {% block body %}
-<link rel="stylesheet" href="../../static/css/profissional/estilo_lista_prof.css">
-<h3 class="text-center text-muted mb-3"></h3>
-<h3>DADOS PESSOAIS</h3>
+
+<h3 class="text-center text-muted mb-3">MEUS DADOS CADASTRAIS</h3>
   
 {% block content %}
   
@@ -33,7 +32,6 @@
       <tr>
         <td>{{ datas[1] }}</td>
         <td>{{ datas[2] }}</td>
-        <td>{{ datas[2] }}</td>
         <td>{{ datas[3] }}</td>
         <td>{{ datas[4] }}</td>
         <td>{{ datas[5] }}</td>
@@ -41,13 +39,16 @@
         <td>{{ datas[7] }}</td>
         <td>{{ datas[8] }}</td>
         <td>{{ datas[9] }}</td>
+        <td>{{ datas[10] }}</td>
         <td><a href="{{url_for('profissional.edit_profissionais', idProf=datas[0])}}" class="btn btn-primary">Editar</a></td>
         <td><a href="{{url_for('profissional.delete_profissionais', idProf=datas[0])}}" class="btn btn-danger" onclick="return confirm('Tem certeza que deseja apagar?')">Deletar</a></td>
       </tr>
     </tbody>
   </table>
+<li>
+    <a href="{{url_for('profissional.index')}}" class="btn btn-light" >VOLTAR</a>
+</li>
   
   
 {% endblock %}
-<td><a href="{{url_for('profissional.index')}}" class="btn btn-danger" >MENU</a></td>
 {% endblock %}

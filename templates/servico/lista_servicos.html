@@ -5,17 +5,17 @@
 {% endblock %}
 
 {% block body %}
-<h3 class="text-center text-muted mb-3"></h3>
-<p class="text-right"><a href="{{url_for('servico.add_servicos')}}" class="btn btn-success">+Incluir Servico</a></p>
+<h3 class="text-center text-muted mb-3">MEUS SERVIÇOS</h3>
+<p class="text-right"><a href="{{url_for('servico.add_servicos')}}" class="btn btn-success">NOVO SERVICO</a></p>
   {% block content %}
   
   <table class="table table-bordered table-dark bg-dark tabela">
     <thead>
       <tr>
         <th scope="col">ID</th>
-        <th scope="col">Nome</th>
-        <th scope="col">Categoria</th>
-        <th scope="col">valor</th> 
+        <th scope="col">NOME</th>
+        <th scope="col">CATEGORIA</th>
+        <th scope="col">VALOR</th> 
       </tr>
     </thead>
 
@@ -34,9 +34,10 @@
       {% endfor %}
     </tbody>
   </table>
-  
+<li>
+    <a href="{{url_for('profissional.index')}}" class="btn btn-light" >VOLTAR</a>
+</li>
    
   {% endblock %}
-  <a href="{{url_for('profissional.index')}}" class="btn btn-danger" >MENU</a>
-
+ 
 {% endblock %}
