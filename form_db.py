@@ -77,9 +77,17 @@ def setup():
         FOREIGN KEY ("fk_profiss") REFERENCES "profissionais" ("ID_profiss") ON DELETE CASCADE
     )
     '''
+    sql_login_cli = '''CREATE TABLE IF NOT EXISTS "loginCli"(
+    "fk_cli" INTEGER,
+    "username"  TEXT,
+    "senha"     TEXT,
+    FOREIGN KEY ("fk_cli") REFERENCES "clientes" ("ID_clientes") ON DELETE CASCADE
+)
+'''
 
     cur.execute(sql_login)
     cur.execute(sql_clientes)
+    cur.execute(sql_login_cli)
     cur.execute(sql_profissionais)
     cur.execute(sql_cursos)
     cur.execute(sql_experiencias)
