@@ -11,8 +11,10 @@ from login_cli import bp_logincli, login_manager_cliente
 
 app = Flask(__name__)
 
-login_manager.init_app(app)
+
+
 login_manager_cliente.init_app(app)
+login_manager.init_app(app)
 
 app.register_blueprint(bp_login)
 app.register_blueprint(bp_profissional)

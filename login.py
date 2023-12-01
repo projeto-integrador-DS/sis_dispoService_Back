@@ -19,6 +19,7 @@ def load_user(user_id):
     cur = con.cursor()
     cur.execute("SELECT * FROM loginProf WHERE username=?", (user_id,))
     user_prof = cur.fetchone()
+    
     if not user_prof:
       
         return None
@@ -27,8 +28,7 @@ def load_user(user_id):
 
     
 @bp_login.route('/login_profissional', methods=['POST', 'GET'])
-def login_profissional():
-    
+def login_profissional():    
     if request.method=='POST':
         username = request.form.get('username')
         senha = request.form.get('senha')
@@ -36,6 +36,7 @@ def login_profissional():
     return render_template("/profissional/login_profissional.html")
 
 def verificacao(username, senha):
+    
     con = sql.connect('goservice.db')
     cur = con.cursor()
     cur.execute("SELECT * FROM loginProf WHERE username=?", (username,))
@@ -68,4 +69,5 @@ def get_id_usuario():
     
     cur.execute("SELECT * FROM loginProf WHERE username=?", (current_user.id,))
     id_profiss = cur.fetchone()
+    print(id_profiss)
     return id_profiss[0]
