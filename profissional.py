@@ -15,7 +15,7 @@ def index():
 #============PROFISSIONAIS==============
 @bp_profissional.route('/')
 def inicial():
-    return render_template('inicial_01.html')
+    return render_template('clientes/inicial_01.html')
 
 @bp_profissional.route('/cad_profissionais', methods=['POST', 'GET'])
 def cad_profissionais():

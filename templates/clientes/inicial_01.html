@@ -1,8 +1,4 @@
-<<<<<<< HEAD:templates/inicial_01.html
-{% extends 'bases/base_inicial01.html' %}
-=======
 {% extends 'clientes/base/base_inicial.html' %}
->>>>>>> seguranca:templates/clientes/inicial_01.html
 
 {% block title %} Página Inicial {% endblock %}
 
@@ -24,20 +20,11 @@
                 <p class="inicial__filho__opcoes">Cliente</p>
             </a>
             <!-- manda para a rota login-->
-<<<<<<< HEAD:templates/inicial_01.html
             <a href="{{url_for('login.login_profissional')}}">
                 <p class="inicial__filho__opcoes__prof">Profissional</p>
             </a>
         </div>
         <div class="inicial__pai__opcoes__cadastro">
-          
-        </div>
-=======
-            <a class="inicial__filho__link" href="#">
-                <p class="inicial__filho__opcoes__prof">Profissional</p>
-            </a>
-        </div>
->>>>>>> seguranca:templates/clientes/inicial_01.html
     </main>
 
 {% endblock %}

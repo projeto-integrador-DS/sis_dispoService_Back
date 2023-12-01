@@ -24,12 +24,9 @@ body {
     justify-content: center;
     width: 100%;
     height: 100%;
-<<<<<<<< HEAD:static/css/login_profiss.css
     color: #023047;
     background-color: var(--cor-cinza-escuro);
-========
     color: #023047
->>>>>>>> seguranca:static/css/estilosCli/estilo_login.css
 }
 
 .form__label__cli {
@@ -122,11 +119,7 @@ body {
 .btns {
     width: 250px;
     padding: 11px;
-<<<<<<<< HEAD:static/css/login_profiss.css
-   
-========
     color: var(--cor-branca);
->>>>>>>> seguranca:static/css/estilosCli/estilo_login.css
     font-size: 15px;
     font-weight: 600;
     border: none !important;
@@ -140,17 +133,15 @@ body {
     justify-content: space-evenly;
     
 }
-<<<<<<<< HEAD:static/css/login_profiss.css
 
-.img__logo__voltar {
-    width: 50px;
-    margin: 0 2em 0 0;
-}
-========
 
 .img__logo__voltar {
     width: 50px;
     margin: 0 2em 0 0;
 }
 
->>>>>>>> seguranca:static/css/estilosCli/estilo_login.css
+.img__logo__voltar {
+    width: 50px;
+    margin: 0 2em 0 0;
+}
+
