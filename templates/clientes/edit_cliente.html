@@ -1,0 +1,74 @@
+{% extends 'clientes/base/base_cad.html' %}
+
+{% block title %} Edição do Cliente {% endblock %}
+
+{% block customCSS %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/estilosCli/estilo_edit_cliente.css')}}">
+{% endblock %}
+
+{% block body %}
+
+    <div class="col-9 mx-auto">
+        <div class="container__pai__logo">
+            <img class="logo" src="{{ url_for('static', filename='img/goservice.png')}}" id="logo" alt="">
+        </div>
+        <div class="container__pai__titulo">
+            <h3>Editando Usuário: {{dados.nome}}</h3>
+        </div>
+            <form class="flex-lg-row" action="{{url_for('clientes.edit_user', idCli=dados.ID_clientes)}}" method="post" >
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label>Nome</label>
+                            <input type="text" name="nome" id="" value="{{dados.nome}}" required class="form-control bg-white text-black caixa">
+                        </div>
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" name="email" id="" value="{{dados.email}}" required class="form-control bg-white text-black caixa">
+                        </div>
+                        <div class="form-group">
+                            <label>Cpf</label>
+                            <input type="text" name="cpf" id="" value="{{dados.cpf}}" required class="form-control bg-white text-black caixa">
+                        </div>
+                        <div class="form-group">
+                            <label>Telefone</label>
+                            <input type="text" name="telefone" id="" value="{{dados.telefone}}" required class="form-control bg-white text-black caixa">
+                        </div>
+                        <div class="form-group">
+                            <label>Endereço</label>
+                            <input type="text" name="rua" id="" value="{{dados.rua}}" required class="form-control bg-white text-black caixa">
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group col-md-2">
+                            <label>N° Casa</label>
+                            <input type="number" name="numero" id="" value="{{dados.numero}}" class="form-control bg-white text-black caixa">
+                        </div>
+                        <div class="form-group">
+                            <label>Bairro</label>
+                            <input type="text" name="bairro" id="" value="{{dados.bairro}}" required class="form-control bg-white text-black caixa">
+                        </div>
+                        <div class="form-group">
+                            <label>Cidade</label>
+                            <input type="text" name="cidade" id="" value="{{dados.cidade}}" required class="form-control bg-white text-black caixa">
+                        </div>
+                        <div class="form-group">
+                            <label>Estado</label>
+                            <input type="text" name="estado" id="" value="{{dados.estado}}" required class="form-control bg-white text-black caixa">
+                        </div>
+                        <div class="form-group">
+                            <label>CEP</label>
+                            <input type="text" name="cep" id="" value="{{dados.cep}}" required class="form-control bg-white text-black caixa">
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="pai__botoes">
+                    <input type="submit" value="Confirmar" class="btn bg-success text-white botao-submit">
+                    <a class="btn bg-dark text-white my-2 my-sm-0 btns botao-submit" href="{{url_for('logincliente.protected')}}" >
+                        Voltar
+                    </a>
+                </div>
+            </form>
+    </div>
+{% endblock %}

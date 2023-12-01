@@ -1,0 +1,66 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    --font-inter: 'Inter', sans-serif;
+}
+
+:root {
+    --cor-preta: #000000;
+    --cor-cinza: #ECECEC;
+    --cor-cinza-escuro: #CBC8C8;
+    --cor-azul-bebe: #8d9efd;
+    --fonte-inter: 'Inter', sans-serif;
+}
+
+body {
+    background-color: var(--cor-cinza);
+    font-family: var(--font-inter);
+    color: var(--cor-preta);
+}
+
+.inicial__pai__logo {
+    padding: 1% 0% 8% 0%;
+    display: flex;
+    justify-content: center;
+}
+
+.inicial__filho__logo {
+    width: 600px;
+}
+
+.inicial__pai__imagens__usuarios {
+    display: flex;
+    justify-content: space-evenly;
+    
+}
+
+.inicial__filho__imagens__usuarios {
+    width: 130px;
+    
+}
+
+.inicial__pai__opcoes {
+display: flex;
+justify-content: space-evenly;
+padding: 4% 0% 0% 3%;
+
+}
+
+.inicial__filho__opcoes,
+.inicial__filho__opcoes__prof {
+    position: relative;
+    display: inline-block;
+    text-transform: uppercase;
+    transition: 0.5s;
+    letter-spacing: 4px;
+    overflow: hidden;
+    text-decoration: none;
+    font-size: 28px;
+    outline: 0;
+    color: var(--cor-preta);
+    font-weight: 700;
+
+}

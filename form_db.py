@@ -86,6 +86,7 @@ def setup():
     cur.execute(sql_servicos)
     cur.execute(sql_oferece)
     con.commit()
+    con.close()
 
 
 """
