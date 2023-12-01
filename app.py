@@ -1,5 +1,4 @@
 from flask import Flask
-from flask_login import LoginManager
 
 #------Importando o módulo cliente-----
 from cliente import bpclientes_blueprint
