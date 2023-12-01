@@ -53,9 +53,10 @@ def logout():
     logout_user()
     return 'You are now logged out.'
 
-@bp_login.route('/protected')
+@bp_login.route('/protected', methods=["GET"])
 @login_required
 def protected():
+    print('acessando o protected')
     id_profiss=get_id_usuario()    
     print(id_profiss)
     return render_template("/bases/base_index_profiss.html")

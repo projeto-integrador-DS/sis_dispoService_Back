@@ -1,27 +1,19 @@
 import sqlite3 as sql
-from flask import Flask, render_template, request, redirect, url_for, flash
+from flask import Flask
 from login import login_manager, bp_login
 from profissional import bp_profissional
 from curso import bp_curso
 from experiencia import bp_experiencia
 from servicos import bp_servicos
-
-
-app = Flask(__name__)
-
-
-
-#------Importando o módulo cliente-----
 from cliente import bpclientes_blueprint
+from login_cli import bp_logincli, login_manager_cliente
 
-#------Importando o módulo login-cliente------
-from login_cli import bp_logincli
-
-#------Importando a instancia login_manager------
-from login_cli import login_manager
 
 app = Flask(__name__)
+
 login_manager.init_app(app)
+login_manager_cliente.init_app(app)
+
 app.register_blueprint(bp_login)
 app.register_blueprint(bp_profissional)
 app.register_blueprint(bp_curso)

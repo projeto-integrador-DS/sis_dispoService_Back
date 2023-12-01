@@ -6,14 +6,14 @@ from flask import redirect, render_template, url_for, flash, Blueprint, request
 
 bp_logincli = Blueprint("logincliente",__name__, template_folder='templates')
 
-login_manager = LoginManager()
+login_manager_cliente = LoginManager()
 
 class UserCliente(UserMixin):
     def __init__(self, id):
         self.id = id
 
 #=================Login Cliente=================
-@login_manager.user_loader
+@login_manager_cliente.user_loader
 def load_user(user_id):
     con = sql.connect('goservice.db')
     cur = con.cursor()
