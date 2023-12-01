@@ -76,6 +76,3 @@ def get_id_cliente():
     cur.execute("SELECT * FROM loginCli WHERE username=?", (current_user.id,))
     id_cli = cur.fetchone()
     return id_cli[0]
-
-
-

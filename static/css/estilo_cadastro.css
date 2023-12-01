@@ -19,7 +19,7 @@
 body {
     background-color: var(--cor-cinza);
     color: var(--cor-preta);
-    font-family: var(--font-inter);
+    font-family: var(--fonte-inter);
 }
 
 label,
@@ -43,9 +43,9 @@ textarea:focus, input:focus, select:focus {
 
 
 .titulo__pag {
+    padding: 1.5em;
     font-size: 36px;
-    font-weight: 700;
-    
+    font-weight: 500;
 }
 
 

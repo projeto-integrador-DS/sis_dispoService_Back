@@ -124,7 +124,6 @@ def obter_profissionais_por_profissao(profissao):
         with sql.connect("goservice.db") as con:
             cur = con.cursor()
             print(profissao)
-            # Use parâmetros na consulta para evitar injeção de SQL
             cur.execute('''
                         SELECT * FROM profissionais
                         WHERE profissao = ?;
@@ -144,7 +143,7 @@ def obter_profissionais_por_profissao(profissao):
         print(f"Erro ao executar a consulta: {err}")
         return None
 
-# Exemplo de uso na rota
+
 @bpclientes_blueprint.route('/profissionais/<profissao>', methods=['GET'])
 def list_profissionais(profissao):
     profissionais = obter_profissionais_por_profissao(profissao)
