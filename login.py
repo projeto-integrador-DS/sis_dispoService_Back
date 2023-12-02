@@ -9,8 +9,8 @@ login_manager = LoginManager()
 bp_login = Blueprint('login', __name__)
 
 class User_profiss(UserMixin):
-    def __init__(self, id):
-        self.id = id
+    def __init__(self, idprof):
+        self.id = idprof
 
 class UserCliente(UserMixin):
     def __init__(self, id):
@@ -18,17 +18,26 @@ class UserCliente(UserMixin):
 
 @login_manager.user_loader
 def load_user(user_id):
-    setup()
     con = sql.connect('goservice.db')
     cur = con.cursor()
+    
+    # Tente carregar como usuário profissional
     cur.execute("SELECT * FROM loginProf WHERE username=?", (user_id,))
     user_prof = cur.fetchone()
     
-    if not user_prof:
-      
-        return None
+    if user_prof:
+        return User_profiss(user_prof[1])
     
-    return User_profiss(user_prof[1])
+    # Tente carregar como usuário cliente
+    cur.execute("SELECT * FROM loginCli WHERE username=?", (user_id,))
+    user_cli = cur.fetchone()
+    
+    if user_cli:
+        return UserCliente(user_cli[1])
+    
+    # Se nenhum usuário for encontrado, retorne None
+    return None
+
 
     
 @bp_login.route('/login_profissional', methods=['POST', 'GET'])
@@ -38,6 +47,7 @@ def login_profissional():
         senha = request.form.get('senha')
         return verificacao(username, senha)
     return render_template("/profissional/login_profissional.html")
+
 
 def verificacao(username, senha):
     
@@ -49,6 +59,7 @@ def verificacao(username, senha):
     if user_prof and check_password_hash(user_prof[2], senha):
         usuario = User_profiss(username)
         login_user(usuario) #registra o usuário logado, cria uma sessão para o usuário
+        print(usuario)
         return redirect(url_for('login.protected'))
     return render_template('/profissional/login_profissional.html')
 
@@ -58,14 +69,17 @@ def logout():
     logout_user()
     return redirect(url_for('clientes.inicial'))
 
+
+
 @bp_login.route('/protected', methods=["GET"])
 @login_required
 def protected():
     print('acessando o protected')
-    id_profiss=get_id_usuario()   
+    id_profiss = get_id_usuario()   
 
-    return render_template("/bases/base_index_profiss.html")
-    #return render_template('index.html', usuario=current_user.id, id_profiss=id_profiss)
+    #return render_template("/bases/base_index_profiss.html")
+    
+    return render_template('/bases/base_index_profiss.html', usuario=current_user.id, id_profiss=id_profiss)
 
 def get_id_usuario():
     con = sql.connect('goservice.db')
@@ -77,18 +91,6 @@ def get_id_usuario():
     return id_profiss[0]
 
 
-
-
-#=================Login Cliente=================
-@login_manager.user_loader
-def load_cliente(user_id):
-    con = sql.connect('goservice.db')
-    cur = con.cursor()
-    cur.execute("SELECT * FROM loginCli WHERE username=?", (user_id,))
-    user_cli = cur.fetchone()
-    if not user_cli:
-        return None
-    return UserCliente(user_cli[1])
 
 @bp_login.route('/login_cliente', methods=['POST', 'GET'])
 def login_cliente():
@@ -115,13 +117,6 @@ def verificacaoCli(username, senha):
     return redirect(url_for('login.login_cliente'))
 
     
-'''
-@bp_login.route('/logout')
-@login_required
-def logout():
-    logout_user()
-    return redirect(url_for('clientes.inicial'))
-'''
 
 
 @bp_login.route('/protected_cli')
