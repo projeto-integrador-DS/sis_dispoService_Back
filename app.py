@@ -18,8 +18,6 @@ app.register_blueprint(bp_profissional)
 app.register_blueprint(bp_curso)
 app.register_blueprint(bp_experiencia)
 app.register_blueprint(bp_servicos)
-
-
 app.register_blueprint(bp_clientes)
 
 
