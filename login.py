@@ -21,21 +21,21 @@ def load_user(user_id):
     con = sql.connect('goservice.db')
     cur = con.cursor()
     
-    # Tente carregar como usuário profissional
+    # Tenta carregar como usuário profissional
     cur.execute("SELECT * FROM loginProf WHERE username=?", (user_id,))
     user_prof = cur.fetchone()
     
     if user_prof:
         return User_profiss(user_prof[1])
     
-    # Tente carregar como usuário cliente
+    # Tenta carregar como usuário cliente
     cur.execute("SELECT * FROM loginCli WHERE username=?", (user_id,))
     user_cli = cur.fetchone()
     
     if user_cli:
         return UserCliente(user_cli[1])
     
-    # Se nenhum usuário for encontrado, retorne None
+    # Se nenhum usuário for encontrado, retorna None
     return None
 
 
