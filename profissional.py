@@ -13,9 +13,9 @@ def index():
     return render_template('bases/base_index_profiss.html', id_profiss=id_profiss)
 
 #============PROFISSIONAIS==============
-@bp_profissional.route('/')
+'''@bp_profissional.route('/')
 def inicial():
-    return render_template('clientes/inicial_01.html')
+    return render_template('clientes/inicial_01.html')'''
 
 @bp_profissional.route('/cad_profissionais', methods=['POST', 'GET'])
 def cad_profissionais():
