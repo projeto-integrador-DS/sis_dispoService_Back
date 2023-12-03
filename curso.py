@@ -4,7 +4,6 @@ from profissional import getUltimoProfis, get_id_usuario
 
 bp_curso = Blueprint('curso', __name__)
 
-
 @bp_curso.route('/curso', methods=['POST', 'GET'])
 def cad_curso():
     if request.method=='POST':

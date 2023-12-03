@@ -106,8 +106,6 @@ body {
     transition: opacity 100ms linear;
 }
 
-
-
 .filho__container__pintor:hover::before,
 .filho__container__pintor:hover::after,
 .filho__container__pedreiro:hover::before,

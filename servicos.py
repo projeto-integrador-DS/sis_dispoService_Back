@@ -101,7 +101,7 @@ def getUltimoServico():
 def prof_serv(id_profiss):
     
     id_prof=id_profiss
-    #temos um func1 e func2 se o func2 salvar um serviço antes do func1 o func1 terá salvo um serviço do func2
+    #exemplo, temos um func1 e func2 se o func2 salvar um serviço antes do func1 o func1 terá salvo um serviço do func2
     id_Serv=getUltimoServico()
 
     con=sql.connect('goservice.db')

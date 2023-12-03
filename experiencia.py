@@ -4,7 +4,6 @@ from profissional import getUltimoProfis, get_id_usuario
 
 bp_experiencia=Blueprint('experiencia',__name__)
 
-
 @bp_experiencia.route('/experiencia', methods=['POST', 'GET'])
 def cad_experiencia():
     if request.method == 'POST':

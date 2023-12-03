@@ -9,7 +9,6 @@ from cliente import bp_clientes
 
 
 
-
 app = Flask(__name__)
 
 

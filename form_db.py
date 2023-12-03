@@ -96,7 +96,6 @@ def setup():
     con.commit()
     con.close()
 
-
 """
     def cad_loginProf():
         

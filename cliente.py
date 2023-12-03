@@ -5,7 +5,6 @@ from werkzeug.security import generate_password_hash
 
 bp_clientes = Blueprint('clientes', __name__)
 
-
 #---------- Rota Inicial ----------
 @bp_clientes.route('/')
 def inicial():

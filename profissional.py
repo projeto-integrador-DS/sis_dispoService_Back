@@ -6,7 +6,7 @@ from form_db import setup
 
 bp_profissional=Blueprint('profissional',__name__)
 
-#acho acho que podemos excluir essa rota
+#só serve para voltar
 @bp_profissional.route('/index', methods=['POST', 'GET'])
 def index():
     id_profiss=get_id_usuario()

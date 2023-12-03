@@ -55,3 +55,4 @@ where o.fk_profiss=2
 SELECT * FROM sqlite_master WHERE type = 'table';
 
 SELECT * FROM servicos
+

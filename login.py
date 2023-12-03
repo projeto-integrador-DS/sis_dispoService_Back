@@ -3,7 +3,6 @@ from flask_login import LoginManager, UserMixin, login_user, login_required, log
 from flask import Blueprint, redirect, render_template, url_for, request,flash
 import sqlite3 as sql
 
-
 #cria um objeto login_manager
 login_manager = LoginManager()
 
