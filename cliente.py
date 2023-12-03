@@ -149,14 +149,12 @@ def obter_profissionais_por_profissao(profissao):
     try:
         with sql.connect("goservice.db") as con:
             cur = con.cursor()
-            print(profissao)
             cur.execute('''
                         SELECT * FROM profissionais
                         WHERE profissao = ?;
                     ''', (profissao,))
 
             dados = cur.fetchall()
-            print('ggdgdgg',dados)
             # Obtém os nomes das colunas
             colunas = [column[0] for column in cur.description]
 
