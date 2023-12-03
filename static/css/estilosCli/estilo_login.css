@@ -1,0 +1,153 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+:root {
+    --cor-preta: #000;
+    --cor-branca: #FFF;
+    --cor-cinza: #ECECEC;
+    --cor-cinza-escuro: #CBC8C8;
+    --fonte-inter: 'Inter', sans-serif;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--cor-cinza-escuro);
+}
+
+.page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    color: #023047;
+    background-color: var(--cor-cinza-escuro);
+    color: #023047
+
+}
+
+.form__label__cli {
+    font-size: 18px;
+}
+
+
+.formLogin {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--cor-cinza);
+    opacity: 0.9;
+    border-radius: 7px;
+    padding: 2.5em;
+    box-shadow: 10px 10px 40px rgba(0, 0, 0, 0.4);
+    gap: 5px
+}
+
+
+.tit_principal {
+    text-align: center;
+}
+
+
+#foto_prof {
+    display: block;
+    width: 80px;
+    height: 80px;
+    margin: auto;
+    
+}
+
+#logo {
+    width: 450px;
+}
+
+.areaLogin img {
+    width: 420px;
+}
+
+.formLogin h1 {
+    padding: 0;
+    margin: 0;
+    font-weight: 500;
+    font-size: 2.3em;
+}
+
+.formLogin p {
+    display: inline-block;
+    font-size: 14px;
+    color: var(--cor-cinza);
+    margin-bottom: 1.5em;
+}
+
+.input {
+    padding: 15px;
+    font-size: 18px;
+    border: 1px solid var(--cor-cinza-claro);
+    margin-bottom: 20px;
+    margin-top: 5px;
+    border-radius: 4px;
+    transition: all linear 160ms;
+    border:  none;
+    outline: none;
+}
+
+
+.formLogin label {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.link__senha {
+    display: inline-block;
+    margin-bottom: 20px;
+    font-size: 13px;
+    color: #555;
+    transition: all linear 160ms;
+}
+
+
+.botoes__pai {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 15px;
+}
+
+.btns {
+    width: 250px;
+    padding: 11px;
+
+   
+
+    color: var(--cor-branca);
+
+    font-size: 15px;
+    font-weight: 600;
+    border: none !important;
+    cursor: pointer;
+    margin-bottom: 10px;
+
+}
+
+.pai__imagem__titulo {
+    display: flex;
+    justify-content: space-evenly;
+    
+
+}
+
+.img__logo__voltar {
+    width: 50px;
+    margin: 0 2em 0 0;
+}
+
+
+.img__logo__voltar {
+    width: 50px;
+    margin: 0 2em 0 0;
+}
+
+

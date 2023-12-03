@@ -1,0 +1,36 @@
+{% extends 'clientes/base/base_servicos.html' %}
+
+{% block title %} Serviços Ofertados {% endblock %}
+
+{% block customCSS %} 
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/estilosCli/estilo_servicos.css')}}">
+{% endblock %}
+
+{% block body %}
+<header>
+   
+</header>
+    <section>
+       
+    </section>
+    <section class="pai__titulo">
+        <h1 class="filho__titulo">Bem vindo {{usuario}}.</h1>
+        <p class="filho__titulo">Escolha o profissional de acordo com o serviço que você esteja precisando</p>
+    </section>
+    <section>
+        <div class="pai__container__serv">
+            <a href="{{ url_for('clientes.list_profissionais', profissao='pintor') }}">
+                <p class="filho__container__pintor">Pintores</p>
+            </a>
+            <a href="{{ url_for('clientes.list_profissionais', profissao='pedreiro') }}">
+                <p class="filho__container__pedreiro">Pedreiros</p>
+            </a>
+            <a href="{{ url_for('clientes.list_profissionais', profissao='encanador') }}">
+                <p class="filho__container__encanador">encanadores</p>
+            </a>
+            <a href="{{ url_for('clientes.list_profissionais', profissao='cuidador') }}">
+                <p class="filho__container__cuidador">Cuidadores</p>
+            </a>
+        </div>
+    </section>
+{% endblock %}

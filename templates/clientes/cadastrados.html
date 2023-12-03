@@ -1,0 +1,50 @@
+{% extends 'clientes/base/base_cadastrados.html' %}
+
+{% block title %} Lista de Cadastrados {% endblock %}
+
+{% block customCSS %} 
+<link rel="stylesheet" href="{{ url_for('static', filename='css/estilosCli/estilo_lista.css') }}"> 
+{% endblock %}
+
+{% block body %}
+
+  <h3 class="titulo__pagina">Clientes Cadastrados</h3>
+  <table class="table table-bordered table-dark bg-dark tabela">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Nome</th>
+        <th scope="col">Email</th>
+        <th scope="col">Cpf</th>
+        <th scope="col">Telefone</th>
+        <th scope="col">Rua</th>
+        <th scope="col">N° Casa</th>
+        <th scope="col">Bairro</th>
+        <th scope="col">Cidade</th>
+        <th scope="col">Estado</th>
+        <th scope="col">Cep</th>
+        <th scope="col">Editar</th>
+        <th scope="col">Excluir</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for row in dados %}
+      <tr>
+        <td>{{loop.index}}</td>
+        <td>{{row.NOME}}</td>
+        <td>{{row.EMAIL}}</td>
+        <td>{{row.CPF}}</td>
+        <td>{{row.TELEFONE}}</td>
+        <td>{{row.RUA}}</td>
+        <td>{{row.NUMERO}}</td>
+        <td>{{row.BAIRRO}}</td>
+        <td>{{row.CIDADE}}</td>
+        <td>{{row.ESTADO}}</td>
+        <td>{{row.CEP}}</td>
+        <td><a href="{{url_for('clientes.edit_user', idCli=row.ID_clientes)}}" class="btn btn-primary"></a>Editar</td>
+        <td><a href="{{url_for('clientes.delete_user', idCli=row.ID_clientes)}}" class="btn btn-danger" onclick="return confirm('Tem certeza que deseja apagar?')"></a>Deletar</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

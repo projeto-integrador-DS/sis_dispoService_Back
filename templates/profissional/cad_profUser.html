@@ -1,0 +1,28 @@
+{% extends '/bases/base_cadastro.html' %}
+
+{% block body %}
+<div class="row">
+    
+    <div class="col-5 mx-auto">
+        <div class="container__pai__logo">
+            
+            <h3 class="titulo__pag">CREDENCIAIS PARA LOGIN</h3>
+        </div>
+        <form method="POST" action="{{url_for('profissional.cad_profUser')}}">
+            <div class="form-group">
+                <label>USUÁRIO</label>
+                <input type="text" name="username" id="" required class="form-control"> 
+            </div>
+            
+            <div class="form-group">
+                <label>SENHA</label>
+                <input type="password" name="senha" id="" required class="form-control"> 
+            </div>
+            
+            <br>
+            <input type="submit" value="Adicionar" class="btn btn-primary">
+        </form>
+    </div>
+</div>
+
+{% endblock %}

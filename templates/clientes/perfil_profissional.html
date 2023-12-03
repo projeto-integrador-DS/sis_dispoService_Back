@@ -1,0 +1,41 @@
+{% extends 'clientes/base/base_lista.html' %}
+
+{% block title %} Perfil do Profissional {% endblock %}
+
+{% block customCSS %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/estilosCli/estilo_lista.css')}}">  
+{% endblock %}
+
+{% block body %}
+<h3 class="tit__pag">Lista de Profissionais</h3>
+<table class="table table-bordered table-dark bg-dark tabua">
+    <thead>
+      <tr>
+        <th scope="col">Nome</th>
+        <th scope="col">Profissão</th>
+        <th scope="col">Telefone</th>
+        <th scope="col">Cidade</th>
+        <th scope="col">Estado</th>
+        <th scope="col">Ação</th>
+      </tr>
+    </thead>  
+    <tbody>
+    {% for profissional in profissionais %}
+      <tr>
+        <td>{{ profissional['nome']  }}</td>
+        <td>{{ profissional['profissao'] }}</td>
+        <td>{{ profissional['telefone'] }}</td>
+        <td>{{ profissional['cidade'] }}</td>
+        <td>{{ profissional['uf'] }}</td>
+
+        <td>
+          <a href="https://wa.me/55{{ profissional['telefone'] }}">
+            <img class="lista__prof-icone" src="{{ url_for('static', filename='img/whats.png')}}" alt="ícone do whatsapp">
+          </a>
+
+        </td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

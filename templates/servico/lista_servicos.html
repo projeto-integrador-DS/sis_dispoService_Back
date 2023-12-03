@@ -1,0 +1,44 @@
+{% extends '/bases/base_index_profiss.html' %}
+
+{% block customCSS %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/profissional/estilo_cad_profissional.css')}}" >
+{% endblock %}
+
+{% block body %}
+<h3 class="text-center text-muted mb-3">MEUS SERVIÇOS</h3>
+<p class="text-right"><a href="{{url_for('servico.add_servicos')}}" class="btn btn-success">NOVO SERVICO</a></p>
+  {% block content %}
+  
+  <table class="table table-bordered table-dark bg-dark tabela">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">NOME</th>
+        <th scope="col">CATEGORIA</th>
+        <th scope="col">VALOR</th> 
+      </tr>
+    </thead>
+
+    <tbody>
+      {% for servico in serv %}
+      <tr>
+        <td>{{loop.index}}</td>
+        <!-- <td>{{servico.ID_profiss}}</td> -->
+        <td>{{servico.nome}}</td>
+        <td>{{servico.categoria}}</td>
+        <td>{{servico.valor}}</td>
+        <td><a href="{{url_for('servico.edit_servicos', idServico=servico.ID_servico)}}" class="btn btn-primary">Editar</a></td>
+        <td><a href="{{url_for('servico.delete_servicos', idServico=servico.ID_servico)}}" class="btn btn-danger" onclick="return confirm('Tem certeza que deseja apagar?')">Deletar</a></td>
+      </tr>
+      
+      {% endfor %}
+    </tbody>
+  </table>
+<li>
+    <a href="{{url_for('profissional.index')}}" class="btn btn-light" >VOLTAR</a>
+</li>
+   
+  {% endblock %}
+ 
+{% endblock %}
+

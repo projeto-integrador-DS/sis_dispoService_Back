@@ -1,0 +1,57 @@
+{% if cadastro %}
+    {% extends '/bases/base_cadastro.html' %}
+{% else %}
+    {% extends '/bases/base_index_profiss.html' %}
+{% endif %}
+
+{% block body %}
+
+{%if cadastro%}
+<div class="row">
+    
+    <div class="col-5 mx-auto">
+        <h3>QUAIS SERVIÇOS VOCÊ PRESTA?</h3><br>
+        <form method="post" action="{{url_for('servico.cad_servicos')}}">
+            <div class="form-group">
+                <label>nome</label>
+                <input type="text" name="nome" id="" required class="form-control"> 
+            </div>
+            <div class="form-group">
+                <label>categoria</label>
+                <input type="text" name="categoria" id="" required class="form-control"> 
+            </div>
+            <div class="form-group">
+                <label>valor</label>
+                <input type="text" name="valor" id="" required class="form-control"> 
+            </div>
+            
+            <br>
+            <input type="submit" value="Adicionar" class="btn btn-primary">
+        </form>
+    </div>
+</div>
+{% else %}
+<div class="row">
+    <div class="col-5 mx-auto">
+        <h3>ADICIONAR NOVO SERVICO</h3><br>
+        <form method="post" action="{{url_for('servico.add_servicos', id_profiss=id_profiss)}}">
+            <div class="form-group">
+                <label>nome</label>
+                <input type="text" name="nome" id="" required class="form-control"> 
+            </div>
+            <div class="form-group">
+                <label>categoria</label>
+                <input type="text" name="categoria" id="" required class="form-control"> 
+            </div>
+            <div class="form-group">
+                <label>valor</label>
+                <input type="text" name="valor" id="" required class="form-control"> 
+            </div>
+            <br>
+            <input type="submit" value="Adicionar" class="btn btn-primary">
+        </form>
+    </div>
+</div>
+{%endif%}
+{% endblock %}
+
