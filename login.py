@@ -2,8 +2,9 @@ from werkzeug.security import check_password_hash
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 from flask import Blueprint, redirect, render_template, url_for, request,flash
 import sqlite3 as sql
-from form_db import setup 
 
+
+#cria um objeto login_manager
 login_manager = LoginManager()
 
 bp_login = Blueprint('login', __name__)

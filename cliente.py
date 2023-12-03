@@ -13,7 +13,6 @@ def inicial():
 
 
 
-
 #---------- Rota cliente escolha serviço ----------
 @login_required
 @bp_clientes.route('/escolha_servico')
