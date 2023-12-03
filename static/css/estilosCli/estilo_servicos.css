@@ -25,17 +25,22 @@ body {
 }
 
 .pai__titulo {
-    padding-top: 2.5em;
+    padding-top: 1em;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 }
 
+.parag__pag {
+    font-size: 28px;
+    text-shadow: 1px 1px 5px var(--cor-preta);
+}
+
 .filho__titulo {
-    font-size: 35px;
+    font-size: 28px;
     font-weight: 700;
-    padding-top: 1em;
+    padding-top: 0.5em;
 }
 
 .pai__container__serv {

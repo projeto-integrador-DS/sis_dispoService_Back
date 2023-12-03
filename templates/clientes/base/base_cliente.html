@@ -11,8 +11,10 @@
 <body>
 
     <div class="container-fluid p-5 text-white text-center" style="background-color: rgb(129, 122, 122);">
-        <h1>GOSERVICE</h1>
-        <p>ÁREA DO PROFISSIONAL</p> 
+        <div class="inicial__pai__logo">
+            <img class="inicial__filho__logo" src="{{ url_for('static', filename='img/goservicebr.png')}}" alt="Logo da Empresa GoService">
+        </div>
+        <p class="parag__pag">ÁREA DO CLIENTE</p> 
     </div>
     
     
@@ -21,14 +23,13 @@
             <div class="collapse navbar-collapse" id="navbarnNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{url_for('curso.list_cursos_prof')}}">CURSOS</a>
-                    </li class="nav-item">
-                        <a class="nav-link" href="{{url_for('experiencia.lista_experiencias')}}">EXPERIÊNCIAS</a>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{url_for('servico.lista_servicos')}}">SERVIÇOS</a>
+                        <a class="nav-link" href="{{url_for('login.protectedCli')}}">INICIO</a>
                     </li class="nav-item">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{url_for('profissional.visual_profissional')}}">DADOS CADASTRAIS</a>
+                        <a class="nav-link" href="{{url_for('clientes.visual_cliente')}}">DADOS CADASTRAIS</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{url_for('login.logout')}}">ENCERRAR SESSÃO</a>
                     </li>
                     
                 </ul>
@@ -38,6 +39,9 @@
     </nav>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    {% block body %}
+
+    {% endblock %}
 </body>
 </html>
 

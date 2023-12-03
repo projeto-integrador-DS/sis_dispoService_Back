@@ -12,6 +12,8 @@ def inicial():
     return render_template('clientes/inicial_01.html')
 
 
+
+
 #---------- Rota cliente escolha serviço ----------
 @login_required
 @bp_clientes.route('/escolha_servico')
@@ -31,6 +33,25 @@ def clientes_cadastrados():
     cur.execute("select * from clientes")
     data = cur.fetchall()
     return render_template('clientes/cadastrados.html', dados=data)
+
+
+#---------- Rota Meus Dados Cadastrais ----------
+@bp_clientes.route('/visual_cliente')
+def visual_cliente():
+    from login import get_id_cliente
+    con=sql.connect('goservice.db')
+    cur=con.cursor()
+    con.row_factory=sql.Row
+    id_cliente = get_id_cliente()
+    consulta = '''  SELECT cli.ID_clientes, cli.nome, cli.cpf, cli.telefone, cli.email, cli.rua, cli.numero, cli.bairro, cli.cep, cli.cidade, cli.estado
+                    FROM clientes AS cli 
+                    WHERE cli.ID_clientes=?'''
+    cur.execute(consulta, (id_cliente,))
+    cliente = cur.fetchone()
+    
+    con.close()
+    return render_template('/clientes/visual_cliente.html', datas=cliente)
+
 
 
 
@@ -58,6 +79,8 @@ def cadastra_cliente():
     return render_template('/clientes/cad_cliente.html')
 
 
+
+
 #=====================CADASTRAR USERNAME E SENHA DO USUARIO CLIENTE=======================
 @bp_clientes.route('/cad_profCli', methods=['POST', 'GET'])
 def cad_profCli():
@@ -73,6 +96,9 @@ def cad_profCli():
         con.close()
         return redirect(url_for('clientes.inicial'))
     return render_template('clientes/cad_CliUser.html')
+
+
+
 
 #---------- Rota Editar Cliente ----------
 @bp_clientes.route('/edit_user/<string:idCli>', methods=['POST', 'GET'])
@@ -94,7 +120,7 @@ def edit_user(idCli):
         cur.execute("UPDATE clientes SET nome=?, email=?, cpf=?, telefone=?, rua=?, numero=?, cidade=?, bairro=?, estado=?, cep=? WHERE ID_clientes=?", (nome, email, cpf, telefone, rua, numero, cidade, bairro, estado, cep, idCli))
         con.commit()
         flash('Dados atualizados', 'success')
-        return redirect(url_for('login.protectedCli'))
+        return redirect(url_for('clientes.visual_cliente'))
     con = sql.connect("goservice.db")
     con.row_factory = sql.Row
     cur = con.cursor()

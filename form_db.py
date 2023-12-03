@@ -8,16 +8,16 @@ def setup():
 
     sql_clientes = '''CREATE TABLE IF NOT EXISTS "clientes"(
         "ID_clientes" INTEGER PRIMARY KEY AUTOINCREMENT,
-        "nome" TEXT,
-        "email" TEXT,
-        "cpf" TEXT,
-        "telefone" TEXT,
-        "rua" TEXT,
-        "numero" TEXT,
-        "bairro" TEXT,
-        "cidade" TEXT,
-        "estado" TEXT,
-        "cep" TEXT
+        "nome"      TEXT,
+        "email"     TEXT,
+        "cpf"       TEXT,
+        "telefone"  TEXT,
+        "rua"       TEXT,
+        "numero"    TEXT,
+        "bairro"    TEXT,
+        "cidade"    TEXT,
+        "estado"    TEXT,
+        "cep"       TEXT
         )'''
 
     sql_profissionais = '''CREATE TABLE IF NOT EXISTS "profissionais"(

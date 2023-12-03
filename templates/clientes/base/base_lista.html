@@ -11,14 +11,7 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-md navbar bg-transparent p-lg-0">
-            <a class="navbar-brand" href="{{url_for('login.protectedCli')}}">
-                <img class="img__logo__voltar" src="../../static/img/voltar.png" alt=""> 
-            </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-            </button>
-          </nav>
+        
     </header>
     <div class="">
         {% with messages=get_flashed_messages(with_categories=true) %}
@@ -28,6 +21,9 @@
                 {% endfor %}
             {% endif %}
         {% endwith %}
+        <a class="navbar-brand" href="{{url_for('login.protectedCli')}}">
+            <img class="img__logo__voltar" src="../../static/img/voltar.png" alt=""> 
+        </a>
         {% block body %}
         
 
