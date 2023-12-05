@@ -16,6 +16,7 @@
         <th scope="col">NOME</th>
         <th scope="col">CATEGORIA</th>
         <th scope="col">VALOR</th> 
+        <th colspan="2">AÇÕES</th>
       </tr>
     </thead>
 
@@ -34,9 +35,7 @@
       {% endfor %}
     </tbody>
   </table>
-<li>
-    <a href="{{url_for('profissional.index')}}" class="btn btn-light" >VOLTAR</a>
-</li>
+
    
   {% endblock %}
  

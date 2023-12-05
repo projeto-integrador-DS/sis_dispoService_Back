@@ -7,16 +7,34 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" defer></script>
     <link rel="stylesheet" href="../../static/css/estilo_lista.css">
+    <style>
+        .margem{
+            margin-bottom: 50px;
+        }
+        h1{
+            margin-top: 30px;
+        }
+        .usuario {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+           
+        }
 
+        .usuario h1 {
+        margin-top: 20px; /* Adjust the margin as needed */
+        color: rgb(129, 122, 122)
+        }
+    </style>
 </head>
 <body>
     <div class="container-fluid p-5 text-white text-center" style="background-color: rgb(129, 122, 122);">
-        <h1>GOSERVICE</h1>
-        <p>ÁREA DO PROFISSIONAL</p> 
+        <img src="{{ url_for('static', filename='img/goservicebr.png')}}" id="foto_prof" alt="" class="logo-prof">
+        <h1>ÁREA DO PROFISSIONAL</h1> 
     </div>
-    
-   
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark ">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark margem">
         <div class="container">
             <div class="collapse navbar-collapse" id="navbarnNav">
                 <ul class="navbar-nav ms-auto">
@@ -30,26 +48,30 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{url_for('profissional.visual_profissional')}}">DADOS CADASTRAIS</a>
                     </li>
-                    
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{url_for('login.logout')}}">ENCERRA SESSÃO</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{url_for('profissional.index')}}" >INICIAL</a>
+                    </li>
                 </ul>
             </div>
         </div>
-
     </nav>
     
-    
     {% block customCSS %}
-    
     {% endblock %}
     
-    
     {% block body %}
-       
+    <div class="usuario"> 
+        {%  if usuario %}
+        <h1>Bem vindo, {{usuario}} !!</h1>
+        {% endif %}
+        
+    </div>
         {% block content %} {% endblock %}
         
     {% endblock %}
-    
-    
 </body>
 </html>
 

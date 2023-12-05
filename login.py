@@ -37,8 +37,6 @@ def load_user(user_id):
     
     # Se nenhum usuário for encontrado, retorna None
     return None
-
-
     
 @bp_login.route('/login_profissional', methods=['POST', 'GET'])
 def login_profissional():    
@@ -69,12 +67,10 @@ def logout():
     logout_user()
     return redirect(url_for('clientes.inicial'))
 
-
-
 @bp_login.route('/protected', methods=["GET"])
 @login_required
 def protected():
-    print('acessando o protected')
+    
     id_profiss = get_id_usuario()   
 
     #return render_template("/bases/base_index_profiss.html")

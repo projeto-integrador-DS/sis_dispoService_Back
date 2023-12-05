@@ -18,6 +18,7 @@
             <th scope="col">CARGO</th>
             <th scope="col">TEMPO DE SERVIÇO</th>
             <th scope="col">EMPRESA</th>
+            <th colspan="2">AÇÕES</th>
           </tr>
         </thead>
         
@@ -29,6 +30,7 @@
             <td>{{experiencia.cargo}}</td>
             <td>{{experiencia.temp_servico}}</td>
             <td>{{experiencia.empresa}}</td>
+            
             <td><a href="{{url_for('experiencia.edit_experiencias', idExperiencia=experiencia.ID_experiencia)}}" class="btn btn-primary">Editar</a></td>
             <td><a href="{{url_for('experiencia.delete_experiencia', idExperiencia=experiencia.ID_experiencia)}}" class="btn btn-danger" onclick="return confirm('Tem certeza que deseja apagar?')">Deletar</a></td>      
           </tr>
@@ -37,9 +39,7 @@
           
         </tbody>
       </table>
-    <li>
-        <a href="{{url_for('profissional.index')}}" class="btn btn-light" >VOLTAR</a>
-    </li>
+  
     </div>
     
   {% endblock %}

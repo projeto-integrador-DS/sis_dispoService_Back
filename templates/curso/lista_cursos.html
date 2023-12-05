@@ -19,6 +19,7 @@
         <th scope="col">MODALIDADE</th>
         <th scope="col">INSTITUIÇÃO</th>
         <th scope="col">AREA</th>
+        <th colspan="2">AÇÕES</th>
       </tr>
     </thead>
     
@@ -29,6 +30,7 @@
         <td>{{linha.modalidade}}</td>
         <td>{{linha.instituicao}}</td>
         <td>{{linha.area}}</td>
+        
         <td><a href="{{url_for('curso.edit_curso', id_curso=linha.ID_curso)}}" class="btn btn-primary">Editar</a></td>
         <td><a href="{{url_for('curso.delete_curso', id_curso=linha.ID_curso)}}" class="btn btn-danger" onclick="return confirm('Tem certeza que deseja apagar?')">Deletar</a></td>
       </tr>
@@ -36,9 +38,7 @@
       
     </tbody>
   </table>
-<li>
-    <a href="{{url_for('profissional.index')}}" class="btn btn-light" >VOLTAR</a>
-</li>
+
    
   {% endblock %}
   
