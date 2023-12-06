@@ -249,6 +249,6 @@ def oferece_ficticio():
     for id in profissionais:
         print(id[0], servicos[0][0])
 
-oferece_ficticio()
+#oferece_ficticio()
 
 
