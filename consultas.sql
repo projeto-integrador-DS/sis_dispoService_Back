@@ -13,7 +13,13 @@ DROP TABLE loginProf;
 DROP TABLE clientes;
 DROP TABLE oferece;
 
+DROP DATABASE your_database_name
+
 DELETE FROM loginProf WHERE fk_profiss=3
+DELETE FROM experiencias WHERE ID_experiencia=4
+DELETE FROM profissionais
+DELETE FROM loginProf
+
 
 SELECT * FROM profissionais;
 SELECT * FROM cursos;
@@ -26,6 +32,7 @@ SELECT *
 FROM loginProf 
 WHERE username='lala';
 
+DELETE FROM servicos
 
 SELECT * -- SQLite
 /*filtra os cursos de um determinado profissional*/
@@ -56,3 +63,12 @@ SELECT * FROM sqlite_master WHERE type = 'table';
 
 SELECT * FROM servicos
 
+
+DELETE FROM clientes;
+DELETE FROM cursos;
+DELETE FROM experiencias;
+DELETE FROM loginCli;
+DELETE FROM loginProf;
+DELETE FROM oferece;
+DELETE FROM profissionais;
+DELETE FROM SERVICOS
