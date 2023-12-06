@@ -1,29 +1,31 @@
 from flask import render_template, request, redirect, url_for, flash, Blueprint
 import sqlite3 as sql
-from flask_login import LoginManager, login_required, logout_user,login_user, current_user, UserMixin
+from flask_login import  login_required, current_user
 from werkzeug.security import generate_password_hash
 
-bpclientes_blueprint = Blueprint('clientes', __name__)
+bp_clientes = Blueprint('clientes', __name__)
 
 
 #---------- Rota Inicial ----------
-@bpclientes_blueprint.route('/')
+@bp_clientes.route('/')
 def inicial():
     return render_template('clientes/inicial_01.html')
 
 
+
+
 #---------- Rota cliente escolha serviço ----------
 @login_required
-@bpclientes_blueprint.route('/escolha_servico')
+@bp_clientes.route('/escolha_servico')
 def escolhaServico():
-    from login_cli import get_id_cliente
+    from login import get_id_cliente
     id_cli=get_id_cliente()
     return render_template('clientes/escolha_servicos.html',usuario=current_user.id, id_cli=id_cli)
 
 
 
 #---------- Rota Clientes Cadastrados ----------
-@bpclientes_blueprint.route('/clientes_cadastrados')
+@bp_clientes.route('/clientes_cadastrados')
 def clientes_cadastrados():
     con = sql.connect("goservice.db")
     con.row_factory = sql.Row
@@ -33,9 +35,28 @@ def clientes_cadastrados():
     return render_template('clientes/cadastrados.html', dados=data)
 
 
+#---------- Rota Meus Dados Cadastrais ----------
+@bp_clientes.route('/visual_cliente')
+def visual_cliente():
+    from login import get_id_cliente
+    con=sql.connect('goservice.db')
+    cur=con.cursor()
+    con.row_factory=sql.Row
+    id_cliente = get_id_cliente()
+    consulta = '''  SELECT cli.ID_clientes, cli.nome, cli.cpf, cli.telefone, cli.email, cli.rua, cli.numero, cli.bairro, cli.cep, cli.cidade, cli.estado
+                    FROM clientes AS cli 
+                    WHERE cli.ID_clientes=?'''
+    cur.execute(consulta, (id_cliente,))
+    cliente = cur.fetchone()
+    
+    con.close()
+    return render_template('/clientes/visual_cliente.html', datas=cliente)
+
+
+
 
 #---------- Rota Cadastrar Cliente ----------
-@bpclientes_blueprint.route('/cadastre-se', methods=['POST', 'GET'])
+@bp_clientes.route('/cadastre-se', methods=['POST', 'GET'])
 def cadastra_cliente():
     if request.method == 'POST':
         nome =      request.form['nome']
@@ -58,8 +79,10 @@ def cadastra_cliente():
     return render_template('/clientes/cad_cliente.html')
 
 
+
+
 #=====================CADASTRAR USERNAME E SENHA DO USUARIO CLIENTE=======================
-@bpclientes_blueprint.route('/cad_profCli', methods=['POST', 'GET'])
+@bp_clientes.route('/cad_profCli', methods=['POST', 'GET'])
 def cad_profCli():
     if request.method=='POST':
         username=request.form['username'].strip()
@@ -74,8 +97,11 @@ def cad_profCli():
         return redirect(url_for('clientes.inicial'))
     return render_template('clientes/cad_CliUser.html')
 
+
+
+
 #---------- Rota Editar Cliente ----------
-@bpclientes_blueprint.route('/edit_user/<string:idCli>', methods=['POST', 'GET'])
+@bp_clientes.route('/edit_user/<string:idCli>', methods=['POST', 'GET'])
 def edit_user(idCli):
     if request.method == 'POST':
         nome =      request.form['nome']
@@ -94,7 +120,7 @@ def edit_user(idCli):
         cur.execute("UPDATE clientes SET nome=?, email=?, cpf=?, telefone=?, rua=?, numero=?, cidade=?, bairro=?, estado=?, cep=? WHERE ID_clientes=?", (nome, email, cpf, telefone, rua, numero, cidade, bairro, estado, cep, idCli))
         con.commit()
         flash('Dados atualizados', 'success')
-        return redirect(url_for('logincliente.protected'))
+        return redirect(url_for('clientes.visual_cliente'))
     con = sql.connect("goservice.db")
     con.row_factory = sql.Row
     cur = con.cursor()
@@ -106,7 +132,7 @@ def edit_user(idCli):
 
 
 #---------- Rota Excluir Cliente ----------
-@bpclientes_blueprint.route('/delete_user/<string:idCli>', methods=['GET'])
+@bp_clientes.route('/delete_user/<string:idCli>', methods=['GET'])
 def delete_user(idCli):
     con = sql.connect("goservice.db")
     cur = con.cursor()
@@ -123,15 +149,12 @@ def obter_profissionais_por_profissao(profissao):
     try:
         with sql.connect("goservice.db") as con:
             cur = con.cursor()
-            print(profissao)
-            # Use parâmetros na consulta para evitar injeção de SQL
             cur.execute('''
                         SELECT * FROM profissionais
                         WHERE profissao = ?;
                     ''', (profissao,))
 
             dados = cur.fetchall()
-            print('ggdgdgg',dados)
             # Obtém os nomes das colunas
             colunas = [column[0] for column in cur.description]
 
@@ -144,8 +167,8 @@ def obter_profissionais_por_profissao(profissao):
         print(f"Erro ao executar a consulta: {err}")
         return None
 
-# Exemplo de uso na rota
-@bpclientes_blueprint.route('/profissionais/<profissao>', methods=['GET'])
+
+@bp_clientes.route('/profissionais/<profissao>', methods=['GET'])
 def list_profissionais(profissao):
     profissionais = obter_profissionais_por_profissao(profissao)
 

@@ -1,0 +1,56 @@
+{% extends '/bases/base_index_profiss.html' %}
+
+{% block customCSS %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/estilo_cadastro')}}" >
+    
+{% endblock %}
+
+{% block body %}
+
+<h3 class="text-center text-muted mb-3">MEUS DADOS CADASTRAIS</h3>
+  
+{% block content %}
+  
+  <table class="table table-bordered table-dark bg-dark tabela" >
+    <thead>
+      <tr>
+        <th scope="col">NOME</th>
+        <th scope="col">CPF</th>
+        <th scope="col">TELEFONE</th>
+        <th scope="col">EMAIL</th>
+        <th scope="col">ENDERECO</th>
+        <th scope="col">NUMERO</th>
+        <th scope="col">BAIRRO</th>
+        <th scope="col">CEP</th>
+        <th scope="col">CIDADE</th>
+        <th scope="col">UF</th>
+        <th scope="col">PROFISSAO</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      
+      <tr>
+        <td>{{ datas[1] }}</td>
+        <td>{{ datas[2] }}</td>
+        <td>{{ datas[3] }}</td>
+        <td>{{ datas[4] }}</td>
+        <td>{{ datas[5] }}</td>
+        <td>{{ datas[6] }}</td>
+        <td>{{ datas[7] }}</td>
+        <td>{{ datas[8] }}</td>
+        <td>{{ datas[9] }}</td>
+        <td>{{ datas[10] }}</td>
+        <td>{{ datas[11] }}</td>
+        <td><a href="{{url_for('profissional.edit_profissionais', idProf=datas[0])}}" class="btn btn-primary">Editar</a></td>
+        <td><a href="{{url_for('profissional.delete_profissionais', idProf=datas[0])}}" class="btn btn-danger" onclick="return confirm('Tem certeza que deseja apagar?')">Deletar</a></td>
+      </tr>
+    </tbody>
+  </table>
+<li>
+    <a href="{{url_for('profissional.index')}}" class="btn btn-light" >VOLTAR</a>
+</li>
+  
+  
+{% endblock %}
+{% endblock %}

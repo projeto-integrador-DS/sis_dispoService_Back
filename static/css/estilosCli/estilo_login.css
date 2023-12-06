@@ -24,7 +24,10 @@ body {
     justify-content: center;
     width: 100%;
     height: 100%;
+    color: #023047;
+    background-color: var(--cor-cinza-escuro);
     color: #023047
+
 }
 
 .form__label__cli {
@@ -117,7 +120,11 @@ body {
 .btns {
     width: 250px;
     padding: 11px;
+
+   
+
     color: var(--cor-branca);
+
     font-size: 15px;
     font-weight: 600;
     border: none !important;
@@ -130,10 +137,18 @@ body {
     display: flex;
     justify-content: space-evenly;
     
+
 }
 
 .img__logo__voltar {
     width: 50px;
     margin: 0 2em 0 0;
 }
+
+
+.img__logo__voltar {
+    width: 50px;
+    margin: 0 2em 0 0;
+}
+
 
