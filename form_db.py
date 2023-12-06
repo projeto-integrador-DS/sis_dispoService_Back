@@ -248,7 +248,11 @@ def oferece_ficticio():
 
     for id in profissionais:
         print(id[0], servicos[0][0])
+        cursor.execute(f"INSERT INTO oferece (fk_profiss, fk_servic) VALUES ('{id[0]}', '{servicos[0][0]}')")
+        conn.commit()
+oferece_ficticio()
+   
+       
 
-#oferece_ficticio()
 
 

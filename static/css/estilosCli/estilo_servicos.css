@@ -41,6 +41,7 @@ body {
     font-size: 28px;
     font-weight: 700;
     padding-top: 0.5em;
+    color: var(--cinza-forte);
 }
 
 .pai__container__serv {
