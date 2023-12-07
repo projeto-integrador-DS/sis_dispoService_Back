@@ -263,7 +263,7 @@ def oferece_ficticio():
         cursor.execute(f"INSERT INTO oferece (fk_profiss, fk_servic) VALUES ('{lista_id_prof[i]}','{lista_id_serv[i]}')")
         conn.commit()
 
-oferece_ficticio()
+#oferece_ficticio()
    
        
 
