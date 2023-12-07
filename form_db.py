@@ -125,3 +125,147 @@ def setup():
     cad_loginProf()
     con.close()
 """
+
+import sqlite3
+from faker import Faker
+import random
+from werkzeug.security import generate_password_hash
+
+fake = Faker()
+
+
+# Connect to the SQLite database
+
+def profiss_ficticios():
+    conn = sqlite3.connect('goservice.db')
+    cursor = conn.cursor()
+# Generate fictional data for "clientes" table
+    profissoes=('pintor', 'pedreiro', 'encanador', 'cuidador')
+
+    i=0
+    for _ in range(20):
+        
+        nome = fake.name()
+        cpf = fake.unique.random_number(11)
+        telefone = fake.phone_number()
+        email = fake.email()
+
+        endereco = fake.street_name()
+        num = fake.building_number()
+        bairro = fake.city_suffix()
+        cep = fake.zipcode()
+        cidade = fake.city()
+        uf = "PE"
+        if i<4:
+            profissao=profissoes[i]
+        else:
+            i=0
+            profissao=profissoes[i]
+    
+        print(profissao)
+        cursor.execute(f"INSERT INTO profissionais( nome, CPF, telefone, email, endereco, num, bairro, CEP, cidade, uf, profissao) VALUES('{nome}', '{cpf}', '{telefone}', '{email}', '{endereco}', '{num}', '{bairro}', '{cep}', '{cidade}', '{uf}', '{profissao}')")
+        conn.commit()
+        i+=1
+
+def loginProf_ficticio():
+    #logins para os profissionais de 77 - 96
+    #pega todos os nomes de usuário e pega o primeiro nome para no nome de usuário
+    #e a senha 123 para todos
+    conn = sqlite3.connect('goservice.db')
+    cursor = conn.cursor()
+
+    cursor.execute('SELECT ID_profiss, nome FROM profissionais')
+    dados=cursor.fetchall()
+   
+    for dado in dados:
+        fk_profiss=dado[0]
+        username=dado[1].split()[0]
+        senha =generate_password_hash('123')
+        
+        cursor.execute(f"INSERT INTO loginProf(fk_profiss, username, senha) VALUES('{fk_profiss}', '{username}', '{senha}')")
+        conn.commit()      
+
+#loginProf_ficticio()
+
+
+def cursos_ficticio():
+    conn = sqlite3.connect('goservice.db')
+    cursor = conn.cursor()
+
+    cursor.execute('SELECT ID_profiss FROM profissionais')
+    ids=cursor.fetchall()
+
+    for id in ids:
+        fk_idProfiss=id[0]
+        modalidade =modalidade = fake.random_element(elements=('profissionalizante', 'Técnico', 'Superior', 'especialização'))
+        instituicao = fake.company()
+        area = fake.job()
+        cursor.execute(f"INSERT INTO cursos (fk_idProfiss, modalidade, instituicao, area) VALUES('{fk_idProfiss}', '{modalidade}', '{instituicao}', '{area}')")
+        conn.commit()
+
+#cursos_ficticio()
+
+def experiencia_ficticia():
+    conn = sqlite3.connect('goservice.db')
+    cursor = conn.cursor()
+
+    cursor.execute('SELECT ID_profiss FROM profissionais')
+    ids=cursor.fetchall()
+
+    for id in ids:
+        fk_IDprofiss=id[0]
+        cargo = fake.job()
+        temp_servico = fake.random_element(elements=('2a 6m', '3a', '1a', '10a', '20a', '4a', '7a', '12a', '5a'))
+        empresa = fake.company()
+
+        cursor.execute(f"INSERT INTO experiencias (fk_IDprofiss, cargo, temp_servico, empresa) VALUES ('{fk_IDprofiss}', '{cargo}', '{temp_servico}', '{empresa}')")
+        conn.commit()
+
+#experiencia_ficticia()
+def servico_ficticio():
+    conn = sqlite3.connect('goservice.db')
+    cursor = conn.cursor()
+
+    for _ in range(20):
+        nome = fake.word()
+        categoria = fake.random_element(elements=('construção', 'limpeza', 'manutenção'))
+        valor = fake.random.uniform(50, 200)
+
+        cursor.execute(f"INSERT INTO servicos (nome, categoria, valor) VALUES ('{nome}', '{categoria}', '{valor}')")
+        conn.commit()
+
+#servico_ficticio()
+
+def oferece_ficticio():
+    conn = sqlite3.connect('goservice.db')
+    cursor = conn.cursor()
+
+    cursor.execute("SELECT ID_profiss  FROM profissionais")
+    profissionais=cursor.fetchall()
+    
+    cursor.execute("SELECT ID_servico  FROM servicos")
+    servicos=cursor.fetchall()
+
+    lista_id_prof=[]
+    lista_id_serv=[]
+    for id_prof in profissionais:
+       
+        lista_id_prof.append(id_prof[0])
+      
+        
+        
+    for id_serv in servicos:
+        lista_id_serv.append(id_serv[0])
+        
+    
+    for i in range(21):
+        print(lista_id_prof[i])
+        cursor.execute(f"INSERT INTO oferece (fk_profiss, fk_servic) VALUES ('{lista_id_prof[i]}','{lista_id_serv[i]}')")
+        conn.commit()
+
+#oferece_ficticio()
+   
+       
+
+
+

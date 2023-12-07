@@ -41,10 +41,11 @@ body {
     font-size: 28px;
     font-weight: 700;
     padding-top: 0.5em;
+    color: var(--cinza-forte);
 }
 
 .pai__container__serv {
-    padding-top: 2em;
+    padding-top: 3em;
     display: flex;
     justify-content: space-around;
 }
