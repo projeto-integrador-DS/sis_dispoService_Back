@@ -246,10 +246,23 @@ def oferece_ficticio():
     cursor.execute("SELECT ID_servico  FROM servicos")
     servicos=cursor.fetchall()
 
-    for id in profissionais:
-        print(id[0], servicos[0][0])
-        cursor.execute(f"INSERT INTO oferece (fk_profiss, fk_servic) VALUES ('{id[0]}', '{servicos[0][0]}')")
+    lista_id_prof=[]
+    lista_id_serv=[]
+    for id_prof in profissionais:
+       
+        lista_id_prof.append(id_prof[0])
+      
+        
+        
+    for id_serv in servicos:
+        lista_id_serv.append(id_serv[0])
+        
+    
+    for i in range(21):
+        print(lista_id_prof[i])
+        cursor.execute(f"INSERT INTO oferece (fk_profiss, fk_servic) VALUES ('{lista_id_prof[i]}','{lista_id_serv[i]}')")
         conn.commit()
+
 oferece_ficticio()
    
        

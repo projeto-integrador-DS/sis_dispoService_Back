@@ -19,6 +19,7 @@ DELETE FROM loginProf WHERE fk_profiss=3
 DELETE FROM experiencias WHERE ID_experiencia=4
 DELETE FROM profissionais
 DELETE FROM loginProf
+DELETE FROM OFERECE
 
 
 SELECT * FROM profissionais;
