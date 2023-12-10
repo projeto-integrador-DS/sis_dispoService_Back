@@ -59,6 +59,7 @@ def verificacao(username, senha):
         login_user(usuario) #registra o usuário logado, cria uma sessão para o usuário
         print(usuario)
         return redirect(url_for('login.protected'))
+    flash('Login invalido', 'warning')
     return render_template('/profissional/login_profissional.html')
 
 @bp_login.route('/logout')
