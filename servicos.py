@@ -22,8 +22,8 @@ def cad_servicos():
         con.close()
         return render_template('/profissional/login_profissional.html')
         #return redirect(url_for('login_profissional'))
-    return None
-    #return render_template('cad_servicos.html', cadastro=True)
+   
+    return render_template('/servico/cad_servicos.html', cadastro=True)
 
 @bp_servicos.route('/listaservicos', methods=['POST', 'GET'])
 def lista_servicos():

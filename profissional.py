@@ -37,6 +37,7 @@ def cad_profissionais():
         cur = con.cursor()
         cur.execute("INSERT INTO profissionais(nome, cpf, telefone, email, endereco, cidade, num, bairro, cep, uf, profissao) values(?,?,?,?,?,?,?,?,?,?,?)", (nome, cpf, telefone, email, endereco, cidade, num, bairro, cep, uf, profissao))
         con.commit()
+        con.close()
         flash('Dados Cadastrados', 'success')
         return redirect(url_for('profissional.cad_profUser'))
        
@@ -100,6 +101,7 @@ def cad_profUser():
         cur = con.cursor()
         cur.execute("INSERT INTO loginProf(fk_profiss, username, senha) VALUES (?,?,?)", (fk_idProfiss, username, senha_hash))
         con.commit()
+        print(username, "username", "senha hash", senha_hash)
         con.close()
         return render_template('/curso/cad_cursos.html', cadastro =True)
         #return redirect(url_for('cad_curso'))

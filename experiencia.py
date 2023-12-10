@@ -21,8 +21,7 @@ def cad_experiencia():
         con.close()
         return render_template('/servico/cad_servicos.html',cadastro=True)
         #return redirect(url_for('cad_servicos'))
-    return None
-    #return render_template('cad_experiencias.html', cadastro=True)
+    return render_template('/experiencia/cad_experiencias.html', cadastro=True)
 
 @bp_experiencia.route('/lista_experiencias')
 def lista_experiencias():

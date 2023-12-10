@@ -185,6 +185,7 @@ def loginProf_ficticio():
         cursor.execute(f"INSERT INTO loginProf(fk_profiss, username, senha) VALUES('{fk_profiss}', '{username}', '{senha}')")
         conn.commit()      
 
+
 #loginProf_ficticio()
 
 

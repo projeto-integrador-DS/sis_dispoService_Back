@@ -18,8 +18,8 @@ def cad_curso():
         flash('Dados Cadastrados', 'success')
         con.close()
         return render_template('/experiencia/cad_experiencias.html', cadastro=True)
-    return None
-    #return render_template('cad_cursos.html', cadastro =True)
+  
+    return render_template('/curso/cad_cursos.html', cadastro =True)
 
 @bp_curso.route('/listacursos/')
 def list_cursos_prof():

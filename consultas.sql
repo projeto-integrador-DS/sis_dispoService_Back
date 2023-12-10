@@ -22,6 +22,18 @@ DELETE FROM loginProf
 DELETE FROM OFERECE
 
 
+
+delete from loginProf where fk_profiss = 98;
+delete from loginProf where fk_profiss = 99;
+delete from loginProf where fk_profiss = 100;
+delete from loginProf where fk_profiss = 101;
+delete from loginProf where fk_profiss = 102;
+delete from loginProf where fk_profiss = 97;
+delete from loginProf where fk_profiss = 2;
+
+
+delete from cursos where ID_curso=29
+
 SELECT * FROM profissionais;
 SELECT * FROM cursos;
 SELECT * FROM loginProf;
