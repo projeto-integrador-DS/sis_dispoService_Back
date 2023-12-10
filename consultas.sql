@@ -31,6 +31,10 @@ delete from loginProf where fk_profiss = 102;
 delete from loginProf where fk_profiss = 97;
 delete from loginProf where fk_profiss = 2;
 
+delete from experiencias where fk_idProfiss=78;
+delete from cursos where fk_idProfiss=78;
+delete from oferece where fk_profiss=78;
+DELETE FROM oferece where fk_profiss=77
 
 delete from cursos where ID_curso=29
 
@@ -85,3 +89,5 @@ DELETE FROM loginProf;
 DELETE FROM oferece;
 DELETE FROM profissionais;
 DELETE FROM SERVICOS
+
+SELECT c.ID_curso, c.modalidade, c.instituicao, c.area FROM cursos AS c JOIN profissionais AS pr ON pr.ID_profiss = c.fk_idProfiss WHERE c.fk_idProfiss =78;

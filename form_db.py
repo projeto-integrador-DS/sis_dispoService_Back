@@ -1,4 +1,3 @@
-from werkzeug.security import generate_password_hash
 import sqlite3 as sql
 def setup():
     con = sql.connect('goservice.db')
@@ -133,13 +132,9 @@ from werkzeug.security import generate_password_hash
 
 fake = Faker()
 
-
-# Connect to the SQLite database
-
 def profiss_ficticios():
     conn = sqlite3.connect('goservice.db')
     cursor = conn.cursor()
-# Generate fictional data for "clientes" table
     profissoes=('pintor', 'pedreiro', 'encanador', 'cuidador')
 
     i=0
@@ -186,13 +181,9 @@ def loginProf_ficticio():
         conn.commit()      
 
 
-#loginProf_ficticio()
-
-
 def cursos_ficticio():
     conn = sqlite3.connect('goservice.db')
     cursor = conn.cursor()
-
     cursor.execute('SELECT ID_profiss FROM profissionais')
     ids=cursor.fetchall()
 
@@ -204,8 +195,43 @@ def cursos_ficticio():
         cursor.execute(f"INSERT INTO cursos (fk_idProfiss, modalidade, instituicao, area) VALUES('{fk_idProfiss}', '{modalidade}', '{instituicao}', '{area}')")
         conn.commit()
 
-#cursos_ficticio()
+#-----------------------ALIMENTANDO O SISTEMA COM 5 LINHAS CADA, DE CURSOS, EXPERIÊNCIAS E SERVIÇOS PARA UM PROFISSIONAL ESPECÍFICO (Robin e Lauren)-------------------------------------------------
 
+def novosCadastros():
+    conn = sqlite3.connect('goservice.db')
+    cursor = conn.cursor()
+    #oferece
+    cursor.execute(f"INSERT INTO oferece (fk_profiss, fk_servic) VALUES(?,?), (?,?), (?,?), (?,?), (?,?)",
+                   (95,34, 95,35, 95,36, 95,37, 95,38))
+    conn.commit()
+    #serviços
+    for _ in range(5):
+        nome = fake.word()
+        categoria = fake.random_element(elements=('construção', 'limpeza', 'manutenção'))
+        valor = fake.random.uniform(50, 200)
+
+        cursor.execute(f"INSERT INTO servicos (nome, categoria, valor) VALUES ('{nome}', '{categoria}', '{valor}')")
+        conn.commit()
+    #experiencias
+    for _ in range(5):
+        fk_IDprofiss=95
+        cargo = fake.job()
+        temp_servico = fake.random_element(elements=('2a 6m', '3a', '1a', '10a', '20a', '4a', '7a', '12a', '5a'))
+        empresa = fake.company()
+
+        cursor.execute(f"INSERT INTO experiencias (fk_IDprofiss, cargo, temp_servico, empresa) VALUES ('{fk_IDprofiss}', '{cargo}', '{temp_servico}', '{empresa}')")
+        conn.commit()
+    #cursos
+    for _ in range(5):
+        fk_idProfiss=95
+        modalidade = fake.random_element(elements=('profissionalizante', 'Técnico', 'Superior', 'especialização'))
+        instituicao = fake.company()
+        area = fake.job()
+        cursor.execute(f"INSERT INTO cursos (fk_idProfiss, modalidade, instituicao, area) VALUES('{fk_idProfiss}', '{modalidade}', '{instituicao}', '{area}')")
+        conn.commit()
+
+
+#-------------------------------------------------------------------------------------------------------------------------------------------------------------
 def experiencia_ficticia():
     conn = sqlite3.connect('goservice.db')
     cursor = conn.cursor()
@@ -222,7 +248,7 @@ def experiencia_ficticia():
         cursor.execute(f"INSERT INTO experiencias (fk_IDprofiss, cargo, temp_servico, empresa) VALUES ('{fk_IDprofiss}', '{cargo}', '{temp_servico}', '{empresa}')")
         conn.commit()
 
-#experiencia_ficticia()
+
 def servico_ficticio():
     conn = sqlite3.connect('goservice.db')
     cursor = conn.cursor()
@@ -234,8 +260,6 @@ def servico_ficticio():
 
         cursor.execute(f"INSERT INTO servicos (nome, categoria, valor) VALUES ('{nome}', '{categoria}', '{valor}')")
         conn.commit()
-
-#servico_ficticio()
 
 def oferece_ficticio():
     conn = sqlite3.connect('goservice.db')
@@ -253,20 +277,22 @@ def oferece_ficticio():
        
         lista_id_prof.append(id_prof[0])
       
-        
-        
     for id_serv in servicos:
         lista_id_serv.append(id_serv[0])
         
-    
     for i in range(21):
         print(lista_id_prof[i])
         cursor.execute(f"INSERT INTO oferece (fk_profiss, fk_servic) VALUES ('{lista_id_prof[i]}','{lista_id_serv[i]}')")
         conn.commit()
 
-#oferece_ficticio()
-   
-       
 
+def chama_Funcoes():
+    #alimentando com dados 1 para 1
+    oferece_ficticio()
+    servico_ficticio()
+    experiencia_ficticia()
+    cursos_ficticio()
+    loginProf_ficticio()
 
-
+    #cadastro para profissional específico 1:N
+    novosCadastros()
